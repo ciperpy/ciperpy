@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubaid Bilal · Full Stack Developer Portfolio</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Typed.js for typing effect -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Inter', -apple-system, sans-serif;
+        }
+
+        /* Variables - Light Mode */
+        :root {
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --text: #111827;
+            --text-secondary: #4b5563;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            --glow: 0 0 20px rgba(59, 130, 246, 0.3);
+            --skill-bg: #e5e7eb;
+        }
+
+        /* Dark Mode */
+        body.dark {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --skill-bg: #334155;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            transition: background-color 0.3s ease, color 0.2s ease;
+        }
+
+        /* Custom Cursor Glow */
+        .cursor-glow {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0) 70%);
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.05s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 100;
+            border: none;
+            box-shadow: var(--shadow);
+        }
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-top:hover {
+            transform: translateY(-3px);
+            background: var(--accent-hover);
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s;
+        }
+        .preloader.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 2rem;
+        }
+        .theme-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 60px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text);
+            box-shadow: var(--shadow);
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #3b82f6, #a855f7);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        #typed-text {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            min-height: 2rem;
+        }
+        .bio {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+        .status {
+            display: inline-block;
+            background: #10b98120;
+            color: #10b981;
+            padding: 0.25rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            background: var(--bg);
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: var(--glow);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1.5rem 0;
+            border-left: 5px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        /* Skills with Progress Bars */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .skill-item {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+        }
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        .skill-header i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        .progress-bar {
+            background: var(--skill-bg);
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, var(--accent), #a855f7);
+            height: 100%;
+            width: 0;
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+        .skill-percent {
+            text-align: right;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        /* Project Filters */
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--glow);
+        }
+        .project-img {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .tech-tag {
+            background: var(--bg);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            border: 1px solid var(--border);
+        }
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        .project-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .blog-card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+        .blog-date {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .blog-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        .read-more {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 0.8rem;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .submit-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* GitHub Stats */
+        .github-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Toast */
+        #toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: #10b981;
+            color: white;
+            text-align: center;
+            border-radius: 40px;
+            padding: 8px 16px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        #toast.show {
+            visibility: visible;
+            animation: fadeInOut 1.5s;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; bottom: 0; }
+            15% { opacity: 1; bottom: 30px; }
+            85% { opacity: 1; bottom: 30px; }
+            100% { opacity: 0; bottom: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+    <div class="loader"></div>
+</div>
+
+<!-- Cursor Glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Scroll to Top -->
+<button class="scroll-top" id="scrollTopBtn">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<div class="container">
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle">🌙 Dark Mode</button>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="profile-card" data-aos="fade-up">
+        <div class="avatar"><div class="avatar">
+  <img src="https://i.ibb.co/bMMN9ytB/wmremove-transformed.png"
+       alt="Ubaid"
+       style="width:130px; height:130px; border-radius:50%; object-fit:cover;
+              box-shadow: 0 0 20px #00ffcc;">
+</div></div>
+        <h1>Ubaid Bilal</h1>
+        <div id="typed-text"></div>
+        <div class="status">🟢 Open for opportunities</div>
+        <p class="bio">
+            Full-stack developer with 5+ years of experience building scalable web apps.
+            Passionate about open source, clean code, and teaching others. Based in India 🇮🇳
+        </p>
+        <div class="social-links">
+            <a href="https://github.com/ciperpy" target="_blank" class="social-btn"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://t.me/CiPeRPY" target="_blank" class="social-btn"><i class="fab fa-telegram"></i> Telegram</a>
+            <a href="https://twitter.com/Ubaid bilal" target="_blank" class="social-btn"><i class="fab fa-twitter"></i> Twitter</a>
+            <button class="social-btn" id="copyEmailBtn"><i class="far fa-envelope"></i> Ubaidbilal957@gmail.com</button>
+        </div>
+    </div>
+
+    <!-- About Me Section -->
+    <div data-aos="fade-up">
+        <div class="section-title">📖 About Me</div>
+        <div class="profile-card" style="text-align: left;">
+            <p style="margin-bottom: 1rem;">My coding journey started when I built my first website at 15. Since then, I've worked with startups, contributed to 20+ open-source projects, and helped hundreds of developers through my tutorials.</p>
+            <p style="margin-bottom: 1rem;">🎯 <strong>My Goals:</strong> Build tools that make developers' lives easier, contribute to AI/ML open-source, and eventually start my own tech education platform.</p>
+            <p>💡 <strong>Why I code:</strong> Because technology has the power to solve real-world problems. I believe in building products that matter.</p>
+        </div>
+    </div>
+
+    <!-- Skills with Progress Bars -->
+    <div data-aos="fade-up">
+        <div class="section-title">⚡ Technical Skills</div>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="skill-header"><i class="fab fa-react"></i> React</div>
+                <div class="progress-bar"><div class="progress-fill" data-percent="90"></div></div>
+                <div class="skill-percent">90%</div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-header"><i class="fab fa-js"></i> JavaScript/TypeScript</div>
+                <div class="progress-bar"><div class="progress-fill" data-percent="85"></div></div>
+                <div class="skill-percent">85%</div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-header"><i class="fab fa-python"></i> Python</div>
+                <div class="progress-bar"><div class="progress-fill" data-percent="80"></div></div>
+                <div class="skill-percent">80%</div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-header"><i class="fab fa-node"></i> Node.js</div>
+                <div class="progress-bar"><div class="progress-fill" data-percent="85"></div></div>
+                <div class="skill-percent">85%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GitHub Stats -->
+    <div data-aos="fade-up">
+        <div class="section-title">📊 GitHub Stats</div>
+        <div class="github-stats">
+            <div class="stat-card"><div class="stat-number" id="repoCount">0</div><div>Repositories</div></div>
+            <div class="stat-card"><div class="stat-number" id="starCount">0</div><div>Total Stars</div></div>
+            <div class="stat-card"><div class="stat-number" id="commitCount">0</div><div>Commits (2024)</div></div>
+        </div>
+        <div style="text-align: center;">
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=yourusername&theme=radical&layout=compact" alt="Top Languages" style="max-width: 100%; border-radius: 1rem;">
+        </div>
+    </div>
+
+    <!-- Project Filter System -->
+    <div data-aos="fade-up">
+        <div class="section-title">📂 Featured Projects</div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">Web Apps</button>
+            <button class="filter-btn" data-filter="bots">Bots & Tools</button>
+            <button class="filter-btn" data-filter="opensource">Open Source</button>
+        </div>
+        <div class="projects-grid" id="projectsGrid"></div>
+    </div>
+
+    <!-- Blog Section -->
+    <div data-aos="fade-up">
+        <div class="section-title">✍️ Latest Blog Posts</div>
+        <div class="blog-grid" id="blogGrid"></div>
+    </div>
+
+    <!-- Contact Form -->
+    <div data-aos="fade-up">
+        <div class="section-title">📩 Get in Touch</div>
+        <div class="contact-form">
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                <div id="formStatus" style="margin-top: 1rem;"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span>📍 Based in India · 🚀 5+ years of coding · ☕ Fueled by coffee</span>
+        <div style="margin-top: 8px;">
+            👁️ <span id="visitorCount">0</span> visitors explored this page
+        </div>
+        <div style="margin-top: 12px;">
+            <i class="far fa-copyright"></i> 2025 Alex Johnson — Built with ❤️ and code
+        </div>
+    </div>
+</div>
+
+<div id="toast">📋 Copied to clipboard!</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+
+    // Preloader
+    window.addEventListener('load', () => {
+        document.getElementById('preloader').classList.add('hide');
+        setTimeout(() => {
+            document.getElementById('preloader').style.display = 'none';
+        }, 500);
+    });
+
+    // Cursor Glow Effect
+    const cursorGlow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', (e) => {
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+    });
+
+    // Scroll to Top Button
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('show');
+        } else {
+            scrollTopBtn.classList.remove('show');
+        }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Typing Effect
+    const typed = new Typed('#typed-text', {
+        strings: ['Full Stack Developer', 'Open Source Contributor', 'Tech Writer', 'Problem Solver'],
+        typeSpeed: 50,
+        backSpeed: 30,
+        backDelay: 2000,
+        loop: true
+    });
+
+    // Dark Mode with localStorage
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark') {
+        document.body.classList.add('dark');
+        themeToggleBtn.innerHTML = '☀️ Light Mode';
+    }
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const isDark = document.body.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        themeToggleBtn.innerHTML = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+
+    // Copy Email
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const toast = document.getElementById('toast');
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('hello@alex.me').then(() => {
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 1500);
+        });
+    });
+
+    // Visitor Counter
+    let count = localStorage.getItem('pageViewCount');
+    count = count ? Number(count) + 1 : 1;
+    localStorage.setItem('pageViewCount', count);
+    document.getElementById('visitorCount').innerText = count;
+
+    // Projects Data
+    const projects = [
+        { title: 'DevConnect Hub', desc: 'Platform for developers to collaborate on open-source projects. 500+ GitHub stars.', tech: ['React', 'Node.js', 'MongoDB'], category: 'web', icon: '🌐', liveLink: '#', githubLink: '#', stars: 523 },
+        { title: 'WeatherSnap', desc: 'Real-time weather app with beautiful animations using OpenWeather API.', tech: ['JavaScript', 'API', 'CSS'], category: 'web', icon: '⛅', liveLink: '#', githubLink: '#', stars: 234 },
+        { title: 'Telegram Bot Studio', desc: 'Toolkit to automate Telegram groups with moderation and fun features.', tech: ['Python', 'Telegram API'], category: 'bots', icon: '🤖', liveLink: '#', githubLink: '#', stars: 189 },
+        { title: 'React UI Library', desc: 'Open-source component library with 20+ customizable components.', tech: ['React', 'TypeScript', 'Storybook'], category: 'opensource', icon: '🎨', liveLink: '#', githubLink: '#', stars: 892 }
+    ];
+
+    function renderProjects(filter = 'all') {
+        const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+        const grid = document.getElementById('projectsGrid');
+        grid.innerHTML = filtered.map(p => `
+            <div class="project-card" data-aos="fade-up">
+                <div class="project-img">${p.icon}</div>
+                <div class="project-title">${p.title} ⭐ ${p.stars}</div>
+                <div class="project-desc">${p.desc}</div>
+                <div class="tech-stack">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+                <div class="project-links">
+                    <a href="${p.liveLink}" target="_blank">🔗 Live Demo</a>
+                    <a href="${p.githubLink}" target="_blank">📁 Source Code</a>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    renderProjects();
+
+    // Filter Buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProjects(btn.dataset.filter);
+        });
+    });
+
+    // Blog Posts
+    const blogs = [
+        { title: 'How I Built WeatherSnap with Vanilla JavaScript', date: 'March 15, 2025', excerpt: 'A deep dive into building a weather app with API integration and dynamic UI.' },
+        { title: 'Beginner’s Guide to React Hooks', date: 'February 28, 2025', excerpt: 'Learn useState, useEffect, and custom hooks with practical examples.' },
+        { title: '5 Open Source Projects Every Developer Should Contribute To', date: 'February 10, 2025', excerpt: 'My recommendations for starting your open-source journey.' }
+    ];
+    document.getElementById('blogGrid').innerHTML = blogs.map(b => `
+        <div class="blog-card" data-aos="fade-up">
+            <div class="blog-date">📅 ${b.date}</div>
+            <div class="blog-title">${b.title}</div>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">${b.excerpt}</p>
+            <a href="#" class="read-more">Read more →</a>
+        </div>
+    `).join('');
+
+    // GitHub Stats (Simulated - Replace with actual API)
+    document.getElementById('repoCount').innerText = '24';
+    document.getElementById('starCount').innerText = '1,847';
+    document.getElementById('commitCount').innerText = '342';
+
+    // Animate skill bars on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const fills = entry.target.querySelectorAll('.progress-fill');
+                fills.forEach(fill => {
+                    const percent = fill.getAttribute('data-percent');
+                    fill.style.width = percent + '%';
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+    document.querySelectorAll('.skills-grid').forEach(grid => observer.observe(grid));
+
+    // EmailJS Contact Form (You need to sign up at emailjs.com and replace these)
+    (function() {
+        emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
+    })();
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const statusDiv = document.getElementById('formStatus');
+        statusDiv.innerHTML = 'Sending...';
+
+        // Replace with your EmailJS service/template IDs
+        emailjs.send('service_at2xmr5', 'service_at2xmr5', {
+            from_name: document.getElementById('name').value,
+            from_email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        }).then(() => {
+            statusDiv.innerHTML = '<span style="color: #10b981;">✅ Message sent successfully!</span>';
+            document.getElementById('contactForm').reset();
+        }).catch(() => {
+            statusDiv.innerHTML = '<span style="color: #ef4444;">❌ Failed to send. Try again later.</span>';
+        });
+    });
+</script>
+</body>
+</html>
