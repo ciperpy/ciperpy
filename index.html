@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Ubaid Bilal · 3D Portfolio + AI Assistant</title>
+    <title>Ubaid Bilal · Professional Portfolio + AI Assistant</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- AOS Animation Library -->
+    <!-- AOS Animation Library (Scroll Reveal) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Typed.js -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
-    <!-- Three.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- EmailJS for Contact Form -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <style>
         * {
@@ -28,158 +28,412 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Variables */
         :root {
-            --bg: #f9fafb;
-            --card-bg: #ffffff;
-            --text: #111827;
+            --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text: #1f2937;
             --text-secondary: #4b5563;
             --accent: #3b82f6;
             --accent-hover: #2563eb;
             --border: #e5e7eb;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            --glow: 0 0 30px rgba(59, 130, 246, 0.4);
+            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+            --glow: 0 0 30px rgba(59, 130, 246, 0.3);
             --skill-bg: #e5e7eb;
         }
 
         body.dark {
-            --bg: #0f172a;
-            --card-bg: #1e293b;
+            --bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --card-bg: rgba(30, 41, 59, 0.95);
             --text: #f1f5f9;
             --text-secondary: #94a3b8;
             --border: #334155;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
             --skill-bg: #334155;
         }
 
         body {
-            background-color: var(--bg);
+            background: var(--bg);
             color: var(--text);
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.2s ease;
+            transition: all 0.3s ease;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Canvas 3D Background */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
         }
 
         .content-wrapper {
             position: relative;
             z-index: 1;
+            padding: 2rem 1rem;
         }
 
-        /* Terminal Mode Overlay */
-        .terminal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0a0a0a;
-            z-index: 10000;
-            display: none;
-            flex-direction: column;
-            font-family: 'Space Mono', monospace;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-        .terminal-overlay.active {
-            display: flex;
-        }
-        .terminal-header {
+        /* Header Bar */
+        .header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: #00ff00;
-            border-bottom: 1px solid #00ff00;
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
-        }
-        .terminal-output {
-            flex: 1;
-            color: #00ff00;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            white-space: pre-wrap;
-            font-family: 'Space Mono', monospace;
-        }
-        .terminal-input-line {
-            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem 1rem 1rem;
+            flex-wrap: wrap;
             gap: 1rem;
-            align-items: center;
-            border-top: 1px solid #333;
-            padding-top: 1rem;
-        }
-        .terminal-prompt {
-            color: #00ff00;
-            font-weight: bold;
-        }
-        .terminal-input {
-            background: transparent;
-            border: none;
-            color: #00ff00;
-            font-family: 'Space Mono', monospace;
-            font-size: 1rem;
-            flex: 1;
-            outline: none;
-        }
-        .close-terminal {
-            background: #ff0000;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            border-radius: 5px;
         }
 
-        /* Draggable Terminal Button */
-        .terminal-btn {
+        /* Language Switcher - Top Left */
+        .language-switch {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--card-bg);
+            padding: 0.3rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        .lang-btn.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        .lang-btn:hover:not(.active) {
+            background: rgba(59, 130, 246, 0.1);
+            transform: scale(1.02);
+        }
+
+        /* Theme Toggle - Top Right */
+        .theme-toggle {
+            background: var(--card-bg);
+            padding: 0.3rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+        }
+        .theme-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .theme-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: scale(1.02);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+        }
+
+        /* Profile Card with Fade + Slide Entrance */
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+            text-align: center;
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .profile-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: var(--glow);
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            border: 3px solid var(--accent);
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        #typed-text {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            min-height: 2rem;
+        }
+        .status {
+            display: inline-block;
+            background: #10b98120;
+            color: #10b981;
+            padding: 0.25rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Button Tap Animation */
+        .social-btn, .lang-btn, .theme-btn, .submit-btn, .send-btn, .chat-toggle {
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+        }
+        .social-btn:active, .lang-btn:active, .theme-btn:active, .submit-btn:active, .send-btn:active, .chat-toggle:active {
+            transform: scale(0.95);
+            transition: transform 0.05s ease;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: var(--glow);
+        }
+        .section-title {
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1.5rem;
+            border-left: 5px solid var(--accent);
+            padding-left: 1rem;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .skill-item {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .skill-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--glow);
+        }
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        .progress-bar {
+            background: var(--skill-bg);
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, var(--accent), #a855f7);
+            height: 100%;
+            width: 0;
+            border-radius: 10px;
+            transition: width 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .skill-percent {
+            text-align: right;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            backdrop-filter: blur(10px);
+        }
+        .project-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--glow);
+        }
+        .project-img {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover .project-img {
+            transform: scale(1.05);
+        }
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+        .tech-tag:hover {
+            transform: scale(1.05);
+            background: var(--accent);
+            color: white;
+        }
+        .contact-form {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .contact-form:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 0.8rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            transform: scale(1.01);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .submit-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        .form-status {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+        .form-status.success {
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .form-status.error {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        .scroll-top {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
-            color: #00ff00;
-            border: 2px solid #00ff00;
-            padding: 0.7rem 1.2rem;
-            border-radius: 50px;
-            cursor: grab;
-            font-family: 'Space Mono', monospace;
-            font-weight: bold;
-            z-index: 999;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            background: var(--accent);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            user-select: none;
-            touch-action: none;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            z-index: 99;
+            border: none;
+            box-shadow: var(--shadow);
         }
-        .terminal-btn:active {
-            cursor: grabbing;
+        .scroll-top.show {
+            opacity: 1;
         }
-        .terminal-btn.dragging {
-            opacity: 0.8;
-            cursor: grabbing;
-            transition: none;
-        }
-        .terminal-btn:hover {
-            background: #00ff00;
-            color: #0a0a0a;
-            transform: scale(1.02);
-            box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: var(--accent-hover);
         }
 
-        /* AI Chatbot Styles */
+        /* Draggable AI Chatbot Button */
         .ai-chatbot {
             position: fixed;
             bottom: 30px;
@@ -194,12 +448,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            cursor: grab;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             border: none;
             color: white;
             font-size: 1.5rem;
+            user-select: none;
+            touch-action: none;
+        }
+        .chat-toggle:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+        .chat-toggle.dragging {
+            opacity: 0.8;
+            cursor: grabbing;
+            transition: none;
         }
         .chat-toggle:hover {
             transform: scale(1.1);
@@ -219,6 +484,18 @@
             overflow: hidden;
             border: 1px solid var(--border);
             z-index: 1001;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.3s ease;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .chat-window.active {
             display: flex;
@@ -244,6 +521,10 @@
             color: white;
             cursor: pointer;
             font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        .close-chat:active {
+            transform: scale(0.9);
         }
         .chat-messages {
             flex: 1;
@@ -259,6 +540,17 @@
             border-radius: 15px;
             font-size: 0.85rem;
             line-height: 1.4;
+            animation: messageSlide 0.3s ease;
+        }
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .user-message {
             background: var(--accent);
@@ -267,7 +559,7 @@
             border-bottom-right-radius: 5px;
         }
         .bot-message {
-            background: var(--bg);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text);
             align-self: flex-start;
             border-bottom-left-radius: 5px;
@@ -278,12 +570,17 @@
             align-items: center;
             gap: 5px;
             padding: 0.6rem 1rem;
-            background: var(--bg);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             width: fit-content;
             margin-left: 1rem;
             margin-bottom: 0.5rem;
             border: 1px solid var(--border);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .typing-indicator span {
             width: 8px;
@@ -319,10 +616,15 @@
             padding: 0.6rem;
             border: 1px solid var(--border);
             border-radius: 25px;
-            background: var(--bg);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text);
             outline: none;
             font-family: inherit;
+            transition: all 0.2s;
+        }
+        .chat-input:focus {
+            transform: scale(1.01);
+            border-color: var(--accent);
         }
         .send-btn {
             background: var(--accent);
@@ -332,11 +634,14 @@
             height: 36px;
             border-radius: 50%;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
         .send-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
             background: var(--accent-hover);
+        }
+        .send-btn:active {
+            transform: scale(0.95);
         }
 
         @media (max-width: 768px) {
@@ -346,261 +651,60 @@
                 right: 20px;
                 height: 450px;
             }
-            .terminal-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
+            .chat-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
             }
             .container {
                 padding: 1rem;
             }
+            .header-bar {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
         }
 
-        /* Rest of your styles */
-        .language-switch {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: flex-end;
-            margin-bottom: 1rem;
+        /* AOS Animation Overrides */
+        [data-aos] {
+            transition-timing-function: cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        .lang-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            color: var(--text);
-        }
-        .lang-btn.active {
-            background: var(--accent);
-            color: white;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-        .theme-toggle {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 1rem;
-        }
-        .theme-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 60px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            color: var(--text);
-        }
-        .profile-card {
-            background: var(--card-bg);
-            border-radius: 2rem;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1.5rem;
-        }
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 0 20px #00ffcc;
-            border: 3px solid var(--accent);
-        }
-        h1 { font-size: 2.2rem; }
-        #typed-text { color: var(--accent); margin-bottom: 1rem; }
-        .status {
-            display: inline-block;
-            background: #10b98120;
-            color: #10b981;
-            padding: 0.25rem 0.9rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-        }
-        .social-btn {
-            background: var(--bg);
-            padding: 0.6rem 1.2rem;
-            border-radius: 60px;
-            text-decoration: none;
-            color: var(--text);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-        .social-btn:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        .section-title {
-            font-size: 1.8rem;
-            margin: 2.5rem 0 1.5rem;
-            border-left: 5px solid var(--accent);
-            padding-left: 1rem;
-        }
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-        .skill-item {
-            background: var(--card-bg);
-            padding: 1rem;
-            border-radius: 1rem;
-            border: 1px solid var(--border);
-        }
-        .skill-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-        .progress-bar {
-            background: var(--skill-bg);
-            height: 10px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            background: linear-gradient(90deg, var(--accent), #a855f7);
-            height: 100%;
-            width: 0;
-            transition: width 1s ease-out;
-        }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--glow);
-        }
-        .project-img {
-            width: 100%;
-            height: 120px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-        .contact-form {
-            background: var(--card-bg);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            border: 1px solid var(--border);
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 0.8rem;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-        .submit-btn {
-            background: var(--accent);
-            color: white;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 2rem;
-            cursor: pointer;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-        }
-        #toast {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: #10b981;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.3s;
-        }
-        #toast.show { transform: translateX(0); }
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: var(--accent);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 99;
-            border: none;
-        }
-        .scroll-top.show { opacity: 1; }
     </style>
 </head>
 <body>
 
-<!-- 3D Canvas Container -->
-<div id="canvas-container"></div>
-
 <div class="content-wrapper">
-    <div class="container">
+    <!-- Header Bar with Language and Theme -->
+    <div class="header-bar" data-aos="fade-down" data-aos-duration="600">
+        <!-- Language Switcher - Top Left -->
         <div class="language-switch">
             <button class="lang-btn active" data-lang="en">🇬🇧 English</button>
             <button class="lang-btn" data-lang="hi">🇮🇳 हिंदी</button>
             <button class="lang-btn" data-lang="ur">🇵🇰 اردو</button>
         </div>
 
+        <!-- Theme Toggle - Top Right -->
         <div class="theme-toggle">
             <button class="theme-btn" id="themeToggle">🌙 Dark Mode</button>
         </div>
+    </div>
 
-        <div class="profile-card" data-aos="fade-up">
+    <div class="container">
+        <!-- Profile Section with Fade + Slide Entrance -->
+        <div class="profile-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
             <div class="avatar">
                 <img src="https://i.ibb.co/bMMN9ytB/wmremove-transformed.png" alt="Ubaid Bilal">
             </div>
             <h1 id="name">Ubaid Bilal</h1>
             <div id="typed-text"></div>
-            <div class="status" id="status">🟢 Open for opportunities</div>
-            <p class="bio" id="bio">Full-stack developer with 5+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in India 🇮🇳</p>
+            <div class="status" id="status">🟢 Available for freelance work</div>
+            <p class="bio" id="bio">Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳</p>
             <div class="social-links">
                 <a href="https://github.com/ciperpy" target="_blank" class="social-btn"><i class="fab fa-github"></i> <span id="github-text">GitHub</span></a>
                 <a href="https://t.me/CiPeRPY" target="_blank" class="social-btn"><i class="fab fa-telegram"></i> <span id="telegram-text">Telegram</span></a>
@@ -609,17 +713,20 @@
             </div>
         </div>
 
-        <div data-aos="fade-up">
+        <!-- Skills Section with Scroll Reveal -->
+        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
             <div class="section-title" id="skills-title">⚡ Technical Skills</div>
             <div class="skills-grid" id="skills-grid"></div>
         </div>
 
-        <div data-aos="fade-up">
+        <!-- Projects Section with Scroll Reveal -->
+        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
             <div class="section-title" id="projects-title">📂 Featured Projects</div>
             <div class="projects-grid" id="projectsGrid"></div>
         </div>
 
-        <div data-aos="fade-up">
+        <!-- Contact Section with Scroll Reveal -->
+        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
             <div class="section-title" id="contact-title">📩 Get in Touch</div>
             <div class="contact-form">
                 <form id="contactForm">
@@ -634,18 +741,19 @@
                     </div>
                     <button type="submit" class="submit-btn" id="send-btn">Send Message</button>
                 </form>
+                <div id="form-status" class="form-status"></div>
             </div>
         </div>
 
-        <div class="footer">
-            <span id="footer-text">📍 Based in India · 🚀 5+ years of coding</span>
+        <div class="footer" data-aos="fade-up" data-aos-duration="600">
+            <span id="footer-text">📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding</span>
             <div>👁️ <span id="visitorCount">0</span> <span id="visitor-text">visitors</span></div>
         </div>
     </div>
 </div>
 
-<!-- AI Chatbot -->
-<div class="ai-chatbot">
+<!-- Draggable AI Chatbot -->
+<div class="ai-chatbot" id="aiChatbot">
     <button class="chat-toggle" id="chatToggle">
         <i class="fas fa-robot"></i>
     </button>
@@ -656,7 +764,7 @@
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="message bot-message">
-                👋 Salaam! I'm Ubaid's AI assistant. Ask me anything about Ubaid - his skills, projects, contact info, or just say hello!
+                👋 Assalamualikum! I'm Ubaid's AI assistant. Ask me anything about Ubaid - his skills, projects, services, or just say hi!
             </div>
         </div>
         <div class="typing-indicator" id="typingIndicator">
@@ -671,53 +779,42 @@
     </div>
 </div>
 
-<!-- Draggable Terminal Button -->
-<button class="terminal-btn" id="terminalBtn">
-    <i class="fas fa-terminal"></i>
-    <span>TERMINAL</span>
-</button>
-
-<!-- Terminal Overlay -->
-<div class="terminal-overlay" id="terminalOverlay">
-    <div class="terminal-header">
-        <span>⣿⣿⣿ PORTFOLIO TERMINAL v1.0 ⣿⣿⣿</span>
-        <button class="close-terminal" id="closeTerminal">✖ CLOSE</button>
-    </div>
-    <div class="terminal-output" id="terminalOutput">
-        <span>> Welcome to Ubaid Bilal's Portfolio Terminal</span><br>
-        <span>> Type 'help' to see available commands</span><br>
-        <span>> </span>
-    </div>
-    <div class="terminal-input-line">
-        <span class="terminal-prompt">visitor@ubaid:~$</span>
-        <input type="text" class="terminal-input" id="terminalInput" placeholder="Type a command..." autofocus>
-    </div>
-</div>
-
-<div id="toast">🔔 Notification</div>
 <button class="scroll-top" id="scrollTopBtn"><i class="fas fa-arrow-up"></i></button>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // Initialize AOS
-    AOS.init({ duration: 800, once: true });
+    // Initialize AOS with smooth scroll animations
+    AOS.init({
+        duration: 800,
+        once: false,
+        offset: 100,
+        easing: 'cubic-bezier(0.2, 0.9, 0.4, 1.1)'
+    });
+
+    // Initialize EmailJS with your public key
+    (function() {
+        emailjs.init("VK8ZgP1FVGkSJ8Y0G");
+    })();
 
     // ============================================
-    // INTELLIGENT LOCAL AI ASSISTANT
-    // Knows everything about Ubaid Bilal
+    // INTELLIGENT LOCAL AI ASSISTANT with Typing Animation
     // ============================================
 
     // Complete knowledge base about Ubaid
     const knowledgeBase = {
-        // Personal Info
         name: "Ubaid Bilal",
         fullName: "Ubaid Bilal",
         role: "Full Stack Developer",
-        experience: "5+ years",
-        location: "India",
+        experience: "3+ years",
+        location: "Magam, Budgam, Jammu & Kashmir, India",
+        address: "Magam, Budgam, Jammu & Kashmir, India",
+        studentStatus: "I am a student and a passionate developer",
         passion: "Open source, clean code, and teaching others",
+        journey: "Started coding at age 15. Currently a student building amazing projects and helping others learn to code.",
+        goals: "My goals are to build impactful projects, contribute to open source, help 10,000+ developers learn coding, and eventually start my own tech education platform.",
+        whyWebsite: "I created this website to showcase my work, connect with amazing people, and help others learn from my journey.",
+        whatMakesDifferent: "What makes me different is my passion for teaching and helping others. I don't just build code - I explain it, share knowledge, and make complex things simple.",
 
-        // Skills with percentages
         skills: [
             { name: "React", level: "90%" },
             { name: "JavaScript/TypeScript", level: "85%" },
@@ -726,7 +823,35 @@
             { name: "Three.js", level: "70%" }
         ],
 
-        // Contact Info
+        technologies: ["React", "JavaScript", "TypeScript", "Python", "Node.js", "Three.js", "HTML/CSS", "MongoDB", "Express.js"],
+
+        devType: "Full Stack Developer - I work on both frontend and backend!",
+
+        aiKnowledge: "Yes! I'm learning AI and Machine Learning. Currently exploring LLMs, computer vision, and building AI-powered applications.",
+
+        tools: ["VS Code", "Git", "GitHub", "Postman", "Figma", "Chrome DevTools"],
+
+        stack: "I'm a Full Stack Developer! I work with React, Node.js, Python, and various databases.",
+
+        projects: [
+            { name: "DevConnect Hub", description: "Platform for developers to collaborate on open-source projects", stars: "500+", tech: ["React", "Node.js", "MongoDB"] },
+            { name: "WeatherSnap", description: "Real-time weather app with beautiful animations", stars: "234", tech: ["JavaScript", "API", "CSS"] },
+            { name: "Telegram Bot Studio", description: "Toolkit to automate Telegram groups with moderation features", stars: "189", tech: ["Python", "Telegram API"] },
+            { name: "3D AI Portfolio", description: "Interactive portfolio with AI assistant", stars: "100+", tech: ["Three.js", "HTML/CSS", "JavaScript"] }
+        ],
+
+        services: {
+            websites: "✅ Yes! I build custom websites - portfolios, business sites, e-commerce, and more.",
+            apps: "✅ Yes! I build web applications, dashboards, and interactive web apps.",
+            pricing: "💰 My rates are affordable and depend on project complexity. Contact me for a custom quote!",
+            hire: "📩 You can hire me by emailing ubaidbilal957@gmail.com or messaging on Telegram @CiPeRPY",
+            freelance: "✅ Yes! I'm available for freelance work. Open to exciting projects!",
+            timeline: "⏱️ Timeline depends on project scope. Small projects: 2-7 days, Medium projects: 1-3 weeks, Large projects: 1-2 months",
+            revisions: "🔄 Yes! I provide revisions to ensure you're 100% satisfied with the work.",
+            maintenance: "✅ Yes! I offer ongoing maintenance and support for websites and applications.",
+            redesign: "✅ Yes! I can redesign your existing website to make it modern, fast, and responsive."
+        },
+
         contact: {
             email: "ubaidbilal957@gmail.com",
             github: "github.com/ciperpy",
@@ -734,95 +859,120 @@
             telegram: "t.me/CiPeRPY",
             telegramUsername: "@CiPeRPY",
             twitter: "twitter.com/UbaidUbaid40427",
-            twitterUsername: "@UbaidUbaid40427"
+            twitterUsername: "@UbaidUbaid40427",
+            whatsapp: "Available on Telegram",
+            responseTime: "Usually within 1-2 hours during daytime",
+            availability: "Yes! I'm usually available. Best to reach me on Telegram or email."
         },
 
-        // Projects
-        projects: [
-            { name: "DevConnect Hub", description: "Platform for developers to collaborate on open-source projects", stars: "500+", tech: ["React", "Node.js", "MongoDB"] },
-            { name: "WeatherSnap", description: "Real-time weather app with beautiful animations", stars: "234", tech: ["JavaScript", "API", "CSS"] },
-            { name: "Telegram Bot Studio", description: "Toolkit to automate Telegram groups with moderation features", stars: "189", tech: ["Python", "Telegram API"] },
-            { name: "React UI Library", description: "Open-source component library with 20+ customizable components", stars: "892", tech: ["React", "TypeScript"] }
-        ],
+        bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others.",
 
-        // Bio
-        bio: "Full-stack developer with 5+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others.",
-
-        // Fun facts
         funFacts: [
             "Started coding at age 15",
             "Contributed to 20+ open-source projects",
-            "Based in India",
-            "Loves teaching and helping other developers"
-        ]
+            "Based in the beautiful Kashmir valley",
+            "Loves teaching and helping other developers",
+            "Can speak English, Urdu, and Hindi fluently"
+        ],
+
+        hobbies: ["Coding", "Teaching", "Reading tech blogs", "Playing cricket", "Exploring new technologies", "Contributing to open source"],
+
+        favoriteTech: "React is my favorite! I love building interactive UIs. Also love Python for its simplicity and power.",
+
+        inspiration: "I'm inspired by developers who share knowledge freely and build things that help people. Open source community inspires me the most!",
+
+        joke: "Why do programmers prefer dark mode? Because light attracts bugs! 😄",
+
+        careerAdvice: "Start building projects, contribute to open source, never stop learning, and most importantly - share what you learn with others!",
+
+        whyHire: "You should hire me because I'm passionate, dedicated, and I don't just deliver code - I deliver solutions that work. Plus, I explain everything clearly!"
     };
 
-    // Smart response generator
     function getAIResponse(userMessage) {
         const message = userMessage.toLowerCase();
 
-        // Greetings
-        if (message.match(/hi|hello|hey|salaam|namaste|assalam|greetings/)) {
-            return "👋 Salaam/Hello! I'm Ubaid's AI assistant. How can I help you today? You can ask me about Ubaid's skills, projects, contact info, or anything about him!";
+        if (message.match(/hi|hello|hey|salaam|namaste|assalam|greetings|good morning|good evening/)) {
+            return "👋 Assalamualikum! Welcome! I'm Ubaid's AI assistant. How can I help you today?";
         }
 
-        // About Ubaid
-        if (message.match(/who is|about|tell me about|introduce|bio|background/)) {
-            return `👨‍💻 ${knowledgeBase.name} is a ${knowledgeBase.role} with ${knowledgeBase.experience} of experience. He's based in ${knowledgeBase.location} and is passionate about ${knowledgeBase.passion}. ${knowledgeBase.bio}`;
+        if (message.match(/who are you|tell me about yourself|introduce yourself|about ubaid/)) {
+            return `👨‍💻 I'm ${knowledgeBase.name}, a ${knowledgeBase.role} with ${knowledgeBase.experience} of experience. I'm based in ${knowledgeBase.location}. ${knowledgeBase.bio}`;
         }
 
-        // Skills
-        if (message.match(/skill|technolog|tech stack|what.*know|what.*use|expertise/)) {
+        if (message.match(/what do you do|what is your work|what is your profession/)) {
+            return `💻 I'm a ${knowledgeBase.role}. I build web applications, websites, and teach coding. I help businesses and individuals bring their ideas to life through technology.`;
+        }
+
+        if (message.match(/what skills|skills do you have|technical skills|your expertise/)) {
             let skillsList = knowledgeBase.skills.map(s => `${s.name} (${s.level})`).join(", ");
-            return `🎯 ${knowledgeBase.name} has expertise in: ${skillsList}. His strongest skills are React (90%) and JavaScript/TypeScript (85%). He's always learning new technologies!`;
+            return `🎯 I have expertise in: ${skillsList}. My strongest skills are React and JavaScript/TypeScript.`;
         }
 
-        // Projects
-        if (message.match(/project|portfolio|work|built|create|made|developed/)) {
+        if (message.match(/what technologies|technologies do you use|tech stack/)) {
+            return `⚡ I use: ${knowledgeBase.technologies.join(", ")}. I'm always learning new technologies!`;
+        }
+
+        if (message.match(/student|professional|are you a student/)) {
+            return `📚 ${knowledgeBase.studentStatus}. I'm currently a student passionate about coding and building amazing projects!`;
+        }
+
+        if (message.match(/where are you from|from where|your location|address|city/)) {
+            return `📍 I'm from ${knowledgeBase.location}. It's a beautiful place in Jammu & Kashmir, India! 🇮🇳`;
+        }
+
+        if (message.match(/goals|what are your goals|aims|aspirations/)) {
+            return `🚀 ${knowledgeBase.goals}`;
+        }
+
+        if (message.match(/what projects|projects have you built|your projects/)) {
             let projectsList = knowledgeBase.projects.map(p => `• ${p.name}: ${p.description} (⭐ ${p.stars} stars)`).join("\n");
-            return `📂 Here are ${knowledgeBase.name}'s featured projects:\n${projectsList}\n\nCheck his GitHub for more!`;
+            return `📂 Here are my featured projects:\n${projectsList}\n\nCheck my GitHub for more!`;
         }
 
-        // Contact
-        if (message.match(/contact|reach|email|github|telegram|twitter|social|connect|get in touch/)) {
-            return `📱 You can connect with ${knowledgeBase.name} through:\n• Email: ${knowledgeBase.contact.email}\n• GitHub: ${knowledgeBase.contact.github}\n• Telegram: ${knowledgeBase.contact.telegram}\n• Twitter: ${knowledgeBase.contact.twitter}`;
+        if (message.match(/services|what services|offer|do you offer/)) {
+            return `💼 I offer:\n• Custom Website Development\n• Web Application Development\n• Portfolio Websites\n• Business Websites\n• UI/UX Implementation\n• Code Reviews & Mentorship\n\nContact me for more details!`;
         }
 
-        // GitHub
-        if (message.match(/github|code|repository|repo/)) {
-            return `🐙 ${knowledgeBase.name}'s GitHub profile: ${knowledgeBase.contact.github}. He has 20+ repositories and actively contributes to open source!`;
+        if (message.match(/how much|charge|pricing|cost|price/)) {
+            return `${knowledgeBase.services.pricing} Projects start from affordable rates. Contact me for a custom quote!`;
         }
 
-        // Experience
-        if (message.match(/experience|year|work|career|job/)) {
-            return `💼 ${knowledgeBase.name} has ${knowledgeBase.experience} of experience as a Full Stack Developer. He has worked with startups, contributed to 20+ open-source projects, and helped hundreds of developers through his tutorials.`;
+        if (message.match(/how can i hire|hire you|work with you/)) {
+            return `${knowledgeBase.services.hire}`;
         }
 
-        // Location
-        if (message.match(/where|location|city|country|based|from/)) {
-            return `📍 ${knowledgeBase.name} is based in ${knowledgeBase.location}. 🇮🇳`;
+        if (message.match(/freelance|freelance work|freelancer/)) {
+            return `${knowledgeBase.services.freelance}`;
         }
 
-        // What can you do / help
-        if (message.match(/what.*do|help|capable|can you/)) {
-            return `🤖 I can help you learn about ${knowledgeBase.name}! Ask me about:\n• His skills and technologies\n• His projects and achievements\n• How to contact him\n• His experience and background\n• His GitHub and social links\n\nWhat would you like to know?`;
+        if (message.match(/contact|how to contact|reach you|connect/)) {
+            return `📱 Connect with me:\n• Email: ${knowledgeBase.contact.email}\n• GitHub: ${knowledgeBase.contact.github}\n• Telegram: ${knowledgeBase.contact.telegram}\n• Twitter: ${knowledgeBase.contact.twitter}`;
         }
 
-        // Thank you
-        if (message.match(/thank|thanks|shukriya/)) {
-            return `You're welcome! 😊 If you have any more questions about ${knowledgeBase.name}, feel free to ask. Have a great day!`;
+        if (message.match(/joke|funny|make me laugh/)) {
+            return `😂 ${knowledgeBase.joke}`;
         }
 
-        // Fun facts
-        if (message.match(/fun fact|interesting|did you know/)) {
-            return `🎉 Fun fact: ${knowledgeBase.funFacts[Math.floor(Math.random() * knowledgeBase.funFacts.length)]}`;
+        if (message.match(/hobby|hobbies|free time|what do you enjoy/)) {
+            return `🎯 My hobbies: ${knowledgeBase.hobbies.join(", ")}`;
         }
 
-        // Default response
-        return `I'd love to help you learn about ${knowledgeBase.name}! You can ask me about his skills, projects, contact information, experience, or anything else. What would you like to know? 🤔`;
+        return `I'm here to help you learn about ${knowledgeBase.name}! You can ask me about his skills, projects, services, contact info, and more. What would you like to know? 🤔`;
     }
 
-    // Chatbot elements
+    // Private chat session
+    function getUniqueSessionId() {
+        let sessionId = sessionStorage.getItem('chatSessionId');
+        if (!sessionId) {
+            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            sessionStorage.setItem('chatSessionId', sessionId);
+        }
+        return sessionId;
+    }
+
+    const sessionId = getUniqueSessionId();
+    let chatHistory = JSON.parse(sessionStorage.getItem(`chatHistory_${sessionId}`) || '[]');
+
     const chatToggle = document.getElementById('chatToggle');
     const chatWindow = document.getElementById('chatWindow');
     const closeChat = document.getElementById('closeChat');
@@ -831,14 +981,40 @@
     const chatMessages = document.getElementById('chatMessages');
     const typingIndicator = document.getElementById('typingIndicator');
 
+    function loadChatHistory() {
+        chatMessages.innerHTML = '';
+        if (chatHistory.length === 0) {
+            const welcomeMsg = document.createElement('div');
+            welcomeMsg.className = 'message bot-message';
+            welcomeMsg.innerHTML = '👋 Assalamualikum! I\'m Ubaid\'s AI assistant. Ask me anything about Ubaid - his skills, projects, services, or just say hi!';
+            chatMessages.appendChild(welcomeMsg);
+        } else {
+            chatHistory.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${msg.isUser ? 'user-message' : 'bot-message'}`;
+                messageDiv.innerHTML = msg.text.replace(/\n/g, '<br>');
+                chatMessages.appendChild(messageDiv);
+            });
+        }
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function saveMessage(text, isUser) {
+        chatHistory.push({ text, isUser });
+        if (chatHistory.length > 50) chatHistory.shift();
+        sessionStorage.setItem(`chatHistory_${sessionId}`, JSON.stringify(chatHistory));
+    }
+
     function addMessage(text, isUser = false) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
         messageDiv.innerHTML = text.replace(/\n/g, '<br>');
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+        saveMessage(text, isUser);
     }
 
+    // AI response with typing animation and delayed response
     async function handleUserMessage() {
         const message = chatInput.value.trim();
         if (!message) return;
@@ -846,22 +1022,104 @@
         addMessage(message, true);
         chatInput.value = '';
 
+        // Show typing indicator
         typingIndicator.style.display = 'flex';
 
-        // Simulate thinking delay (makes it feel more natural)
+        // Simulate thinking/delayed response (500-800ms for natural feel)
         setTimeout(() => {
             typingIndicator.style.display = 'none';
             const response = getAIResponse(message);
             addMessage(response, false);
-        }, 500);
+        }, 600);
     }
 
-    chatToggle.addEventListener('click', () => {
-        chatWindow.classList.toggle('active');
-        if (chatWindow.classList.contains('active')) {
-            chatInput.focus();
+    // Draggable AI Chatbot
+    const aiChatbot = document.getElementById('aiChatbot');
+    const chatToggleBtn = document.getElementById('chatToggle');
+    let isDraggingAI = false;
+    let startAIX, startAIY, initialAIX, initialAIY;
+    let dragAIStarted = false;
+
+    const savedAILeft = localStorage.getItem('aiChatbotLeft');
+    const savedAITop = localStorage.getItem('aiChatbotTop');
+    if (savedAILeft && savedAITop) {
+        aiChatbot.style.left = savedAILeft;
+        aiChatbot.style.top = savedAITop;
+        aiChatbot.style.right = 'auto';
+        aiChatbot.style.bottom = 'auto';
+    }
+
+    function startAIDrag(e) {
+        e.preventDefault();
+        isDraggingAI = true;
+        dragAIStarted = false;
+        const rect = aiChatbot.getBoundingClientRect();
+        initialAIX = rect.left;
+        initialAIY = rect.top;
+        if (e.touches) {
+            startAIX = e.touches[0].clientX;
+            startAIY = e.touches[0].clientY;
+        } else {
+            startAIX = e.clientX;
+            startAIY = e.clientY;
         }
-    });
+        chatToggleBtn.classList.add('dragging');
+        document.addEventListener('mousemove', onAIDrag);
+        document.addEventListener('mouseup', stopAIDrag);
+        document.addEventListener('touchmove', onAIDrag, { passive: false });
+        document.addEventListener('touchend', stopAIDrag);
+    }
+
+    function onAIDrag(e) {
+        if (!isDraggingAI) return;
+        e.preventDefault();
+        let currentX, currentY;
+        if (e.touches) {
+            currentX = e.touches[0].clientX;
+            currentY = e.touches[0].clientY;
+        } else {
+            currentX = e.clientX;
+            currentY = e.clientY;
+        }
+        const dx = currentX - startAIX;
+        const dy = currentY - startAIY;
+        if (!dragAIStarted && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) dragAIStarted = true;
+        let newLeft = initialAIX + dx;
+        let newTop = initialAIY + dy;
+        const maxLeft = window.innerWidth - aiChatbot.offsetWidth - 10;
+        const maxTop = window.innerHeight - aiChatbot.offsetHeight - 10;
+        newLeft = Math.max(10, Math.min(newLeft, maxLeft));
+        newTop = Math.max(10, Math.min(newTop, maxTop));
+        aiChatbot.style.left = newLeft + 'px';
+        aiChatbot.style.top = newTop + 'px';
+        aiChatbot.style.right = 'auto';
+        aiChatbot.style.bottom = 'auto';
+        initialAIX = newLeft;
+        initialAIY = newTop;
+        startAIX = currentX;
+        startAIY = currentY;
+    }
+
+    function stopAIDrag(e) {
+        if (!isDraggingAI) return;
+        isDraggingAI = false;
+        chatToggleBtn.classList.remove('dragging');
+        localStorage.setItem('aiChatbotLeft', aiChatbot.style.left);
+        localStorage.setItem('aiChatbotTop', aiChatbot.style.top);
+        document.removeEventListener('mousemove', onAIDrag);
+        document.removeEventListener('mouseup', stopAIDrag);
+        document.removeEventListener('touchmove', onAIDrag);
+        document.removeEventListener('touchend', stopAIDrag);
+        if (!dragAIStarted) {
+            chatWindow.classList.toggle('active');
+            if (chatWindow.classList.contains('active')) chatInput.focus();
+        }
+        dragAIStarted = false;
+    }
+
+    chatToggleBtn.addEventListener('mousedown', startAIDrag);
+    chatToggleBtn.addEventListener('touchstart', startAIDrag, { passive: false });
+    chatToggleBtn.style.cursor = 'grab';
 
     closeChat.addEventListener('click', () => {
         chatWindow.classList.remove('active');
@@ -872,150 +1130,13 @@
         if (e.key === 'Enter') handleUserMessage();
     });
 
-    // --- Draggable Terminal Button ---
-    const terminalBtn = document.getElementById('terminalBtn');
-    let isDragging = false;
-    let startX, startY, initialX, initialY;
-    let dragStarted = false;
+    loadChatHistory();
 
-    const savedLeft = localStorage.getItem('terminalBtnLeft');
-    const savedTop = localStorage.getItem('terminalBtnTop');
-    if (savedLeft && savedTop) {
-        terminalBtn.style.left = savedLeft;
-        terminalBtn.style.top = savedTop;
-        terminalBtn.style.right = 'auto';
-        terminalBtn.style.bottom = 'auto';
-    }
-
-    function startDrag(e) {
-        e.preventDefault();
-        isDragging = true;
-        dragStarted = false;
-        const rect = terminalBtn.getBoundingClientRect();
-        initialX = rect.left;
-        initialY = rect.top;
-        if (e.touches) {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        } else {
-            startX = e.clientX;
-            startY = e.clientY;
-        }
-        terminalBtn.classList.add('dragging');
-        document.addEventListener('mousemove', onDrag);
-        document.addEventListener('mouseup', stopDrag);
-        document.addEventListener('touchmove', onDrag, { passive: false });
-        document.addEventListener('touchend', stopDrag);
-    }
-
-    function onDrag(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        let currentX, currentY;
-        if (e.touches) {
-            currentX = e.touches[0].clientX;
-            currentY = e.touches[0].clientY;
-        } else {
-            currentX = e.clientX;
-            currentY = e.clientY;
-        }
-        const dx = currentX - startX;
-        const dy = currentY - startY;
-        if (!dragStarted && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) dragStarted = true;
-        let newLeft = initialX + dx;
-        let newTop = initialY + dy;
-        const maxLeft = window.innerWidth - terminalBtn.offsetWidth - 10;
-        const maxTop = window.innerHeight - terminalBtn.offsetHeight - 10;
-        newLeft = Math.max(10, Math.min(newLeft, maxLeft));
-        newTop = Math.max(10, Math.min(newTop, maxTop));
-        terminalBtn.style.left = newLeft + 'px';
-        terminalBtn.style.top = newTop + 'px';
-        terminalBtn.style.right = 'auto';
-        terminalBtn.style.bottom = 'auto';
-        initialX = newLeft;
-        initialY = newTop;
-        startX = currentX;
-        startY = currentY;
-    }
-
-    function stopDrag(e) {
-        if (!isDragging) return;
-        isDragging = false;
-        terminalBtn.classList.remove('dragging');
-        localStorage.setItem('terminalBtnLeft', terminalBtn.style.left);
-        localStorage.setItem('terminalBtnTop', terminalBtn.style.top);
-        document.removeEventListener('mousemove', onDrag);
-        document.removeEventListener('mouseup', stopDrag);
-        document.removeEventListener('touchmove', onDrag);
-        document.removeEventListener('touchend', stopDrag);
-        if (!dragStarted) openTerminal();
-        dragStarted = false;
-    }
-
-    terminalBtn.addEventListener('mousedown', startDrag);
-    terminalBtn.addEventListener('touchstart', startDrag, { passive: false });
-
-    // --- 3D Setup ---
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-    scene.background = null;
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 2, 8);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
-
-    const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const materials = [
-        new THREE.MeshStandardMaterial({ color: 0x3b82f6 }),
-        new THREE.MeshStandardMaterial({ color: 0xa855f7 }),
-        new THREE.MeshStandardMaterial({ color: 0x10b981 }),
-        new THREE.MeshStandardMaterial({ color: 0xf59e0b }),
-        new THREE.MeshStandardMaterial({ color: 0xef4444 }),
-        new THREE.MeshStandardMaterial({ color: 0x06b6d4 })
-    ];
-    const cube = new THREE.Mesh(geometry, materials);
-    scene.add(cube);
-
-    const particleCount = 1000;
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesPositions = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount; i++) {
-        particlesPositions[i*3] = (Math.random() - 0.5) * 30;
-        particlesPositions[i*3+1] = (Math.random() - 0.5) * 20;
-        particlesPositions[i*3+2] = (Math.random() - 0.5) * 20 - 10;
-    }
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlesPositions, 3));
-    const particlesMaterial = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.05, transparent: true, opacity: 0.5 });
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particles);
-
-    const ambientLight = new THREE.AmbientLight(0x404040);
-    scene.add(ambientLight);
-    const pointLight = new THREE.PointLight(0xffffff, 1);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
-
-    function animate() {
-        requestAnimationFrame(animate);
-        cube.rotation.x += 0.005;
-        cube.rotation.y += 0.008;
-        particles.rotation.y += 0.001;
-        renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // --- Language translations ---
+    // Language translations
     const translations = {
-        en: { name: "Ubaid Bilal", status: "🟢 Open for opportunities", bio: "Full-stack developer with 5+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in India 🇮🇳", github: "GitHub", telegram: "Telegram", twitter: "Twitter", skillsTitle: "⚡ Technical Skills", projectsTitle: "📂 Featured Projects", contactTitle: "📩 Get in Touch", sendBtn: "Send Message", footer: "📍 Based in India · 🚀 5+ years of coding", visitors: "visitors", contactName: "Your Name", contactEmail: "Your Email", contactMessage: "Your Message" },
-        hi: { name: "उबैद बिलाल", status: "🟢 अवसरों के लिए खुला", bio: "फुल-स्टैक डेवलपर जिसके पास 5+ साल का अनुभव है। ओपन सोर्स, क्लीन कोड और दूसरों को सिखाने के लिए भावुक। भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", skillsTitle: "⚡ तकनीकी कौशल", projectsTitle: "📂 प्रोजेक्ट्स", contactTitle: "📩 संपर्क करें", sendBtn: "संदेश भेजें", footer: "📍 भारत में स्थित · 🚀 5+ साल का कोडिंग अनुभव", visitors: "आगंतुक", contactName: "आपका नाम", contactEmail: "आपका ईमेल", contactMessage: "आपका संदेश" },
-        ur: { name: "عبید بلال", status: "🟢 مواقع کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 5+ سال کا تجربہ ہے۔ اوپن سورس، صاف کوڈ اور دوسروں کو سکھانے کا شوقین۔ انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", skillsTitle: "⚡ تکنیکی مہارتیں", projectsTitle: "📂 منصوبے", contactTitle: "📩 رابطہ کریں", sendBtn: "پیغام بھیجیں", footer: "📍 انڈیا میں مقیم · 🚀 5+ سال کوڈنگ", visitors: "ملاقاتی", contactName: "آپ کا نام", contactEmail: "آپ کا ای میل", contactMessage: "آپ کا پیغام" }
+        en: { name: "Ubaid Bilal", status: "🟢 Available for freelance work", bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳", github: "GitHub", telegram: "Telegram", twitter: "Twitter", skillsTitle: "⚡ Technical Skills", projectsTitle: "📂 Featured Projects", contactTitle: "📩 Get in Touch", sendBtn: "Send Message", footer: "📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding", visitors: "visitors", contactName: "Your Name", contactEmail: "Your Email", contactMessage: "Your Message" },
+        hi: { name: "उबैद बिलाल", status: "🟢 फ्रीलांस काम के लिए उपलब्ध", bio: "फुल-स्टैक डेवलपर जिसके पास 3+ साल का अनुभव है। ओपन सोर्स, क्लीन कोड और दूसरों को सिखाने के लिए भावुक। मगाम, बडगाम, जम्मू और कश्मीर, भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", skillsTitle: "⚡ तकनीकी कौशल", projectsTitle: "📂 प्रोजेक्ट्स", contactTitle: "📩 संपर्क करें", sendBtn: "संदेश भेजें", footer: "📍 मगाम, बडगाम, जम्मू और कश्मीर · 🚀 3+ साल का कोडिंग अनुभव", visitors: "आगंतुक", contactName: "आपका नाम", contactEmail: "आपका ईमेल", contactMessage: "आपका संदेश" },
+        ur: { name: "عبید بلال", status: "🟢 فری لانس کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 3+ سال کا تجربہ ہے۔ اوپن سورس، صاف کوڈ اور دوسروں کو سکھانے کا شوقین۔ ماگام، بڈگام، جموں و کشمیر، انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", skillsTitle: "⚡ تکنیکی مہارتیں", projectsTitle: "📂 منصوبے", contactTitle: "📩 رابطہ کریں", sendBtn: "پیغام بھیجیں", footer: "📍 ماگام، بڈگام، جموں و کشمیر · 🚀 3+ سال کوڈنگ", visitors: "ملاقاتی", contactName: "آپ کا نام", contactEmail: "آپ کا ای میل", contactMessage: "آپ کا پیغام" }
     };
 
     function updateLanguage(lang) {
@@ -1045,64 +1166,6 @@
         });
     });
 
-    function showNotification(msg) {
-        const toast = document.getElementById('toast');
-        toast.innerHTML = `🔔 ${msg}`;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-
-    // Terminal functions
-    const terminalOverlay = document.getElementById('terminalOverlay');
-    const closeTerminal = document.getElementById('closeTerminal');
-    const terminalInput = document.getElementById('terminalInput');
-    const terminalOutput = document.getElementById('terminalOutput');
-
-    function addTerminalLine(text, isCommand = false) {
-        const line = document.createElement('div');
-        line.innerHTML = isCommand ? `<span style="color: #0f0;">visitor@ubaid:~$</span> ${text}` : text;
-        terminalOutput.appendChild(line);
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    }
-
-    function processCommand(cmd) {
-        const lower = cmd.toLowerCase().trim();
-        addTerminalLine(cmd, true);
-        if (lower === 'help') {
-            addTerminalLine('Available commands: about, projects, skills, contact, clear, social, exit');
-        } else if (lower === 'about') {
-            addTerminalLine('Ubaid Bilal - Full Stack Developer | 5+ years exp | Based in India');
-        } else if (lower === 'projects') {
-            addTerminalLine('1. DevConnect Hub - 500+ ⭐\n2. WeatherSnap\n3. Telegram Bot Studio');
-        } else if (lower === 'skills') {
-            addTerminalLine('React 90% | JS/TS 85% | Python 80% | Node.js 85%');
-        } else if (lower === 'contact') {
-            addTerminalLine('Email: ubaidbilal957@gmail.com | GitHub: @ciperpy | Telegram: @CiPeRPY');
-        } else if (lower === 'social') {
-            addTerminalLine('GitHub: @ciperpy | Twitter: @UbaidUbaid40427 | Telegram: @CiPeRPY');
-        } else if (lower === 'clear') {
-            terminalOutput.innerHTML = '';
-        } else if (lower === 'exit') {
-            terminalOverlay.classList.remove('active');
-        } else {
-            addTerminalLine(`Command not found: ${cmd}`);
-        }
-        addTerminalLine('');
-    }
-
-    function openTerminal() {
-        terminalOverlay.classList.add('active');
-        terminalInput.focus();
-    }
-
-    closeTerminal.addEventListener('click', () => terminalOverlay.classList.remove('active'));
-    terminalInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            processCommand(terminalInput.value);
-            terminalInput.value = '';
-        }
-    });
-
     // Dark mode
     const themeToggleBtn = document.getElementById('themeToggle');
     if (localStorage.getItem('theme') === 'dark') {
@@ -1116,7 +1179,7 @@
         themeToggleBtn.innerHTML = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
     });
 
-    // Scroll to top
+    // Scroll to top button with smooth scroll
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', () => scrollTopBtn.classList.toggle('show', window.scrollY > 300));
     scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
@@ -1124,7 +1187,13 @@
     // Copy email
     document.getElementById('copyEmailBtn').addEventListener('click', () => {
         navigator.clipboard.writeText('ubaidbilal957@gmail.com');
-        showNotification('Email copied! 📋');
+        const statusDiv = document.getElementById('form-status');
+        statusDiv.innerHTML = '📋 Email copied to clipboard!';
+        statusDiv.className = 'form-status success';
+        setTimeout(() => {
+            statusDiv.innerHTML = '';
+            statusDiv.className = 'form-status';
+        }, 3000);
     });
 
     // Visitor counter
@@ -1133,7 +1202,7 @@
     localStorage.setItem('pageViewCount', count);
     document.getElementById('visitorCount').innerText = count;
 
-    // Skills
+    // Skills with animation on scroll
     const skills = [
         { name: 'React', percent: 90, icon: 'fab fa-react' },
         { name: 'JavaScript/TS', percent: 85, icon: 'fab fa-js' },
@@ -1144,37 +1213,43 @@
     function renderSkills() {
         const grid = document.getElementById('skills-grid');
         grid.innerHTML = skills.map(s => `
-            <div class="skill-item">
+            <div class="skill-item" data-aos="fade-up" data-aos-duration="600">
                 <div class="skill-header"><i class="${s.icon}"></i> ${s.name}</div>
                 <div class="progress-bar"><div class="progress-fill" data-percent="${s.percent}"></div></div>
                 <div class="skill-percent">${s.percent}%</div>
             </div>
         `).join('');
+
+        // Animate progress bars when they come into view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.progress-fill').forEach(fill => {
-                        fill.style.width = fill.getAttribute('data-percent') + '%';
+                    const fills = entry.target.querySelectorAll('.progress-fill');
+                    fills.forEach(fill => {
+                        const percent = fill.getAttribute('data-percent');
+                        fill.style.width = percent + '%';
                     });
                     observer.unobserve(entry.target);
                 }
             });
-        });
+        }, { threshold: 0.3 });
+
         document.querySelectorAll('.skills-grid').forEach(grid => observer.observe(grid));
     }
     renderSkills();
 
-    // Projects
+    // Projects with AOS
     const projects = [
         { title: 'DevConnect Hub', desc: 'Platform for developers to collaborate', tech: ['React', 'Node.js'], icon: '🌐', stars: 523 },
         { title: 'WeatherSnap', desc: 'Real-time weather app', tech: ['JS', 'API'], icon: '⛅', stars: 234 },
-        { title: 'Telegram Bot Studio', desc: 'Automation toolkit', tech: ['Python'], icon: '🤖', stars: 189 }
+        { title: 'Telegram Bot Studio', desc: 'Automation toolkit', tech: ['Python'], icon: '🤖', stars: 189 },
+        { title: '3D AI Portfolio', desc: 'Interactive portfolio with AI assistant', tech: ['Three.js', 'AI'], icon: '🎨', stars: 100 }
     ];
 
     function renderProjects() {
         const grid = document.getElementById('projectsGrid');
-        grid.innerHTML = projects.map(p => `
-            <div class="project-card">
+        grid.innerHTML = projects.map((p, index) => `
+            <div class="project-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="${index * 100}">
                 <div class="project-img">${p.icon}</div>
                 <div class="project-title">${p.title} ⭐ ${p.stars}</div>
                 <div class="project-desc">${p.desc}</div>
@@ -1186,20 +1261,45 @@
 
     // Typed effect
     new Typed('#typed-text', {
-        strings: ['Full Stack Developer', 'Open Source Contributor', 'Tech Writer'],
+        strings: ['Full Stack Developer', 'Open Source Contributor', 'Tech Writer', 'Student & Developer'],
         typeSpeed: 50,
         backSpeed: 30,
-        loop: true
+        loop: true,
+        backDelay: 2000
     });
 
-    // Contact form
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
+    // Working Contact Form with EmailJS
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        showNotification('Message sent! (Demo mode)');
-        e.target.reset();
-    });
 
-    showNotification('🤖 AI Assistant is ready! Ask me anything about Ubaid!');
+        const name = document.getElementById('contact-name').value;
+        const email = document.getElementById('contact-email').value;
+        const message = document.getElementById('contact-message').value;
+        const statusDiv = document.getElementById('form-status');
+
+        statusDiv.innerHTML = 'Sending message... 📧';
+        statusDiv.className = 'form-status';
+
+        // Send email using EmailJS
+        emailjs.send("service_ubaid", "template_ubaid", {
+            from_name: name,
+            from_email: email,
+            message: message,
+            to_email: "ubaidbilal957@gmail.com"
+        }).then(function(response) {
+            statusDiv.innerHTML = '✅ Message sent successfully! I\'ll get back to you soon.';
+            statusDiv.className = 'form-status success';
+            document.getElementById('contactForm').reset();
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+                statusDiv.className = 'form-status';
+            }, 5000);
+        }, function(error) {
+            console.error('EmailJS Error:', error);
+            statusDiv.innerHTML = '❌ Failed to send. Please email me directly at ubaidbilal957@gmail.com';
+            statusDiv.className = 'form-status error';
+        });
+    });
 </script>
 </body>
 </html>
