@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- AOS Animation Library (Scroll Reveal) -->
+    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Typed.js -->
@@ -39,6 +39,7 @@
             --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
             --glow: 0 0 30px rgba(59, 130, 246, 0.3);
             --skill-bg: #e5e7eb;
+            --whatsapp: #25D366;
         }
 
         body.dark {
@@ -60,7 +61,6 @@
             min-height: 100vh;
         }
 
-        /* Smooth Scroll Behavior */
         html {
             scroll-behavior: smooth;
         }
@@ -71,7 +71,6 @@
             padding: 2rem 1rem;
         }
 
-        /* Header Bar */
         .header-bar {
             display: flex;
             justify-content: space-between;
@@ -83,7 +82,13 @@
             gap: 1rem;
         }
 
-        /* Language Switcher - Top Left */
+        .right-controls {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
         .language-switch {
             display: flex;
             gap: 0.5rem;
@@ -114,7 +119,6 @@
             transform: scale(1.02);
         }
 
-        /* Theme Toggle - Top Right */
         .theme-toggle {
             background: var(--card-bg);
             padding: 0.3rem;
@@ -145,7 +149,30 @@
             padding: 1rem 1.5rem;
         }
 
-        /* Profile Card with Fade + Slide Entrance */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--whatsapp);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1002;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+
         .profile-card {
             background: var(--card-bg);
             border-radius: 2rem;
@@ -204,16 +231,6 @@
             50% { opacity: 0.7; }
         }
 
-        /* Button Tap Animation */
-        .social-btn, .lang-btn, .theme-btn, .submit-btn, .send-btn, .chat-toggle {
-            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            cursor: pointer;
-        }
-        .social-btn:active, .lang-btn:active, .theme-btn:active, .submit-btn:active, .send-btn:active, .chat-toggle:active {
-            transform: scale(0.95);
-            transition: transform 0.05s ease;
-        }
-
         .social-links {
             display: flex;
             justify-content: center;
@@ -233,6 +250,7 @@
             gap: 8px;
             border: 1px solid var(--border);
             transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
         }
         .social-btn:hover {
             transform: translateY(-3px) scale(1.02);
@@ -391,14 +409,6 @@
             padding: 0.5rem;
             border-radius: 0.5rem;
         }
-        .form-status.success {
-            color: #10b981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-        .form-status.error {
-            color: #ef4444;
-            background: rgba(239, 68, 68, 0.1);
-        }
         .footer {
             text-align: center;
             margin-top: 3rem;
@@ -409,7 +419,7 @@
         .scroll-top {
             position: fixed;
             bottom: 30px;
-            right: 30px;
+            left: 30px;
             background: var(--accent);
             color: white;
             width: 45px;
@@ -433,7 +443,6 @@
             background: var(--accent-hover);
         }
 
-        /* Draggable AI Chatbot Button */
         .ai-chatbot {
             position: fixed;
             bottom: 30px;
@@ -644,6 +653,41 @@
             transform: scale(0.95);
         }
 
+        /* Notification Toast */
+        .notification-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            z-index: 1005;
+            max-width: 350px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .notification-toast.show {
+            transform: translateX(0);
+        }
+        .notification-toast .title {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+        .notification-toast .message {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .notification-toast .close-notif {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
         @media (max-width: 768px) {
             .chat-window {
                 width: calc(100vw - 40px);
@@ -656,12 +700,22 @@
                 height: 50px;
                 font-size: 1.2rem;
             }
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 20px;
+                right: 20px;
+            }
             .container {
                 padding: 1rem;
             }
             .header-bar {
-                flex-direction: row;
-                justify-content: space-between;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .right-controls {
+                justify-content: flex-end;
             }
             .section-title {
                 font-size: 1.5rem;
@@ -671,7 +725,6 @@
             }
         }
 
-        /* AOS Animation Overrides */
         [data-aos] {
             transition-timing-function: cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
@@ -680,23 +733,21 @@
 <body>
 
 <div class="content-wrapper">
-    <!-- Header Bar with Language and Theme -->
     <div class="header-bar" data-aos="fade-down" data-aos-duration="600">
-        <!-- Language Switcher - Top Left -->
         <div class="language-switch">
             <button class="lang-btn active" data-lang="en">🇬🇧 English</button>
             <button class="lang-btn" data-lang="hi">🇮🇳 हिंदी</button>
             <button class="lang-btn" data-lang="ur">🇵🇰 اردو</button>
         </div>
 
-        <!-- Theme Toggle - Top Right -->
-        <div class="theme-toggle">
-            <button class="theme-btn" id="themeToggle">🌙 Dark Mode</button>
+        <div class="right-controls">
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeToggle">🌙 Dark Mode</button>
+            </div>
         </div>
     </div>
 
     <div class="container">
-        <!-- Profile Section with Fade + Slide Entrance -->
         <div class="profile-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
             <div class="avatar">
                 <img src="https://i.ibb.co/bMMN9ytB/wmremove-transformed.png" alt="Ubaid Bilal">
@@ -713,19 +764,16 @@
             </div>
         </div>
 
-        <!-- Skills Section with Scroll Reveal -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
             <div class="section-title" id="skills-title">⚡ Technical Skills</div>
             <div class="skills-grid" id="skills-grid"></div>
         </div>
 
-        <!-- Projects Section with Scroll Reveal -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
             <div class="section-title" id="projects-title">📂 Featured Projects</div>
             <div class="projects-grid" id="projectsGrid"></div>
         </div>
 
-        <!-- Contact Section with Scroll Reveal -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
             <div class="section-title" id="contact-title">📩 Get in Touch</div>
             <div class="contact-form">
@@ -752,7 +800,10 @@
     </div>
 </div>
 
-<!-- Draggable AI Chatbot -->
+<button class="whatsapp-float" id="whatsappBtn">
+    <i class="fab fa-whatsapp"></i>
+</button>
+
 <div class="ai-chatbot" id="aiChatbot">
     <button class="chat-toggle" id="chatToggle">
         <i class="fas fa-robot"></i>
@@ -781,9 +832,15 @@
 
 <button class="scroll-top" id="scrollTopBtn"><i class="fas fa-arrow-up"></i></button>
 
+<div id="notificationToast" class="notification-toast">
+    <span class="close-notif" onclick="this.parentElement.classList.remove('show')">✖</span>
+    <div class="title" id="toastTitle">New Message</div>
+    <div class="message" id="toastMessage">You have a new notification!</div>
+</div>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // Initialize AOS with smooth scroll animations
+    // Initialize AOS
     AOS.init({
         duration: 800,
         once: false,
@@ -791,173 +848,139 @@
         easing: 'cubic-bezier(0.2, 0.9, 0.4, 1.1)'
     });
 
-    // Initialize EmailJS with your public key
-    (function() {
-        emailjs.init("VK8ZgP1FVGkSJ8Y0G");
-    })();
+    // ============================================
+    // WHATSAPP DIRECT CHAT
+    // ============================================
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    whatsappBtn.addEventListener('click', () => {
+        const phoneNumber = "919906454782";
+        const message = encodeURIComponent("Hi Ubaid! I saw your portfolio and wanted to connect.");
+        window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    });
 
     // ============================================
-    // INTELLIGENT LOCAL AI ASSISTANT with Typing Animation
+    // RECEIVE NOTIFICATIONS FROM ADMIN PANEL
     // ============================================
 
-    // Complete knowledge base about Ubaid
+    function showNotification(title, message, type = 'info') {
+        const toast = document.getElementById('notificationToast');
+        const toastTitle = document.getElementById('toastTitle');
+        const toastMessage = document.getElementById('toastMessage');
+
+        toastTitle.innerText = title;
+        toastMessage.innerText = message;
+
+        let borderColor = '#3b82f6';
+        if (type === 'success') borderColor = '#10b981';
+        if (type === 'warning') borderColor = '#f59e0b';
+        if (type === 'new') borderColor = '#8b5cf6';
+        toast.style.borderLeftColor = borderColor;
+
+        toast.classList.add('show');
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 5000);
+
+        if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification(title, { body: message });
+        }
+    }
+
+    function checkForNewNotifications() {
+        const pendingNotif = localStorage.getItem('pendingNotification');
+        if (pendingNotif) {
+            const notification = JSON.parse(pendingNotif);
+
+            showNotification(notification.title, notification.message, notification.type);
+
+            if (notification.link) {
+                const toast = document.getElementById('notificationToast');
+                toast.style.cursor = 'pointer';
+                toast.onclick = () => {
+                    window.open(notification.link, '_blank');
+                    toast.style.cursor = 'default';
+                    toast.onclick = null;
+                };
+            }
+
+            localStorage.removeItem('pendingNotification');
+        }
+    }
+
+    // Request notification permission on load
+    if ('Notification' in window && Notification.permission !== 'denied') {
+        Notification.requestPermission();
+    }
+
+    setInterval(checkForNewNotifications, 2000);
+    checkForNewNotifications();
+
+    // ============================================
+    // AI ASSISTANT
+    // ============================================
+
     const knowledgeBase = {
         name: "Ubaid Bilal",
         fullName: "Ubaid Bilal",
         role: "Full Stack Developer",
         experience: "3+ years",
         location: "Magam, Budgam, Jammu & Kashmir, India",
-        address: "Magam, Budgam, Jammu & Kashmir, India",
         studentStatus: "I am a student and a passionate developer",
         passion: "Open source, clean code, and teaching others",
-        journey: "Started coding at age 15. Currently a student building amazing projects and helping others learn to code.",
-        goals: "My goals are to build impactful projects, contribute to open source, help 10,000+ developers learn coding, and eventually start my own tech education platform.",
-        whyWebsite: "I created this website to showcase my work, connect with amazing people, and help others learn from my journey.",
-        whatMakesDifferent: "What makes me different is my passion for teaching and helping others. I don't just build code - I explain it, share knowledge, and make complex things simple.",
 
         skills: [
             { name: "React", level: "90%" },
             { name: "JavaScript/TypeScript", level: "85%" },
             { name: "Python", level: "80%" },
-            { name: "Node.js", level: "85%" },
-            { name: "Three.js", level: "70%" }
+            { name: "Node.js", level: "85%" }
         ],
-
-        technologies: ["React", "JavaScript", "TypeScript", "Python", "Node.js", "Three.js", "HTML/CSS", "MongoDB", "Express.js"],
-
-        devType: "Full Stack Developer - I work on both frontend and backend!",
-
-        aiKnowledge: "Yes! I'm learning AI and Machine Learning. Currently exploring LLMs, computer vision, and building AI-powered applications.",
-
-        tools: ["VS Code", "Git", "GitHub", "Postman", "Figma", "Chrome DevTools"],
-
-        stack: "I'm a Full Stack Developer! I work with React, Node.js, Python, and various databases.",
-
-        projects: [
-            { name: "DevConnect Hub", description: "Platform for developers to collaborate on open-source projects", stars: "500+", tech: ["React", "Node.js", "MongoDB"] },
-            { name: "WeatherSnap", description: "Real-time weather app with beautiful animations", stars: "234", tech: ["JavaScript", "API", "CSS"] },
-            { name: "Telegram Bot Studio", description: "Toolkit to automate Telegram groups with moderation features", stars: "189", tech: ["Python", "Telegram API"] },
-            { name: "3D AI Portfolio", description: "Interactive portfolio with AI assistant", stars: "100+", tech: ["Three.js", "HTML/CSS", "JavaScript"] }
-        ],
-
-        services: {
-            websites: "✅ Yes! I build custom websites - portfolios, business sites, e-commerce, and more.",
-            apps: "✅ Yes! I build web applications, dashboards, and interactive web apps.",
-            pricing: "💰 My rates are affordable and depend on project complexity. Contact me for a custom quote!",
-            hire: "📩 You can hire me by emailing ubaidbilal957@gmail.com or messaging on Telegram @CiPeRPY",
-            freelance: "✅ Yes! I'm available for freelance work. Open to exciting projects!",
-            timeline: "⏱️ Timeline depends on project scope. Small projects: 2-7 days, Medium projects: 1-3 weeks, Large projects: 1-2 months",
-            revisions: "🔄 Yes! I provide revisions to ensure you're 100% satisfied with the work.",
-            maintenance: "✅ Yes! I offer ongoing maintenance and support for websites and applications.",
-            redesign: "✅ Yes! I can redesign your existing website to make it modern, fast, and responsive."
-        },
 
         contact: {
             email: "ubaidbilal957@gmail.com",
             github: "github.com/ciperpy",
-            githubUsername: "@ciperpy",
             telegram: "t.me/CiPeRPY",
-            telegramUsername: "@CiPeRPY",
-            twitter: "twitter.com/UbaidUbaid40427",
-            twitterUsername: "@UbaidUbaid40427",
-            whatsapp: "Available on Telegram",
-            responseTime: "Usually within 1-2 hours during daytime",
-            availability: "Yes! I'm usually available. Best to reach me on Telegram or email."
+            twitter: "twitter.com/UbaidUbaid40427"
         },
 
-        bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others.",
-
-        funFacts: [
-            "Started coding at age 15",
-            "Contributed to 20+ open-source projects",
-            "Based in the beautiful Kashmir valley",
-            "Loves teaching and helping other developers",
-            "Can speak English, Urdu, and Hindi fluently"
-        ],
-
-        hobbies: ["Coding", "Teaching", "Reading tech blogs", "Playing cricket", "Exploring new technologies", "Contributing to open source"],
-
-        favoriteTech: "React is my favorite! I love building interactive UIs. Also love Python for its simplicity and power.",
-
-        inspiration: "I'm inspired by developers who share knowledge freely and build things that help people. Open source community inspires me the most!",
-
-        joke: "Why do programmers prefer dark mode? Because light attracts bugs! 😄",
-
-        careerAdvice: "Start building projects, contribute to open source, never stop learning, and most importantly - share what you learn with others!",
-
-        whyHire: "You should hire me because I'm passionate, dedicated, and I don't just deliver code - I deliver solutions that work. Plus, I explain everything clearly!"
+        projects: [
+            { name: "DevConnect Hub", description: "Platform for developers to collaborate", stars: "500+" },
+            { name: "WeatherSnap", description: "Real-time weather app", stars: "234" },
+            { name: "Telegram Bot Studio", description: "Automation toolkit", stars: "189" }
+        ]
     };
 
     function getAIResponse(userMessage) {
         const message = userMessage.toLowerCase();
 
-        if (message.match(/hi|hello|hey|salaam|namaste|assalam|greetings|good morning|good evening/)) {
+        if (message.match(/hi|hello|hey|salaam/)) {
             return "👋 Assalamualikum! Welcome! I'm Ubaid's AI assistant. How can I help you today?";
         }
-
-        if (message.match(/who are you|tell me about yourself|introduce yourself|about ubaid/)) {
-            return `👨‍💻 I'm ${knowledgeBase.name}, a ${knowledgeBase.role} with ${knowledgeBase.experience} of experience. I'm based in ${knowledgeBase.location}. ${knowledgeBase.bio}`;
+        if (message.match(/who are you|about ubaid/)) {
+            return `👨‍💻 I'm ${knowledgeBase.name}, a ${knowledgeBase.role} with ${knowledgeBase.experience} of experience. I'm based in ${knowledgeBase.location}.`;
         }
-
-        if (message.match(/what do you do|what is your work|what is your profession/)) {
-            return `💻 I'm a ${knowledgeBase.role}. I build web applications, websites, and teach coding. I help businesses and individuals bring their ideas to life through technology.`;
-        }
-
-        if (message.match(/what skills|skills do you have|technical skills|your expertise/)) {
+        if (message.match(/skills|technologies/)) {
             let skillsList = knowledgeBase.skills.map(s => `${s.name} (${s.level})`).join(", ");
-            return `🎯 I have expertise in: ${skillsList}. My strongest skills are React and JavaScript/TypeScript.`;
+            return `🎯 I have expertise in: ${skillsList}`;
         }
-
-        if (message.match(/what technologies|technologies do you use|tech stack/)) {
-            return `⚡ I use: ${knowledgeBase.technologies.join(", ")}. I'm always learning new technologies!`;
-        }
-
-        if (message.match(/student|professional|are you a student/)) {
-            return `📚 ${knowledgeBase.studentStatus}. I'm currently a student passionate about coding and building amazing projects!`;
-        }
-
-        if (message.match(/where are you from|from where|your location|address|city/)) {
-            return `📍 I'm from ${knowledgeBase.location}. It's a beautiful place in Jammu & Kashmir, India! 🇮🇳`;
-        }
-
-        if (message.match(/goals|what are your goals|aims|aspirations/)) {
-            return `🚀 ${knowledgeBase.goals}`;
-        }
-
-        if (message.match(/what projects|projects have you built|your projects/)) {
+        if (message.match(/projects/)) {
             let projectsList = knowledgeBase.projects.map(p => `• ${p.name}: ${p.description} (⭐ ${p.stars} stars)`).join("\n");
-            return `📂 Here are my featured projects:\n${projectsList}\n\nCheck my GitHub for more!`;
+            return `📂 Here are my featured projects:\n${projectsList}`;
+        }
+        if (message.match(/contact|email/)) {
+            return `📱 Connect with me:\n• Email: ${knowledgeBase.contact.email}\n• GitHub: ${knowledgeBase.contact.github}\n• Telegram: ${knowledgeBase.contact.telegram}`;
+        }
+        if (message.match(/how are you/)) {
+            return "😎 Main thik hu bhai! Coding kar raha hu, chai pee raha hu. Aap batao?";
+        }
+        if (message.match(/joke|funny/)) {
+            return "Why do programmers prefer dark mode? Because light attracts bugs! 🐛";
+        }
+        if (message.match(/chai|tea/)) {
+            return "☕ Chai pilo aur code karo! Main bhi chai ke bina kaam nahi kar sakta!";
         }
 
-        if (message.match(/services|what services|offer|do you offer/)) {
-            return `💼 I offer:\n• Custom Website Development\n• Web Application Development\n• Portfolio Websites\n• Business Websites\n• UI/UX Implementation\n• Code Reviews & Mentorship\n\nContact me for more details!`;
-        }
-
-        if (message.match(/how much|charge|pricing|cost|price/)) {
-            return `${knowledgeBase.services.pricing} Projects start from affordable rates. Contact me for a custom quote!`;
-        }
-
-        if (message.match(/how can i hire|hire you|work with you/)) {
-            return `${knowledgeBase.services.hire}`;
-        }
-
-        if (message.match(/freelance|freelance work|freelancer/)) {
-            return `${knowledgeBase.services.freelance}`;
-        }
-
-        if (message.match(/contact|how to contact|reach you|connect/)) {
-            return `📱 Connect with me:\n• Email: ${knowledgeBase.contact.email}\n• GitHub: ${knowledgeBase.contact.github}\n• Telegram: ${knowledgeBase.contact.telegram}\n• Twitter: ${knowledgeBase.contact.twitter}`;
-        }
-
-        if (message.match(/joke|funny|make me laugh/)) {
-            return `😂 ${knowledgeBase.joke}`;
-        }
-
-        if (message.match(/hobby|hobbies|free time|what do you enjoy/)) {
-            return `🎯 My hobbies: ${knowledgeBase.hobbies.join(", ")}`;
-        }
-
-        return `I'm here to help you learn about ${knowledgeBase.name}! You can ask me about his skills, projects, services, contact info, and more. What would you like to know? 🤔`;
+        return `I'm here to help you learn about ${knowledgeBase.name}! Ask me about his skills, projects, or contact info.`;
     }
 
     // Private chat session
@@ -973,30 +996,30 @@
     const sessionId = getUniqueSessionId();
     let chatHistory = JSON.parse(sessionStorage.getItem(`chatHistory_${sessionId}`) || '[]');
 
-    const chatToggle = document.getElementById('chatToggle');
+    const chatToggleBtn = document.getElementById('chatToggle');
     const chatWindow = document.getElementById('chatWindow');
     const closeChat = document.getElementById('closeChat');
     const chatInput = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendChatBtn');
-    const chatMessages = document.getElementById('chatMessages');
+    const sendChatBtn = document.getElementById('sendChatBtn');
+    const chatMessagesDiv = document.getElementById('chatMessages');
     const typingIndicator = document.getElementById('typingIndicator');
 
     function loadChatHistory() {
-        chatMessages.innerHTML = '';
+        chatMessagesDiv.innerHTML = '';
         if (chatHistory.length === 0) {
             const welcomeMsg = document.createElement('div');
             welcomeMsg.className = 'message bot-message';
-            welcomeMsg.innerHTML = '👋 Assalamualikum! I\'m Ubaid\'s AI assistant. Ask me anything about Ubaid - his skills, projects, services, or just say hi!';
-            chatMessages.appendChild(welcomeMsg);
+            welcomeMsg.innerHTML = '👋 Assalamualikum! I\'m Ubaid\'s AI assistant. Ask me anything!';
+            chatMessagesDiv.appendChild(welcomeMsg);
         } else {
             chatHistory.forEach(msg => {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${msg.isUser ? 'user-message' : 'bot-message'}`;
                 messageDiv.innerHTML = msg.text.replace(/\n/g, '<br>');
-                chatMessages.appendChild(messageDiv);
+                chatMessagesDiv.appendChild(messageDiv);
             });
         }
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
     }
 
     function saveMessage(text, isUser) {
@@ -1009,12 +1032,11 @@
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
         messageDiv.innerHTML = text.replace(/\n/g, '<br>');
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        chatMessagesDiv.appendChild(messageDiv);
+        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
         saveMessage(text, isUser);
     }
 
-    // AI response with typing animation and delayed response
     async function handleUserMessage() {
         const message = chatInput.value.trim();
         if (!message) return;
@@ -1022,10 +1044,8 @@
         addMessage(message, true);
         chatInput.value = '';
 
-        // Show typing indicator
         typingIndicator.style.display = 'flex';
 
-        // Simulate thinking/delayed response (500-800ms for natural feel)
         setTimeout(() => {
             typingIndicator.style.display = 'none';
             const response = getAIResponse(message);
@@ -1035,7 +1055,6 @@
 
     // Draggable AI Chatbot
     const aiChatbot = document.getElementById('aiChatbot');
-    const chatToggleBtn = document.getElementById('chatToggle');
     let isDraggingAI = false;
     let startAIX, startAIY, initialAIX, initialAIY;
     let dragAIStarted = false;
@@ -1125,7 +1144,7 @@
         chatWindow.classList.remove('active');
     });
 
-    sendBtn.addEventListener('click', handleUserMessage);
+    sendChatBtn.addEventListener('click', handleUserMessage);
     chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') handleUserMessage();
     });
@@ -1135,8 +1154,8 @@
     // Language translations
     const translations = {
         en: { name: "Ubaid Bilal", status: "🟢 Available for freelance work", bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳", github: "GitHub", telegram: "Telegram", twitter: "Twitter", skillsTitle: "⚡ Technical Skills", projectsTitle: "📂 Featured Projects", contactTitle: "📩 Get in Touch", sendBtn: "Send Message", footer: "📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding", visitors: "visitors", contactName: "Your Name", contactEmail: "Your Email", contactMessage: "Your Message" },
-        hi: { name: "उबैद बिलाल", status: "🟢 फ्रीलांस काम के लिए उपलब्ध", bio: "फुल-स्टैक डेवलपर जिसके पास 3+ साल का अनुभव है। ओपन सोर्स, क्लीन कोड और दूसरों को सिखाने के लिए भावुक। मगाम, बडगाम, जम्मू और कश्मीर, भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", skillsTitle: "⚡ तकनीकी कौशल", projectsTitle: "📂 प्रोजेक्ट्स", contactTitle: "📩 संपर्क करें", sendBtn: "संदेश भेजें", footer: "📍 मगाम, बडगाम, जम्मू और कश्मीर · 🚀 3+ साल का कोडिंग अनुभव", visitors: "आगंतुक", contactName: "आपका नाम", contactEmail: "आपका ईमेल", contactMessage: "आपका संदेश" },
-        ur: { name: "عبید بلال", status: "🟢 فری لانس کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 3+ سال کا تجربہ ہے۔ اوپن سورس، صاف کوڈ اور دوسروں کو سکھانے کا شوقین۔ ماگام، بڈگام، جموں و کشمیر، انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", skillsTitle: "⚡ تکنیکی مہارتیں", projectsTitle: "📂 منصوبے", contactTitle: "📩 رابطہ کریں", sendBtn: "پیغام بھیجیں", footer: "📍 ماگام، بڈگام، جموں و کشمیر · 🚀 3+ سال کوڈنگ", visitors: "ملاقاتی", contactName: "آپ کا نام", contactEmail: "آپ کا ای میل", contactMessage: "آپ کا پیغام" }
+        hi: { name: "उबैद बिलाल", status: "🟢 फ्रीलांस काम के लिए उपलब्ध", bio: "फुल-स्टैक डेवलपर जिसके पास 3+ साल का अनुभव है। मगाम, बडगाम, जम्मू और कश्मीर, भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", skillsTitle: "⚡ तकनीकी कौशल", projectsTitle: "📂 प्रोजेक्ट्स", contactTitle: "📩 संपर्क करें", sendBtn: "संदेश भेजें", footer: "📍 मगाम, बडगाम, जम्मू और कश्मीर · 🚀 3+ साल का कोडिंग अनुभव", visitors: "आगंतुक", contactName: "आपका नाम", contactEmail: "आपका ईमेल", contactMessage: "आपका संदेश" },
+        ur: { name: "عبید بلال", status: "🟢 فری لانس کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 3+ سال کا تجربہ ہے۔ ماگام، بڈگام، جموں و کشمیر، انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", skillsTitle: "⚡ تکنیکی مہارتیں", projectsTitle: "📂 منصوبے", contactTitle: "📩 رابطہ کریں", sendBtn: "پیغام بھیجیں", footer: "📍 ماگام، بڈگام، جموں و کشمیر · 🚀 3+ سال کوڈنگ", visitors: "ملاقاتی", contactName: "آپ کا نام", contactEmail: "آپ کا ای میل", contactMessage: "آپ کا پیغام" }
     };
 
     function updateLanguage(lang) {
@@ -1179,7 +1198,7 @@
         themeToggleBtn.innerHTML = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
     });
 
-    // Scroll to top button with smooth scroll
+    // Scroll to top
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', () => scrollTopBtn.classList.toggle('show', window.scrollY > 300));
     scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
@@ -1202,7 +1221,7 @@
     localStorage.setItem('pageViewCount', count);
     document.getElementById('visitorCount').innerText = count;
 
-    // Skills with animation on scroll
+    // Skills
     const skills = [
         { name: 'React', percent: 90, icon: 'fab fa-react' },
         { name: 'JavaScript/TS', percent: 85, icon: 'fab fa-js' },
@@ -1220,7 +1239,6 @@
             </div>
         `).join('');
 
-        // Animate progress bars when they come into view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1238,12 +1256,11 @@
     }
     renderSkills();
 
-    // Projects with AOS
+    // Projects
     const projects = [
         { title: 'DevConnect Hub', desc: 'Platform for developers to collaborate', tech: ['React', 'Node.js'], icon: '🌐', stars: 523 },
         { title: 'WeatherSnap', desc: 'Real-time weather app', tech: ['JS', 'API'], icon: '⛅', stars: 234 },
-        { title: 'Telegram Bot Studio', desc: 'Automation toolkit', tech: ['Python'], icon: '🤖', stars: 189 },
-        { title: '3D AI Portfolio', desc: 'Interactive portfolio with AI assistant', tech: ['Three.js', 'AI'], icon: '🎨', stars: 100 }
+        { title: 'Telegram Bot Studio', desc: 'Automation toolkit', tech: ['Python'], icon: '🤖', stars: 189 }
     ];
 
     function renderProjects() {
@@ -1268,7 +1285,11 @@
         backDelay: 2000
     });
 
-    // Working Contact Form with EmailJS
+    // Contact Form with EmailJS
+    (function() {
+        emailjs.init("VK8ZgP1FVGkSJ8Y0G");
+    })();
+
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -1280,7 +1301,6 @@
         statusDiv.innerHTML = 'Sending message... 📧';
         statusDiv.className = 'form-status';
 
-        // Send email using EmailJS
         emailjs.send("service_ubaid", "template_ubaid", {
             from_name: name,
             from_email: email,
@@ -1295,11 +1315,15 @@
                 statusDiv.className = 'form-status';
             }, 5000);
         }, function(error) {
-            console.error('EmailJS Error:', error);
             statusDiv.innerHTML = '❌ Failed to send. Please email me directly at ubaidbilal957@gmail.com';
             statusDiv.className = 'form-status error';
         });
     });
+
+    // Welcome notification
+    setTimeout(() => {
+        showNotification('Welcome! 🎉', 'Ask me anything about Ubaid or check out his projects!', 'info');
+    }, 2000);
 </script>
 </body>
 </html>
