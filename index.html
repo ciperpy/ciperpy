@@ -2,1328 +2,1081 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Ubaid Bilal · Professional Portfolio + AI Assistant</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suriya's Bridal Studio | Makeup & Mehndi Artist</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Typed.js -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-
-    <!-- EmailJS for Contact Form -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        :root {
-            --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --text: #1f2937;
-            --text-secondary: #4b5563;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --border: #e5e7eb;
-            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-            --glow: 0 0 30px rgba(59, 130, 246, 0.3);
-            --skill-bg: #e5e7eb;
-            --whatsapp: #25D366;
-        }
-
-        body.dark {
-            --bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            --card-bg: rgba(30, 41, 59, 0.95);
-            --text: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --border: #334155;
-            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
-            --skill-bg: #334155;
         }
 
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff5e8;
+            color: #2c2c2c;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        html {
-            scroll-behavior: smooth;
+        h1, h2, h3, h4, .logo {
+            font-family: 'Playfair Display', serif;
         }
 
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-            padding: 2rem 1rem;
+        /* Color Variables */
+        :root {
+            --primary: #7a2c3e;
+            --primary-dark: #5a1e2c;
+            --secondary: #d4af7a;
+            --secondary-light: #e8d4b0;
+            --light: #fff5e8;
+            --dark: #2c2c2c;
+            --gray: #6b6b6b;
         }
 
-        .header-bar {
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 245, 232, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem 1rem 1rem;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(122,44,62,0.7), rgba(212,175,122,0.3)), url('https://images.unsplash.com/photo-1605496036006-fa2e0e6b7b4b?w=1600') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 0;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--primary-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        /* Gallery */
+        .gallery-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 8px 20px;
+            border: none;
+            background: var(--secondary-light);
+            cursor: pointer;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 20px;
+            transition: bottom 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+        }
+
+        /* Packages */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .package-header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .package-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .package-price {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .package-content {
+            padding: 2rem;
+        }
+
+        .package-content ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .package-content li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .package-content i {
+            color: var(--secondary);
+        }
+
+        .popular-badge {
+            background: var(--secondary);
+            color: var(--primary-dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* Booking Form */
+        .booking-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Reviews */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .review-text {
+            font-style: italic;
+            margin: 1rem 0;
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .review-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Video Section */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            position: relative;
+            padding-bottom: 177%;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .video-card iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
             gap: 1rem;
         }
 
-        .right-controls {
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .language-switch {
-            display: flex;
-            gap: 0.5rem;
-            background: var(--card-bg);
-            padding: 0.3rem;
-            border-radius: 50px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-        }
-        .lang-btn {
-            background: transparent;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text);
-            transition: all 0.2s;
-        }
-        .lang-btn.active {
-            background: var(--accent);
-            color: white;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-        }
-        .lang-btn:hover:not(.active) {
-            background: rgba(59, 130, 246, 0.1);
-            transform: scale(1.02);
-        }
-
-        .theme-toggle {
-            background: var(--card-bg);
-            padding: 0.3rem;
-            border-radius: 50px;
-            box-shadow: var(--shadow);
-        }
-        .theme-btn {
-            background: transparent;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--text);
-            transition: all 0.2s;
+        .contact-item i {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-light);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 6px;
-        }
-        .theme-btn:hover {
-            background: rgba(59, 130, 246, 0.1);
-            transform: scale(1.02);
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: var(--whatsapp);
+            background: #25D366;
             width: 60px;
             height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1002;
-            border: none;
             color: white;
-            font-size: 1.8rem;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            z-index: 100;
         }
+
         .whatsapp-float:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
         }
 
-        .profile-card {
-            background: var(--card-bg);
-            border-radius: 2rem;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-            margin-bottom: 2rem;
-            text-align: center;
-            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .profile-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: var(--glow);
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        .avatar:hover {
-            transform: scale(1.05);
-        }
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            border: 3px solid var(--accent);
-        }
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-        #typed-text {
-            color: var(--accent);
-            font-weight: 500;
-            margin-bottom: 1rem;
-            min-height: 2rem;
-        }
-        .status {
-            display: inline-block;
-            background: #10b98120;
-            color: #10b981;
-            padding: 0.25rem 0.9rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-        .social-btn {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.6rem 1.2rem;
-            border-radius: 60px;
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            cursor: pointer;
-        }
-        .social-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            border-color: var(--accent);
-            color: var(--accent);
-            box-shadow: var(--glow);
-        }
-        .section-title {
-            font-size: 1.8rem;
-            margin: 2.5rem 0 1.5rem;
-            border-left: 5px solid var(--accent);
-            padding-left: 1rem;
-        }
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-        .skill-item {
-            background: var(--card-bg);
-            padding: 1rem;
-            border-radius: 1rem;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .skill-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: var(--glow);
-        }
-        .skill-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-        .progress-bar {
-            background: var(--skill-bg);
-            height: 10px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            background: linear-gradient(90deg, var(--accent), #a855f7);
-            height: 100%;
-            width: 0;
-            border-radius: 10px;
-            transition: width 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .skill-percent {
-            text-align: right;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 0.3rem;
-        }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            backdrop-filter: blur(10px);
-        }
-        .project-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: var(--glow);
-        }
-        .project-img {
-            width: 100%;
-            height: 120px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            transition: transform 0.3s ease;
-        }
-        .project-card:hover .project-img {
-            transform: scale(1.05);
-        }
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        .tech-tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-        }
-        .tech-tag:hover {
-            transform: scale(1.05);
-            background: var(--accent);
-            color: white;
-        }
-        .contact-form {
-            background: var(--card-bg);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        .contact-form:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--glow);
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--border);
-            border-radius: 0.8rem;
-            color: var(--text);
-            margin-bottom: 1rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            transform: scale(1.01);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
-        }
-        .submit-btn {
-            background: var(--accent);
-            color: white;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 2rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .submit-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-        }
-        .form-status {
-            margin-top: 1rem;
-            text-align: center;
-            font-size: 0.9rem;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-        }
+        /* Footer */
         .footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: var(--accent);
+            background: var(--primary-dark);
             color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            z-index: 99;
-            border: none;
-            box-shadow: var(--shadow);
-        }
-        .scroll-top.show {
-            opacity: 1;
-        }
-        .scroll-top:hover {
-            transform: translateY(-5px) scale(1.1);
-            background: var(--accent-hover);
+            text-align: center;
+            padding: 2rem;
         }
 
-        .ai-chatbot {
+        /* Admin Panel Styles */
+        .admin-login, .admin-dashboard {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 1000;
-        }
-        .chat-toggle {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: grab;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            user-select: none;
-            touch-action: none;
+            overflow-y: auto;
         }
-        .chat-toggle:active {
-            cursor: grabbing;
-            transform: scale(0.95);
-        }
-        .chat-toggle.dragging {
-            opacity: 0.8;
-            cursor: grabbing;
-            transition: none;
-        }
-        .chat-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-        }
-        .chat-window {
-            position: fixed;
-            bottom: 100px;
-            left: 30px;
-            width: 380px;
-            height: 520px;
-            background: var(--card-bg);
+
+        .admin-box {
+            background: white;
+            padding: 2rem;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            z-index: 1001;
-            backdrop-filter: blur(10px);
-            animation: fadeInUp 0.3s ease;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
         }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .chat-window.active {
-            display: flex;
-        }
-        .chat-header {
-            background: linear-gradient(135deg, var(--accent), #a855f7);
-            padding: 1rem;
-            color: white;
+
+        .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary);
         }
-        .chat-header h3 {
-            font-size: 1rem;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .close-chat {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: transform 0.2s;
-        }
-        .close-chat:active {
-            transform: scale(0.9);
-        }
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-        .message {
-            max-width: 85%;
-            padding: 0.6rem 1rem;
+
+        .upload-area {
+            border: 2px dashed var(--secondary);
+            padding: 2rem;
+            text-align: center;
             border-radius: 15px;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            animation: messageSlide 0.3s ease;
+            margin-bottom: 1rem;
+            cursor: pointer;
         }
-        @keyframes messageSlide {
+
+        .admin-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .admin-gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .admin-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .close-admin {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        .user-message {
-            background: var(--accent);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 5px;
-        }
-        .bot-message {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            align-self: flex-start;
-            border-bottom-left-radius: 5px;
-            border: 1px solid var(--border);
-        }
-        .typing-indicator {
-            display: none;
-            align-items: center;
-            gap: 5px;
-            padding: 0.6rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            width: fit-content;
-            margin-left: 1rem;
-            margin-bottom: 0.5rem;
-            border: 1px solid var(--border);
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .typing-indicator span {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
-        }
-        .typing-indicator span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        .typing-indicator span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        @keyframes typing {
-            0%, 60%, 100% {
-                transform: translateY(0);
-                opacity: 0.4;
-            }
-            30% {
-                transform: translateY(-10px);
-                opacity: 1;
-            }
-        }
-        .chat-input-area {
-            padding: 1rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 0.5rem;
-        }
-        .chat-input {
-            flex: 1;
-            padding: 0.6rem;
-            border: 1px solid var(--border);
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            outline: none;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-        .chat-input:focus {
-            transform: scale(1.01);
-            border-color: var(--accent);
-        }
-        .send-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .send-btn:hover {
-            transform: scale(1.1);
-            background: var(--accent-hover);
-        }
-        .send-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Notification Toast */
-        .notification-toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--card-bg);
-            border-left: 4px solid var(--accent);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: var(--shadow);
-            z-index: 1005;
-            max-width: 350px;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        .notification-toast.show {
-            transform: translateX(0);
-        }
-        .notification-toast .title {
-            font-weight: bold;
-            margin-bottom: 0.3rem;
-        }
-        .notification-toast .message {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        .notification-toast .close-notif {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
 
         @media (max-width: 768px) {
-            .chat-window {
-                width: calc(100vw - 40px);
-                left: 20px;
-                right: 20px;
-                height: 450px;
+            .nav-links {
+                display: none;
             }
-            .chat-toggle {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
+            .menu-btn {
+                display: block;
             }
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-                bottom: 20px;
-                right: 20px;
+            .hero-content h1 {
+                font-size: 2rem;
             }
-            .container {
-                padding: 1rem;
-            }
-            .header-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .right-controls {
-                justify-content: flex-end;
+            .section {
+                padding: 3rem 5%;
             }
             .section-title {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
-            h1 {
-                font-size: 1.8rem;
-            }
-        }
-
-        [data-aos] {
-            transition-timing-function: cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
     </style>
 </head>
 <body>
-
-<div class="content-wrapper">
-    <div class="header-bar" data-aos="fade-down" data-aos-duration="600">
-        <div class="language-switch">
-            <button class="lang-btn active" data-lang="en">🇬🇧 English</button>
-            <button class="lang-btn" data-lang="hi">🇮🇳 हिंदी</button>
-            <button class="lang-btn" data-lang="ur">🇵🇰 اردو</button>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">Suriya<span>'s</span> Bridal Studio</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#packages">Packages</a></li>
+            <li><a href="#booking">Book Now</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-btn">
+            <i class="fas fa-bars"></i>
         </div>
+    </nav>
 
-        <div class="right-controls">
-            <div class="theme-toggle">
-                <button class="theme-btn" id="themeToggle">🌙 Dark Mode</button>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Get your perfect bridal glow</h1>
+            <p>Suriya Nabi - 4+ Years of Excellence in Makeup & Mehndi Artistry</p>
+            <div class="hero-buttons">
+                <a href="#booking" class="btn btn-primary">Book Now</a>
+                <a href="#gallery" class="btn btn-outline">View Gallery</a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="container">
-        <div class="profile-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-            <div class="avatar">
-                <img src="https://i.ibb.co/bMMN9ytB/wmremove-transformed.png" alt="Ubaid Bilal">
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title">About Suriya</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; line-height: 1.8;">
+            <p>Suriya is a passionate and dedicated makeup and mehndi artist who has been in love with her craft since childhood. What started as a deep interest has now grown into a professional journey backed by over 4 years of hands-on experience.</p>
+            <p style="margin-top: 1rem;">With a keen eye for detail and a commitment to perfection, she specializes in creating elegant bridal looks and intricate mehndi designs that enhance natural beauty. Her goal is simple — to make every client feel confident, beautiful, and truly special on their important day.</p>
+            <p style="margin-top: 1rem; font-weight: 500; color: var(--primary);">Suriya believes that makeup is not just about appearance, but about bringing out the best version of every individual with grace and style.</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section" style="background: var(--secondary-light);">
+        <h2 class="section-title">Our Work</h2>
+        <div class="gallery-categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="bridal">Bridal Makeup</button>
+            <button class="category-btn" data-category="party">Party Makeup</button>
+            <button class="category-btn" data-category="mehndi">Mehndi Designs</button>
+        </div>
+        <div class="gallery-grid" id="gallery-grid">
+            <!-- Gallery will be populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="section">
+        <h2 class="section-title">Packages & Pricing</h2>
+        <div class="packages-grid">
+            <div class="package-card">
+                <div class="package-header">
+                    <h3>Basic Package</h3>
+                    <div class="package-price">₹3,000</div>
+                    <div>Party / Light Makeup</div>
+                </div>
+                <div class="package-content">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Light makeup look</li>
+                        <li><i class="fas fa-check"></i> Simple touch-up</li>
+                        <li><i class="fas fa-clock"></i> Duration: 1–2 hours</li>
+                    </ul>
+                    <p style="color: var(--gray);">👉 Best for small events / functions</p>
+                </div>
             </div>
-            <h1 id="name">Ubaid Bilal</h1>
-            <div id="typed-text"></div>
-            <div class="status" id="status">🟢 Available for freelance work</div>
-            <p class="bio" id="bio">Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳</p>
-            <div class="social-links">
-                <a href="https://github.com/ciperpy" target="_blank" class="social-btn"><i class="fab fa-github"></i> <span id="github-text">GitHub</span></a>
-                <a href="https://t.me/CiPeRPY" target="_blank" class="social-btn"><i class="fab fa-telegram"></i> <span id="telegram-text">Telegram</span></a>
-                <a href="https://twitter.com/UbaidUbaid40427" target="_blank" class="social-btn"><i class="fab fa-twitter"></i> <span id="twitter-text">Twitter</span></a>
-                <button class="social-btn" id="copyEmailBtn"><i class="far fa-envelope"></i> ubaidbilal957@gmail.com</button>
+
+            <div class="package-card">
+                <div class="package-header" style="background: var(--secondary); color: var(--primary-dark);">
+                    <h3>Standard Package</h3>
+                    <div class="package-price">₹4,000</div>
+                    <div>Engagement / Occasion Makeup</div>
+                    <span class="popular-badge">🔥 Most Popular Choice</span>
+                </div>
+                <div class="package-content">
+                    <ul>
+                        <li><i class="fas fa-check"></i> HD makeup</li>
+                        <li><i class="fas fa-check"></i> Basic mehndi (hands)</li>
+                        <li><i class="fas fa-check"></i> Long-lasting finish</li>
+                        <li><i class="fas fa-clock"></i> Duration: 2–3 hours</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-header">
+                    <h3>Premium Bridal Package</h3>
+                    <div class="package-price">₹5,000</div>
+                    <div>Full Bridal Makeup</div>
+                </div>
+                <div class="package-content">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Full HD / Bridal makeup</li>
+                        <li><i class="fas fa-check"></i> Detailed bridal mehndi</li>
+                        <li><i class="fas fa-check"></i> Premium products used</li>
+                        <li><i class="fas fa-check"></i> Complete look consultation</li>
+                        <li><i class="fas fa-clock"></i> Duration: 3–5 hours</li>
+                    </ul>
+                    <p style="color: var(--gray); margin-top: 1rem;">👉 Perfect for wedding day 👑</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-            <div class="section-title" id="skills-title">⚡ Technical Skills</div>
-            <div class="skills-grid" id="skills-grid"></div>
+    <!-- Booking Section -->
+    <section id="booking" class="section" style="background: var(--secondary-light);">
+        <h2 class="section-title">Book Your Appointment</h2>
+        <div class="booking-container">
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label>Select Service</label>
+                    <select id="service" required>
+                        <option value="">Choose a service</option>
+                        <option value="Basic Package - ₹3,000 (Party/Light Makeup)">Basic Package - ₹3,000 (Party/Light Makeup)</option>
+                        <option value="Standard Package - ₹4,000 (Engagement/Occasion Makeup + Basic Mehndi)">Standard Package - ₹4,000 (Engagement/Occasion Makeup + Basic Mehndi)</option>
+                        <option value="Premium Bridal Package - ₹5,000 (Full Bridal Makeup + Detailed Mehndi)">Premium Bridal Package - ₹5,000 (Full Bridal Makeup + Detailed Mehndi)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Select Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name" placeholder="Your full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label>Additional Notes (Optional)</label>
+                    <textarea id="notes" rows="3" placeholder="Any special requests?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Book Now</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem;">✨ You'll receive a confirmation shortly ✨</p>
         </div>
+    </section>
 
-        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
-            <div class="section-title" id="projects-title">📂 Featured Projects</div>
-            <div class="projects-grid" id="projectsGrid"></div>
-        </div>
-
-        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
-            <div class="section-title" id="contact-title">📩 Get in Touch</div>
-            <div class="contact-form">
-                <form id="contactForm">
-                    <div class="form-group">
-                        <input type="text" id="contact-name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="contact-email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="contact-message" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn" id="send-btn">Send Message</button>
-                </form>
-                <div id="form-status" class="form-status"></div>
+    <!-- Reviews Section -->
+    <section id="reviews" class="section">
+        <h2 class="section-title">Client Love</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-text">"Absolutely loved my bridal makeup! Suriya made me look like a princess on my wedding day. The mehndi was so beautiful. Highly recommended!"</div>
+                <div class="review-name">- Fatima Ahmed</div>
+            </div>
+            <div class="review-card">
+                <div class="review-text">"The mehndi designs were so intricate and beautiful. Very professional and punctual service. Made my engagement day extra special."</div>
+                <div class="review-name">- Ayesha Khan</div>
+            </div>
+            <div class="review-card">
+                <div class="review-text">"Best makeup and mehndi artist in Budgam! My wedding look was perfect. Suriya is so talented and made me feel beautiful. Thank you!"</div>
+                <div class="review-name">- Zainab Ahmad</div>
+            </div>
+            <div class="review-card">
+                <div class="review-text">"Amazing work! The bridal makeup lasted all day and the mehndi design was exactly what I wanted. Very happy with the service."</div>
+                <div class="review-name">- Mariyam Hassan</div>
+            </div>
+            <div class="review-card">
+                <div class="review-text">"Suriya is so skilled and professional. She understood exactly what I wanted and delivered beyond expectations. Highly recommend her services!"</div>
+                <div class="review-name">- Safiya Bhat</div>
+            </div>
+            <div class="review-card">
+                <div class="review-text">"The attention to detail in both makeup and mehndi was incredible. Felt like a queen on my special day. Thank you Suriya!"</div>
+                <div class="review-name">- Hadiya Mir</div>
             </div>
         </div>
+    </section>
 
-        <div class="footer" data-aos="fade-up" data-aos-duration="600">
-            <span id="footer-text">📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding</span>
-            <div>👁️ <span id="visitorCount">0</span> <span id="visitor-text">visitors</span></div>
-        </div>
-    </div>
-</div>
-
-<button class="whatsapp-float" id="whatsappBtn">
-    <i class="fab fa-whatsapp"></i>
-</button>
-
-<div class="ai-chatbot" id="aiChatbot">
-    <button class="chat-toggle" id="chatToggle">
-        <i class="fas fa-robot"></i>
-    </button>
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h3><i class="fas fa-robot"></i> Ubaid's AI Assistant</h3>
-            <button class="close-chat" id="closeChat">✖</button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="message bot-message">
-                👋 Assalamualikum! I'm Ubaid's AI assistant. Ask me anything about Ubaid - his skills, projects, services, or just say hi!
+    <!-- Video Section -->
+    <section id="videos" class="section" style="background: var(--secondary-light);">
+        <h2 class="section-title">Instagram Reels</h2>
+        <div class="videos-grid">
+            <div class="video-card">
+                <iframe src="https://www.instagram.com/p/DWjj-NKkU64/embed" frameborder="0"></iframe>
+            </div>
+            <div class="video-card">
+                <iframe src="https://www.instagram.com/p/DSKjwqyEXba/embed" frameborder="0"></iframe>
+            </div>
+            <div class="video-card">
+                <iframe src="https://www.instagram.com/p/DPYMXg4EQWY/embed" frameborder="0"></iframe>
+            </div>
+            <div class="video-card">
+                <iframe src="https://www.instagram.com/p/DOPvrpIkclV/embed" frameborder="0"></iframe>
             </div>
         </div>
-        <div class="typing-indicator" id="typingIndicator">
-            <span></span><span></span><span></span>
+        <p style="text-align: center; margin-top: 2rem;">📸 Follow us on Instagram: <strong>@mehandi_art_by_suriya</strong></p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>+91 6005644125</div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>ubaidbilal957@gmail.com</div>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <div>@mehandi_art_by_suriya</div>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <div>+91 7006336467 (WhatsApp)</div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>Pethmakhama Magam, Budgam, Jammu and Kashmir</div>
+                </div>
+            </div>
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=Budgam%2C%20Jammu%20and%20Kashmir&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
-        <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything about Ubaid...">
-            <button class="send-btn" id="sendChatBtn">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
-</div>
+    </section>
 
-<button class="scroll-top" id="scrollTopBtn"><i class="fas fa-arrow-up"></i></button>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 Suriya's Bridal Studio. All rights reserved. | Bringing your dream bridal look to life ✨</p>
+    </footer>
 
-<div id="notificationToast" class="notification-toast">
-    <span class="close-notif" onclick="this.parentElement.classList.remove('show')">✖</span>
-    <div class="title" id="toastTitle">New Message</div>
-    <div class="message" id="toastMessage">You have a new notification!</div>
-</div>
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/917006336467?text=Hi%2C%20I%20want%20to%20book%20a%20service.%20Please%20share%20details." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    // Initialize AOS
-    AOS.init({
-        duration: 800,
-        once: false,
-        offset: 100,
-        easing: 'cubic-bezier(0.2, 0.9, 0.4, 1.1)'
-    });
-
-    // ============================================
-    // WHATSAPP DIRECT CHAT
-    // ============================================
-    const whatsappBtn = document.getElementById('whatsappBtn');
-    whatsappBtn.addEventListener('click', () => {
-        const phoneNumber = "919906454782";
-        const message = encodeURIComponent("Hi Ubaid! I saw your portfolio and wanted to connect.");
-        window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-    });
-
-    // ============================================
-    // RECEIVE NOTIFICATIONS FROM ADMIN PANEL
-    // ============================================
-
-    function showNotification(title, message, type = 'info') {
-        const toast = document.getElementById('notificationToast');
-        const toastTitle = document.getElementById('toastTitle');
-        const toastMessage = document.getElementById('toastMessage');
-
-        toastTitle.innerText = title;
-        toastMessage.innerText = message;
-
-        let borderColor = '#3b82f6';
-        if (type === 'success') borderColor = '#10b981';
-        if (type === 'warning') borderColor = '#f59e0b';
-        if (type === 'new') borderColor = '#8b5cf6';
-        toast.style.borderLeftColor = borderColor;
-
-        toast.classList.add('show');
-
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 5000);
-
-        if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification(title, { body: message });
+    <script>
+        // ADMIN PANEL CODE
+        const ADMIN_PASSWORD = "098321opop";
+        let galleryPhotos = [];
+        
+        // Initialize gallery from localStorage
+        function initGallery() {
+            const saved = localStorage.getItem('suriya_gallery');
+            if(saved) {
+                galleryPhotos = JSON.parse(saved);
+            } else {
+                // Default photos
+                galleryPhotos = [
+                    { id: Date.now() + 1, url: 'https://images.unsplash.com/photo-1605496036006-fa2e0e6b7b4b?w=400', category: 'bridal', title: 'Bridal Makeup' },
+                    { id: Date.now() + 2, url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400', category: 'party', title: 'Party Makeup' },
+                    { id: Date.now() + 3, url: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400', category: 'bridal', title: 'Bridal Look' },
+                    { id: Date.now() + 4, url: 'https://images.unsplash.com/photo-1588392382834-89c6b12b0ddb?w=400', category: 'mehndi', title: 'Mehndi Design' },
+                    { id: Date.now() + 5, url: 'https://images.unsplash.com/photo-1594568284297-7c64464062b1?w=400', category: 'mehndi', title: 'Bridal Mehndi' },
+                    { id: Date.now() + 6, url: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400', category: 'mehndi', title: 'Traditional Mehndi' }
+                ];
+                saveGallery();
+            }
+            displayGalleryOnSite();
         }
-    }
-
-    function checkForNewNotifications() {
-        const pendingNotif = localStorage.getItem('pendingNotification');
-        if (pendingNotif) {
-            const notification = JSON.parse(pendingNotif);
-
-            showNotification(notification.title, notification.message, notification.type);
-
-            if (notification.link) {
-                const toast = document.getElementById('notificationToast');
-                toast.style.cursor = 'pointer';
-                toast.onclick = () => {
-                    window.open(notification.link, '_blank');
-                    toast.style.cursor = 'default';
-                    toast.onclick = null;
+        
+        function saveGallery() {
+            localStorage.setItem('suriya_gallery', JSON.stringify(galleryPhotos));
+        }
+        
+        function displayGalleryOnSite() {
+            const currentCategory = document.querySelector('.category-btn.active')?.dataset.category || 'all';
+            let filtered = galleryPhotos;
+            if(currentCategory !== 'all') {
+                filtered = galleryPhotos.filter(p => p.category === currentCategory);
+            }
+            
+            const grid = document.getElementById('gallery-grid');
+            if(grid) {
+                grid.innerHTML = filtered.map(photo => `
+                    <div class="gallery-item">
+                        <img src="${photo.url}" alt="${photo.title}">
+                        <div class="gallery-overlay">
+                            <p>✨ ${photo.title}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // Check for admin access
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('admin') === 'true') {
+            showAdminLogin();
+        }
+        
+        function showAdminLogin() {
+            const loginDiv = document.createElement('div');
+            loginDiv.className = 'admin-login';
+            loginDiv.innerHTML = `
+                <div class="admin-box">
+                    <h2 style="color: var(--primary); margin-bottom: 1rem;">Admin Login</h2>
+                    <input type="password" id="adminPassword" placeholder="Enter Password" style="width: 100%; padding: 10px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 10px;">
+                    <button onclick="checkAdminPassword()" class="btn btn-primary" style="width: 100%;">Login</button>
+                </div>
+            `;
+            document.body.appendChild(loginDiv);
+        }
+        
+        window.checkAdminPassword = function() {
+            const password = document.getElementById('adminPassword').value;
+            if(password === ADMIN_PASSWORD) {
+                document.querySelector('.admin-login').remove();
+                showAdminDashboard();
+            } else {
+                alert('Wrong password!');
+            }
+        }
+        
+        function showAdminDashboard() {
+            const dashboard = document.createElement('div');
+            dashboard.className = 'admin-dashboard';
+            dashboard.innerHTML = `
+                <div class="admin-box">
+                    <div class="admin-header">
+                        <h2 style="color: var(--primary);">Admin Dashboard</h2>
+                        <button onclick="closeAdmin()" class="close-admin" style="background: #dc3545;">Close</button>
+                    </div>
+                    
+                    <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--secondary);"></i>
+                        <p>Click to upload photo</p>
+                        <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="uploadPhoto(this)">
+                    </div>
+                    
+                    <div style="margin: 1rem 0;">
+                        <label>Category:</label>
+                        <select id="uploadCategory" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 10px;">
+                            <option value="bridal">Bridal Makeup</option>
+                            <option value="party">Party Makeup</option>
+                            <option value="mehndi">Mehndi Designs</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin: 1rem 0;">
+                        <label>Title:</label>
+                        <input type="text" id="uploadTitle" placeholder="Photo title" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 10px;">
+                    </div>
+                    
+                    <h3 style="margin: 1rem 0;">Manage Gallery (${galleryPhotos.length} photos)</h3>
+                    <div id="adminGalleryGrid" class="admin-gallery-grid"></div>
+                    
+                    <button onclick="exportPhotos()" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">📥 Export Photos (Backup)</button>
+                    <button onclick="importPhotos()" class="btn btn-outline" style="margin-top: 0.5rem; width: 100%; background: var(--secondary-light);">📤 Import Photos (Restore)</button>
+                </div>
+            `;
+            document.body.appendChild(dashboard);
+            refreshAdminGallery();
+        }
+        
+        window.refreshAdminGallery = function() {
+            const grid = document.getElementById('adminGalleryGrid');
+            if(grid) {
+                grid.innerHTML = galleryPhotos.map(photo => `
+                    <div class="admin-gallery-item">
+                        <img src="${photo.url}" alt="${photo.title}">
+                        <button class="delete-btn" onclick="deletePhoto(${photo.id})">×</button>
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: white; padding: 5px; font-size: 10px; text-align: center;">
+                            ${photo.title}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        window.uploadPhoto = function(input) {
+            const file = input.files[0];
+            if(file) {
+                const category = document.getElementById('uploadCategory').value;
+                const title = document.getElementById('uploadTitle').value || 'Beautiful Work';
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newPhoto = {
+                        id: Date.now(),
+                        url: e.target.result,
+                        category: category,
+                        title: title
+                    };
+                    galleryPhotos.push(newPhoto);
+                    saveGallery();
+                    displayGalleryOnSite();
+                    refreshAdminGallery();
+                    alert('Photo uploaded successfully!');
+                    document.getElementById('uploadTitle').value = '';
                 };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        window.deletePhoto = function(id) {
+            if(confirm('Are you sure you want to delete this photo?')) {
+                galleryPhotos = galleryPhotos.filter(p => p.id !== id);
+                saveGallery();
+                displayGalleryOnSite();
+                refreshAdminGallery();
+                alert('Photo deleted!');
+            }
+        }
+        
+        window.closeAdmin = function() {
+            document.querySelector('.admin-dashboard').remove();
+        }
+        
+        window.exportPhotos = function() {
+            const data = JSON.stringify(galleryPhotos);
+            const blob = new Blob([data], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'suriya_gallery_backup.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            alert('Backup downloaded! Keep this file safe.');
+        }
+        
+        window.importPhotos = function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    try {
+                        const imported = JSON.parse(ev.target.result);
+                        galleryPhotos = imported;
+                        saveGallery();
+                        displayGalleryOnSite();
+                        refreshAdminGallery();
+                        alert('Photos imported successfully!');
+                    } catch(err) {
+                        alert('Invalid backup file!');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+        
+        // Category buttons
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                displayGalleryOnSite();
+            });
+        });
+        
+        // Booking Form
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const service = document.getElementById('service').value;
+            const date = document.getElementById('date').value;
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const notes = document.getElementById('notes').value;
+
+            if(!service || !date || !name || !phone) {
+                alert('Please fill all required fields!');
+                return;
             }
 
-            localStorage.removeItem('pendingNotification');
-        }
-    }
-
-    // Request notification permission on load
-    if ('Notification' in window && Notification.permission !== 'denied') {
-        Notification.requestPermission();
-    }
-
-    setInterval(checkForNewNotifications, 2000);
-    checkForNewNotifications();
-
-    // ============================================
-    // AI ASSISTANT
-    // ============================================
-
-    const knowledgeBase = {
-        name: "Ubaid Bilal",
-        fullName: "Ubaid Bilal",
-        role: "Full Stack Developer",
-        experience: "3+ years",
-        location: "Magam, Budgam, Jammu & Kashmir, India",
-        studentStatus: "I am a student and a passionate developer",
-        passion: "Open source, clean code, and teaching others",
-
-        skills: [
-            { name: "React", level: "90%" },
-            { name: "JavaScript/TypeScript", level: "85%" },
-            { name: "Python", level: "80%" },
-            { name: "Node.js", level: "85%" }
-        ],
-
-        contact: {
-            email: "ubaidbilal957@gmail.com",
-            github: "github.com/ciperpy",
-            telegram: "t.me/CiPeRPY",
-            twitter: "twitter.com/UbaidUbaid40427"
-        },
-
-        projects: [
-            { name: "DevConnect Hub", description: "Platform for developers to collaborate", stars: "500+" },
-            { name: "WeatherSnap", description: "Real-time weather app", stars: "234" },
-            { name: "Telegram Bot Studio", description: "Automation toolkit", stars: "189" }
-        ]
-    };
-
-    function getAIResponse(userMessage) {
-        const message = userMessage.toLowerCase();
-
-        if (message.match(/hi|hello|hey|salaam/)) {
-            return "👋 Assalamualikum! Welcome! I'm Ubaid's AI assistant. How can I help you today?";
-        }
-        if (message.match(/who are you|about ubaid/)) {
-            return `👨‍💻 I'm ${knowledgeBase.name}, a ${knowledgeBase.role} with ${knowledgeBase.experience} of experience. I'm based in ${knowledgeBase.location}.`;
-        }
-        if (message.match(/skills|technologies/)) {
-            let skillsList = knowledgeBase.skills.map(s => `${s.name} (${s.level})`).join(", ");
-            return `🎯 I have expertise in: ${skillsList}`;
-        }
-        if (message.match(/projects/)) {
-            let projectsList = knowledgeBase.projects.map(p => `• ${p.name}: ${p.description} (⭐ ${p.stars} stars)`).join("\n");
-            return `📂 Here are my featured projects:\n${projectsList}`;
-        }
-        if (message.match(/contact|email/)) {
-            return `📱 Connect with me:\n• Email: ${knowledgeBase.contact.email}\n• GitHub: ${knowledgeBase.contact.github}\n• Telegram: ${knowledgeBase.contact.telegram}`;
-        }
-        if (message.match(/how are you/)) {
-            return "😎 Main thik hu bhai! Coding kar raha hu, chai pee raha hu. Aap batao?";
-        }
-        if (message.match(/joke|funny/)) {
-            return "Why do programmers prefer dark mode? Because light attracts bugs! 🐛";
-        }
-        if (message.match(/chai|tea/)) {
-            return "☕ Chai pilo aur code karo! Main bhi chai ke bina kaam nahi kar sakta!";
-        }
-
-        return `I'm here to help you learn about ${knowledgeBase.name}! Ask me about his skills, projects, or contact info.`;
-    }
-
-    // Private chat session
-    function getUniqueSessionId() {
-        let sessionId = sessionStorage.getItem('chatSessionId');
-        if (!sessionId) {
-            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            sessionStorage.setItem('chatSessionId', sessionId);
-        }
-        return sessionId;
-    }
-
-    const sessionId = getUniqueSessionId();
-    let chatHistory = JSON.parse(sessionStorage.getItem(`chatHistory_${sessionId}`) || '[]');
-
-    const chatToggleBtn = document.getElementById('chatToggle');
-    const chatWindow = document.getElementById('chatWindow');
-    const closeChat = document.getElementById('closeChat');
-    const chatInput = document.getElementById('chatInput');
-    const sendChatBtn = document.getElementById('sendChatBtn');
-    const chatMessagesDiv = document.getElementById('chatMessages');
-    const typingIndicator = document.getElementById('typingIndicator');
-
-    function loadChatHistory() {
-        chatMessagesDiv.innerHTML = '';
-        if (chatHistory.length === 0) {
-            const welcomeMsg = document.createElement('div');
-            welcomeMsg.className = 'message bot-message';
-            welcomeMsg.innerHTML = '👋 Assalamualikum! I\'m Ubaid\'s AI assistant. Ask me anything!';
-            chatMessagesDiv.appendChild(welcomeMsg);
-        } else {
-            chatHistory.forEach(msg => {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${msg.isUser ? 'user-message' : 'bot-message'}`;
-                messageDiv.innerHTML = msg.text.replace(/\n/g, '<br>');
-                chatMessagesDiv.appendChild(messageDiv);
-            });
-        }
-        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-    }
-
-    function saveMessage(text, isUser) {
-        chatHistory.push({ text, isUser });
-        if (chatHistory.length > 50) chatHistory.shift();
-        sessionStorage.setItem(`chatHistory_${sessionId}`, JSON.stringify(chatHistory));
-    }
-
-    function addMessage(text, isUser = false) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
-        messageDiv.innerHTML = text.replace(/\n/g, '<br>');
-        chatMessagesDiv.appendChild(messageDiv);
-        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-        saveMessage(text, isUser);
-    }
-
-    async function handleUserMessage() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-
-        addMessage(message, true);
-        chatInput.value = '';
-
-        typingIndicator.style.display = 'flex';
-
-        setTimeout(() => {
-            typingIndicator.style.display = 'none';
-            const response = getAIResponse(message);
-            addMessage(response, false);
-        }, 600);
-    }
-
-    // Draggable AI Chatbot
-    const aiChatbot = document.getElementById('aiChatbot');
-    let isDraggingAI = false;
-    let startAIX, startAIY, initialAIX, initialAIY;
-    let dragAIStarted = false;
-
-    const savedAILeft = localStorage.getItem('aiChatbotLeft');
-    const savedAITop = localStorage.getItem('aiChatbotTop');
-    if (savedAILeft && savedAITop) {
-        aiChatbot.style.left = savedAILeft;
-        aiChatbot.style.top = savedAITop;
-        aiChatbot.style.right = 'auto';
-        aiChatbot.style.bottom = 'auto';
-    }
-
-    function startAIDrag(e) {
-        e.preventDefault();
-        isDraggingAI = true;
-        dragAIStarted = false;
-        const rect = aiChatbot.getBoundingClientRect();
-        initialAIX = rect.left;
-        initialAIY = rect.top;
-        if (e.touches) {
-            startAIX = e.touches[0].clientX;
-            startAIY = e.touches[0].clientY;
-        } else {
-            startAIX = e.clientX;
-            startAIY = e.clientY;
-        }
-        chatToggleBtn.classList.add('dragging');
-        document.addEventListener('mousemove', onAIDrag);
-        document.addEventListener('mouseup', stopAIDrag);
-        document.addEventListener('touchmove', onAIDrag, { passive: false });
-        document.addEventListener('touchend', stopAIDrag);
-    }
-
-    function onAIDrag(e) {
-        if (!isDraggingAI) return;
-        e.preventDefault();
-        let currentX, currentY;
-        if (e.touches) {
-            currentX = e.touches[0].clientX;
-            currentY = e.touches[0].clientY;
-        } else {
-            currentX = e.clientX;
-            currentY = e.clientY;
-        }
-        const dx = currentX - startAIX;
-        const dy = currentY - startAIY;
-        if (!dragAIStarted && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) dragAIStarted = true;
-        let newLeft = initialAIX + dx;
-        let newTop = initialAIY + dy;
-        const maxLeft = window.innerWidth - aiChatbot.offsetWidth - 10;
-        const maxTop = window.innerHeight - aiChatbot.offsetHeight - 10;
-        newLeft = Math.max(10, Math.min(newLeft, maxLeft));
-        newTop = Math.max(10, Math.min(newTop, maxTop));
-        aiChatbot.style.left = newLeft + 'px';
-        aiChatbot.style.top = newTop + 'px';
-        aiChatbot.style.right = 'auto';
-        aiChatbot.style.bottom = 'auto';
-        initialAIX = newLeft;
-        initialAIY = newTop;
-        startAIX = currentX;
-        startAIY = currentY;
-    }
-
-    function stopAIDrag(e) {
-        if (!isDraggingAI) return;
-        isDraggingAI = false;
-        chatToggleBtn.classList.remove('dragging');
-        localStorage.setItem('aiChatbotLeft', aiChatbot.style.left);
-        localStorage.setItem('aiChatbotTop', aiChatbot.style.top);
-        document.removeEventListener('mousemove', onAIDrag);
-        document.removeEventListener('mouseup', stopAIDrag);
-        document.removeEventListener('touchmove', onAIDrag);
-        document.removeEventListener('touchend', stopAIDrag);
-        if (!dragAIStarted) {
-            chatWindow.classList.toggle('active');
-            if (chatWindow.classList.contains('active')) chatInput.focus();
-        }
-        dragAIStarted = false;
-    }
-
-    chatToggleBtn.addEventListener('mousedown', startAIDrag);
-    chatToggleBtn.addEventListener('touchstart', startAIDrag, { passive: false });
-    chatToggleBtn.style.cursor = 'grab';
-
-    closeChat.addEventListener('click', () => {
-        chatWindow.classList.remove('active');
-    });
-
-    sendChatBtn.addEventListener('click', handleUserMessage);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleUserMessage();
-    });
-
-    loadChatHistory();
-
-    // Language translations
-    const translations = {
-        en: { name: "Ubaid Bilal", status: "🟢 Available for freelance work", bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳", github: "GitHub", telegram: "Telegram", twitter: "Twitter", skillsTitle: "⚡ Technical Skills", projectsTitle: "📂 Featured Projects", contactTitle: "📩 Get in Touch", sendBtn: "Send Message", footer: "📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding", visitors: "visitors", contactName: "Your Name", contactEmail: "Your Email", contactMessage: "Your Message" },
-        hi: { name: "उबैद बिलाल", status: "🟢 फ्रीलांस काम के लिए उपलब्ध", bio: "फुल-स्टैक डेवलपर जिसके पास 3+ साल का अनुभव है। मगाम, बडगाम, जम्मू और कश्मीर, भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", skillsTitle: "⚡ तकनीकी कौशल", projectsTitle: "📂 प्रोजेक्ट्स", contactTitle: "📩 संपर्क करें", sendBtn: "संदेश भेजें", footer: "📍 मगाम, बडगाम, जम्मू और कश्मीर · 🚀 3+ साल का कोडिंग अनुभव", visitors: "आगंतुक", contactName: "आपका नाम", contactEmail: "आपका ईमेल", contactMessage: "आपका संदेश" },
-        ur: { name: "عبید بلال", status: "🟢 فری لانس کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 3+ سال کا تجربہ ہے۔ ماگام، بڈگام، جموں و کشمیر، انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", skillsTitle: "⚡ تکنیکی مہارتیں", projectsTitle: "📂 منصوبے", contactTitle: "📩 رابطہ کریں", sendBtn: "پیغام بھیجیں", footer: "📍 ماگام، بڈگام، جموں و کشمیر · 🚀 3+ سال کوڈنگ", visitors: "ملاقاتی", contactName: "آپ کا نام", contactEmail: "آپ کا ای میل", contactMessage: "آپ کا پیغام" }
-    };
-
-    function updateLanguage(lang) {
-        const t = translations[lang];
-        document.getElementById('name').innerText = t.name;
-        document.getElementById('status').innerText = t.status;
-        document.getElementById('bio').innerText = t.bio;
-        document.getElementById('github-text').innerText = t.github;
-        document.getElementById('telegram-text').innerText = t.telegram;
-        document.getElementById('twitter-text').innerText = t.twitter;
-        document.getElementById('skills-title').innerText = t.skillsTitle;
-        document.getElementById('projects-title').innerText = t.projectsTitle;
-        document.getElementById('contact-title').innerText = t.contactTitle;
-        document.getElementById('send-btn').innerHTML = t.sendBtn;
-        document.getElementById('footer-text').innerHTML = t.footer;
-        document.getElementById('visitor-text').innerText = t.visitors;
-        document.getElementById('contact-name').placeholder = t.contactName;
-        document.getElementById('contact-email').placeholder = t.contactEmail;
-        document.getElementById('contact-message').placeholder = t.contactMessage;
-    }
-
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            updateLanguage(btn.dataset.lang);
+            const formattedDate = new Date(date).toLocaleDateString('en-IN');
+            const message = `*New Booking Request from Website*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Service:* ${service}%0A*Date:* ${formattedDate}%0A*Notes:* ${notes || 'None'}%0A%0APlease confirm availability.`;
+            const whatsappUrl = `https://wa.me/917006336467?text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+            alert('✓ Booking request sent! You will be redirected to WhatsApp for confirmation.');
+            this.reset();
         });
-    });
-
-    // Dark mode
-    const themeToggleBtn = document.getElementById('themeToggle');
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark');
-        themeToggleBtn.innerHTML = '☀️ Light Mode';
-    }
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        const isDark = document.body.classList.contains('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        themeToggleBtn.innerHTML = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
-    });
-
-    // Scroll to top
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => scrollTopBtn.classList.toggle('show', window.scrollY > 300));
-    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // Copy email
-    document.getElementById('copyEmailBtn').addEventListener('click', () => {
-        navigator.clipboard.writeText('ubaidbilal957@gmail.com');
-        const statusDiv = document.getElementById('form-status');
-        statusDiv.innerHTML = '📋 Email copied to clipboard!';
-        statusDiv.className = 'form-status success';
-        setTimeout(() => {
-            statusDiv.innerHTML = '';
-            statusDiv.className = 'form-status';
-        }, 3000);
-    });
-
-    // Visitor counter
-    let count = localStorage.getItem('pageViewCount');
-    count = count ? Number(count) + 1 : 1;
-    localStorage.setItem('pageViewCount', count);
-    document.getElementById('visitorCount').innerText = count;
-
-    // Skills
-    const skills = [
-        { name: 'React', percent: 90, icon: 'fab fa-react' },
-        { name: 'JavaScript/TS', percent: 85, icon: 'fab fa-js' },
-        { name: 'Python', percent: 80, icon: 'fab fa-python' },
-        { name: 'Node.js', percent: 85, icon: 'fab fa-node' }
-    ];
-
-    function renderSkills() {
-        const grid = document.getElementById('skills-grid');
-        grid.innerHTML = skills.map(s => `
-            <div class="skill-item" data-aos="fade-up" data-aos-duration="600">
-                <div class="skill-header"><i class="${s.icon}"></i> ${s.name}</div>
-                <div class="progress-bar"><div class="progress-fill" data-percent="${s.percent}"></div></div>
-                <div class="skill-percent">${s.percent}%</div>
-            </div>
-        `).join('');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const fills = entry.target.querySelectorAll('.progress-fill');
-                    fills.forEach(fill => {
-                        const percent = fill.getAttribute('data-percent');
-                        fill.style.width = percent + '%';
-                    });
-                    observer.unobserve(entry.target);
+        
+        // Mobile menu
+        document.querySelector('.menu-btn').addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // Set min date
+        const today = new Date().toISOString().split('T')[0];
+        if(document.getElementById('date')) {
+            document.getElementById('date').min = today;
+        }
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
-        }, { threshold: 0.3 });
-
-        document.querySelectorAll('.skills-grid').forEach(grid => observer.observe(grid));
-    }
-    renderSkills();
-
-    // Projects
-    const projects = [
-        { title: 'DevConnect Hub', desc: 'Platform for developers to collaborate', tech: ['React', 'Node.js'], icon: '🌐', stars: 523 },
-        { title: 'WeatherSnap', desc: 'Real-time weather app', tech: ['JS', 'API'], icon: '⛅', stars: 234 },
-        { title: 'Telegram Bot Studio', desc: 'Automation toolkit', tech: ['Python'], icon: '🤖', stars: 189 }
-    ];
-
-    function renderProjects() {
-        const grid = document.getElementById('projectsGrid');
-        grid.innerHTML = projects.map((p, index) => `
-            <div class="project-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="${index * 100}">
-                <div class="project-img">${p.icon}</div>
-                <div class="project-title">${p.title} ⭐ ${p.stars}</div>
-                <div class="project-desc">${p.desc}</div>
-                <div class="tech-stack">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
-            </div>
-        `).join('');
-    }
-    renderProjects();
-
-    // Typed effect
-    new Typed('#typed-text', {
-        strings: ['Full Stack Developer', 'Open Source Contributor', 'Tech Writer', 'Student & Developer'],
-        typeSpeed: 50,
-        backSpeed: 30,
-        loop: true,
-        backDelay: 2000
-    });
-
-    // Contact Form with EmailJS
-    (function() {
-        emailjs.init("VK8ZgP1FVGkSJ8Y0G");
-    })();
-
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const name = document.getElementById('contact-name').value;
-        const email = document.getElementById('contact-email').value;
-        const message = document.getElementById('contact-message').value;
-        const statusDiv = document.getElementById('form-status');
-
-        statusDiv.innerHTML = 'Sending message... 📧';
-        statusDiv.className = 'form-status';
-
-        emailjs.send("service_ubaid", "template_ubaid", {
-            from_name: name,
-            from_email: email,
-            message: message,
-            to_email: "ubaidbilal957@gmail.com"
-        }).then(function(response) {
-            statusDiv.innerHTML = '✅ Message sent successfully! I\'ll get back to you soon.';
-            statusDiv.className = 'form-status success';
-            document.getElementById('contactForm').reset();
-            setTimeout(() => {
-                statusDiv.innerHTML = '';
-                statusDiv.className = 'form-status';
-            }, 5000);
-        }, function(error) {
-            statusDiv.innerHTML = '❌ Failed to send. Please email me directly at ubaidbilal957@gmail.com';
-            statusDiv.className = 'form-status error';
         });
-    });
-
-    // Welcome notification
-    setTimeout(() => {
-        showNotification('Welcome! 🎉', 'Ask me anything about Ubaid or check out his projects!', 'info');
-    }, 2000);
-</script>
+        
+        // Initialize
+        initGallery();
+    </script>
 </body>
 </html>
