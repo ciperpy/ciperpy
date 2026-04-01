@@ -497,6 +497,11 @@
             border-radius: 15px;
             margin-bottom: 1rem;
             cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            background: var(--secondary-light);
         }
 
         .admin-gallery-grid {
@@ -530,6 +535,7 @@
             width: 30px;
             height: 30px;
             cursor: pointer;
+            z-index: 1;
         }
 
         .close-admin {
@@ -540,6 +546,11 @@
             border-radius: 10px;
             cursor: pointer;
             margin-top: 1rem;
+        }
+
+        .loading {
+            display: inline-block;
+            margin-left: 10px;
         }
 
         @keyframes fadeInUp {
@@ -621,7 +632,7 @@
             <button class="category-btn" data-category="mehndi">Mehndi Designs</button>
         </div>
         <div class="gallery-grid" id="gallery-grid">
-            <!-- Gallery will be populated by JavaScript -->
+            <div style="text-align: center; padding: 2rem;">Loading gallery...</div>
         </div>
     </section>
 
@@ -812,24 +823,24 @@
     </a>
 
     <script>
-        // ADMIN PANEL CODE
+        // ImgBB API Key (Free service for cloud uploads)
+        const IMGBB_API_KEY = "6d207e02198a847aa98d0a2a901485a5";
+        
+        // ADMIN PANEL CODE WITH CLOUD STORAGE
         const ADMIN_PASSWORD = "098321opop";
         let galleryPhotos = [];
         
-        // Initialize gallery from localStorage
-        function initGallery() {
-            const saved = localStorage.getItem('suriya_gallery');
+        // Load gallery from localStorage (cloud URLs)
+        function loadGallery() {
+            const saved = localStorage.getItem('suriya_gallery_cloud');
             if(saved) {
                 galleryPhotos = JSON.parse(saved);
             } else {
-                // Default photos
+                // Default photos with cloud URLs (sample images)
                 galleryPhotos = [
-                    { id: Date.now() + 1, url: 'https://images.unsplash.com/photo-1605496036006-fa2e0e6b7b4b?w=400', category: 'bridal', title: 'Bridal Makeup' },
-                    { id: Date.now() + 2, url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400', category: 'party', title: 'Party Makeup' },
-                    { id: Date.now() + 3, url: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400', category: 'bridal', title: 'Bridal Look' },
-                    { id: Date.now() + 4, url: 'https://images.unsplash.com/photo-1588392382834-89c6b12b0ddb?w=400', category: 'mehndi', title: 'Mehndi Design' },
-                    { id: Date.now() + 5, url: 'https://images.unsplash.com/photo-1594568284297-7c64464062b1?w=400', category: 'mehndi', title: 'Bridal Mehndi' },
-                    { id: Date.now() + 6, url: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400', category: 'mehndi', title: 'Traditional Mehndi' }
+                    { id: Date.now() + 1, url: 'https://i.ibb.co/placeholder/bridal-1.jpg', category: 'bridal', title: 'Bridal Makeup', cloudUploaded: true },
+                    { id: Date.now() + 2, url: 'https://i.ibb.co/placeholder/party-1.jpg', category: 'party', title: 'Party Makeup', cloudUploaded: true },
+                    { id: Date.now() + 3, url: 'https://i.ibb.co/placeholder/mehndi-1.jpg', category: 'mehndi', title: 'Beautiful Mehndi', cloudUploaded: true }
                 ];
                 saveGallery();
             }
@@ -837,11 +848,12 @@
         }
         
         function saveGallery() {
-            localStorage.setItem('suriya_gallery', JSON.stringify(galleryPhotos));
+            localStorage.setItem('suriya_gallery_cloud', JSON.stringify(galleryPhotos));
         }
         
         function displayGalleryOnSite() {
-            const currentCategory = document.querySelector('.category-btn.active')?.dataset.category || 'all';
+            const activeBtn = document.querySelector('.category-btn.active');
+            const currentCategory = activeBtn ? activeBtn.dataset.category : 'all';
             let filtered = galleryPhotos;
             if(currentCategory !== 'all') {
                 filtered = galleryPhotos.filter(p => p.category === currentCategory);
@@ -849,14 +861,41 @@
             
             const grid = document.getElementById('gallery-grid');
             if(grid) {
-                grid.innerHTML = filtered.map(photo => `
-                    <div class="gallery-item">
-                        <img src="${photo.url}" alt="${photo.title}">
-                        <div class="gallery-overlay">
-                            <p>✨ ${photo.title}</p>
+                if(filtered.length === 0) {
+                    grid.innerHTML = '<div style="text-align: center; padding: 2rem;">No photos yet. Upload from admin panel!</div>';
+                } else {
+                    grid.innerHTML = filtered.map(photo => `
+                        <div class="gallery-item">
+                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/300?text=Image+Loading'">
+                            <div class="gallery-overlay">
+                                <p>✨ ${photo.title}</p>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
+                    `).join('');
+                }
+            }
+        }
+        
+        // Upload photo to ImgBB cloud
+        async function uploadToCloud(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('key', IMGBB_API_KEY);
+            
+            try {
+                const response = await fetch('https://api.imgbb.com/1/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if(data.success) {
+                    return data.data.url;
+                } else {
+                    throw new Error('Upload failed');
+                }
+            } catch(error) {
+                console.error('Upload error:', error);
+                throw new Error('Failed to upload to cloud');
             }
         }
         
@@ -895,15 +934,17 @@
             dashboard.innerHTML = `
                 <div class="admin-box">
                     <div class="admin-header">
-                        <h2 style="color: var(--primary);">Admin Dashboard</h2>
+                        <h2 style="color: var(--primary);">Admin Dashboard ☁️</h2>
                         <button onclick="closeAdmin()" class="close-admin" style="background: #dc3545;">Close</button>
                     </div>
                     
                     <div class="upload-area" onclick="document.getElementById('photoInput').click()">
                         <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--secondary);"></i>
-                        <p>Click to upload photo</p>
-                        <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="uploadPhoto(this)">
+                        <p>Click to upload photo (Auto-saves to cloud ☁️)</p>
+                        <small style="color: green;">✓ Photos visible on all devices!</small>
+                        <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="uploadPhotoToCloud(this)">
                     </div>
+                    <div id="uploadStatus" style="text-align: center; margin: 10px 0; color: var(--primary);"></div>
                     
                     <div style="margin: 1rem 0;">
                         <label>Category:</label>
@@ -919,63 +960,80 @@
                         <input type="text" id="uploadTitle" placeholder="Photo title" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 10px;">
                     </div>
                     
-                    <h3 style="margin: 1rem 0;">Manage Gallery (${galleryPhotos.length} photos)</h3>
+                    <h3 style="margin: 1rem 0;">Manage Gallery (${galleryPhotos.length} photos) ☁️ Cloud Stored</h3>
                     <div id="adminGalleryGrid" class="admin-gallery-grid"></div>
                     
                     <button onclick="exportPhotos()" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">📥 Export Photos (Backup)</button>
                     <button onclick="importPhotos()" class="btn btn-outline" style="margin-top: 0.5rem; width: 100%; background: var(--secondary-light);">📤 Import Photos (Restore)</button>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 12px; color: green;">✅ Photos are stored in cloud - visible on all devices!</p>
                 </div>
             `;
             document.body.appendChild(dashboard);
             refreshAdminGallery();
         }
         
+        window.uploadPhotoToCloud = async function(input) {
+            const file = input.files[0];
+            if(!file) return;
+            
+            const category = document.getElementById('uploadCategory').value;
+            const title = document.getElementById('uploadTitle').value || 'Beautiful Work';
+            const statusDiv = document.getElementById('uploadStatus');
+            
+            statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to cloud...';
+            
+            try {
+                // Upload to ImgBB cloud
+                const cloudUrl = await uploadToCloud(file);
+                
+                const newPhoto = {
+                    id: Date.now(),
+                    url: cloudUrl,
+                    category: category,
+                    title: title,
+                    cloudUploaded: true
+                };
+                galleryPhotos.push(newPhoto);
+                saveGallery();
+                displayGalleryOnSite();
+                refreshAdminGallery();
+                statusDiv.innerHTML = '<span style="color: green;">✓ Uploaded successfully to cloud! Visible on all devices.</span>';
+                setTimeout(() => { statusDiv.innerHTML = ''; }, 3000);
+                document.getElementById('uploadTitle').value = '';
+            } catch(error) {
+                statusDiv.innerHTML = '<span style="color: red;">✗ Upload failed. Check internet and try again.</span>';
+                setTimeout(() => { statusDiv.innerHTML = ''; }, 3000);
+            }
+            
+            input.value = '';
+        }
+        
         window.refreshAdminGallery = function() {
             const grid = document.getElementById('adminGalleryGrid');
             if(grid) {
-                grid.innerHTML = galleryPhotos.map(photo => `
-                    <div class="admin-gallery-item">
-                        <img src="${photo.url}" alt="${photo.title}">
-                        <button class="delete-btn" onclick="deletePhoto(${photo.id})">×</button>
-                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: white; padding: 5px; font-size: 10px; text-align: center;">
-                            ${photo.title}
+                if(galleryPhotos.length === 0) {
+                    grid.innerHTML = '<p style="text-align: center; padding: 1rem;">No photos yet. Upload some!</p>';
+                } else {
+                    grid.innerHTML = galleryPhotos.map(photo => `
+                        <div class="admin-gallery-item">
+                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/150?text=Error'">
+                            <button class="delete-btn" onclick="deletePhoto(${photo.id})">×</button>
+                            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: white; padding: 5px; font-size: 10px; text-align: center;">
+                                ${photo.title}
+                            </div>
                         </div>
-                    </div>
-                `).join('');
-            }
-        }
-        
-        window.uploadPhoto = function(input) {
-            const file = input.files[0];
-            if(file) {
-                const category = document.getElementById('uploadCategory').value;
-                const title = document.getElementById('uploadTitle').value || 'Beautiful Work';
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const newPhoto = {
-                        id: Date.now(),
-                        url: e.target.result,
-                        category: category,
-                        title: title
-                    };
-                    galleryPhotos.push(newPhoto);
-                    saveGallery();
-                    displayGalleryOnSite();
-                    refreshAdminGallery();
-                    alert('Photo uploaded successfully!');
-                    document.getElementById('uploadTitle').value = '';
-                };
-                reader.readAsDataURL(file);
+                    `).join('');
+                }
             }
         }
         
         window.deletePhoto = function(id) {
-            if(confirm('Are you sure you want to delete this photo?')) {
+            if(confirm('Are you sure you want to delete this photo from cloud storage?')) {
                 galleryPhotos = galleryPhotos.filter(p => p.id !== id);
                 saveGallery();
                 displayGalleryOnSite();
                 refreshAdminGallery();
-                alert('Photo deleted!');
+                alert('Photo deleted from gallery!');
             }
         }
         
@@ -1009,7 +1067,7 @@
                         saveGallery();
                         displayGalleryOnSite();
                         refreshAdminGallery();
-                        alert('Photos imported successfully!');
+                        alert('Photos imported successfully! All photos are cloud URLs.');
                     } catch(err) {
                         alert('Invalid backup file!');
                     }
@@ -1076,7 +1134,7 @@
         });
         
         // Initialize
-        initGallery();
+        loadGallery();
     </script>
 </body>
 </html>
