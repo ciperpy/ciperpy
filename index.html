@@ -618,6 +618,15 @@
             font-size: 12px;
         }
 
+        .sample-url {
+            background: #f0f0f0;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 11px;
+            word-break: break-all;
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -943,28 +952,24 @@
             document.body.style.overflow = 'auto';
         }
         
-        // Close modal when clicking outside
         window.onclick = function(event) {
             const reviewsModal = document.getElementById('reviewsModal');
             const reelsModal = document.getElementById('reelsModal');
-            if (event.target == reviewsModal) {
-                closeReviewsModal();
-            }
-            if (event.target == reelsModal) {
-                closeReelsModal();
-            }
+            if (event.target == reviewsModal) closeReviewsModal();
+            if (event.target == reelsModal) closeReelsModal();
         }
         
-        // GALLERY MANAGEMENT WITH MANUAL URL ENTRY
+        // GALLERY MANAGEMENT - ONLY STORES URLS (Works on all devices!)
         const ADMIN_PASSWORD = "098321opop";
         let galleryPhotos = [];
         
         function loadGallery() {
-            const saved = localStorage.getItem('suriya_gallery_manual');
+            const saved = localStorage.getItem('suriya_gallery_urls');
             if(saved) {
                 galleryPhotos = JSON.parse(saved);
+                console.log('Loaded photos:', galleryPhotos);
             } else {
-                // Default sample photos
+                // Default sample photos with working URLs
                 galleryPhotos = [
                     { id: Date.now() + 1, url: 'https://images.unsplash.com/photo-1605496036006-fa2e0e6b7b4b?w=400', category: 'bridal', title: 'Bridal Makeup' },
                     { id: Date.now() + 2, url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400', category: 'party', title: 'Party Makeup' },
@@ -976,7 +981,8 @@
         }
         
         function saveGallery() {
-            localStorage.setItem('suriya_gallery_manual', JSON.stringify(galleryPhotos));
+            localStorage.setItem('suriya_gallery_urls', JSON.stringify(galleryPhotos));
+            console.log('Saved photos:', galleryPhotos);
         }
         
         function displayGalleryOnSite() {
@@ -994,7 +1000,7 @@
                 } else {
                     grid.innerHTML = filtered.map(photo => `
                         <div class="gallery-item">
-                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/300?text=Invalid+URL'">
+                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/300?text=Invalid+URL+Check+Link'">
                             <div class="gallery-overlay">
                                 <p>✨ ${photo.title}</p>
                             </div>
@@ -1044,17 +1050,17 @@
                     </div>
                     
                     <div class="instruction-box">
-                        <strong>📌 How to add photos:</strong><br>
-                        1. Upload your photo to a free image hosting site like:<br>
-                           • <a href="https://imgbb.com" target="_blank">imgbb.com</a> (easiest)<br>
-                           • <a href="https://postimages.org" target="_blank">postimages.org</a><br>
-                        2. Copy the "Direct Link" or "Image URL"<br>
-                        3. Paste it below and click "Add Photo"<br>
-                        <strong>✓ Photos will be visible on ALL devices!</strong>
+                        <strong>📌 IMPORTANT - FOR PHOTOS TO SHOW ON ALL DEVICES:</strong><br><br>
+                        1. Go to <a href="https://imgbb.com" target="_blank" style="color: var(--primary);">imgbb.com</a> on your phone<br>
+                        2. Click "Start Uploading" and select your photo<br>
+                        3. After upload, copy the <strong>"Direct Link"</strong><br>
+                        4. Paste that link below and click "Add Photo"<br><br>
+                        <strong>✅ This method makes photos visible on EVERY device!</strong><br><br>
+                        <div class="sample-url">Example URL: https://i.ibb.co/xxxxx/image.jpg</div>
                     </div>
                     
                     <div class="url-input-group">
-                        <label>📷 Image URL:</label>
+                        <label>📷 Image URL (Paste Direct Link from ImgBB):</label>
                         <input type="text" id="imageUrl" placeholder="https://i.ibb.co/xxxxx/image.jpg" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px;">
                     </div>
                     
@@ -1072,14 +1078,14 @@
                         <input type="text" id="titleInput" placeholder="Beautiful Bridal Makeup" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px;">
                     </div>
                     
-                    <button onclick="addPhotoByUrl()" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">➕ Add Photo</button>
+                    <button onclick="addPhotoByUrl()" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">➕ Add Photo (Visible on ALL Devices)</button>
                     
-                    <h3 style="margin: 1rem 0;">📸 Gallery (${galleryPhotos.length} photos)</h3>
+                    <h3 style="margin: 1rem 0;">📸 Current Gallery (${galleryPhotos.length} photos)</h3>
                     <div id="adminGalleryGrid" class="admin-gallery-grid"></div>
                     
                     <button onclick="exportPhotos()" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">📥 Export Photos (Backup)</button>
                     <button onclick="importPhotos()" class="btn btn-outline" style="margin-top: 0.5rem; width: 100%; background: var(--secondary-light);">📤 Import Photos (Restore)</button>
-                    <p style="text-align: center; margin-top: 1rem; font-size: 12px; color: green;">✅ Photos are stored with URLs - visible on all devices!</p>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 12px; color: green;">✅ Photos stored as URLs - visible on ALL devices!</p>
                 </div>
             `;
             document.body.appendChild(dashboard);
@@ -1092,13 +1098,19 @@
             const title = document.getElementById('titleInput').value.trim() || 'Beautiful Work';
             
             if(!url) {
-                alert('Please enter an image URL!');
+                alert('Please paste an image URL from ImgBB!');
                 return;
             }
             
-            // Validate URL
+            // Check if it's a valid URL
             if(!url.startsWith('http://') && !url.startsWith('https://')) {
                 alert('Please enter a valid URL starting with http:// or https://');
+                return;
+            }
+            
+            // Check if it's a base64 image (from direct upload)
+            if(url.startsWith('data:image')) {
+                alert('❌ This is a direct upload, not a URL! Please use ImgBB to get a proper URL that works on all devices.');
                 return;
             }
             
@@ -1106,8 +1118,7 @@
                 id: Date.now(),
                 url: url,
                 category: category,
-                title: title,
-                addedDate: new Date().toISOString()
+                title: title
             };
             
             galleryPhotos.push(newPhoto);
@@ -1115,11 +1126,10 @@
             displayGalleryOnSite();
             refreshAdminGallery();
             
-            // Clear inputs
             document.getElementById('imageUrl').value = '';
             document.getElementById('titleInput').value = '';
             
-            alert('✓ Photo added successfully! It will appear on the website immediately.');
+            alert('✓ Photo added successfully!\n\nThis photo will now be visible on ALL devices - phone, laptop, tablet, everywhere!');
         }
         
         window.refreshAdminGallery = function() {
@@ -1130,7 +1140,7 @@
                 } else {
                     grid.innerHTML = galleryPhotos.map(photo => `
                         <div class="admin-gallery-item">
-                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/150?text=Broken+URL'">
                             <button class="delete-btn" onclick="deletePhoto(${photo.id})">×</button>
                             <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: white; padding: 5px; font-size: 10px; text-align: center;">
                                 ${photo.title}<br>
