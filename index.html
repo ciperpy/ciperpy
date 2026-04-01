@@ -336,11 +336,6 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Reviews Section - Hidden, shows in modal */
-        #reviews, #videos {
-            display: none;
-        }
-
         /* Modal Styles */
         .modal {
             display: none;
@@ -528,7 +523,7 @@
             background: white;
             padding: 2rem;
             border-radius: 20px;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
@@ -541,20 +536,6 @@
             margin-bottom: 2rem;
             padding-bottom: 1rem;
             border-bottom: 2px solid var(--secondary);
-        }
-
-        .upload-area {
-            border: 2px dashed var(--secondary);
-            padding: 2rem;
-            text-align: center;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .upload-area:hover {
-            background: var(--secondary-light);
         }
 
         .admin-gallery-grid {
@@ -599,6 +580,27 @@
             border-radius: 10px;
             cursor: pointer;
             margin-top: 1rem;
+        }
+
+        .url-input-group {
+            margin-bottom: 1rem;
+        }
+
+        .url-input-group input, .url-input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-top: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .instruction-box {
+            background: var(--secondary-light);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 12px;
         }
 
         @keyframes fadeInUp {
@@ -923,15 +925,16 @@
             }
         }
         
-        // ADMIN PANEL CODE
+        // GALLERY MANAGEMENT WITH MANUAL URL ENTRY
         const ADMIN_PASSWORD = "098321opop";
         let galleryPhotos = [];
         
         function loadGallery() {
-            const saved = localStorage.getItem('suriya_gallery_cloud_v2');
+            const saved = localStorage.getItem('suriya_gallery_manual');
             if(saved) {
                 galleryPhotos = JSON.parse(saved);
             } else {
+                // Default sample photos
                 galleryPhotos = [
                     { id: Date.now() + 1, url: 'https://images.unsplash.com/photo-1605496036006-fa2e0e6b7b4b?w=400', category: 'bridal', title: 'Bridal Makeup' },
                     { id: Date.now() + 2, url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400', category: 'party', title: 'Party Makeup' },
@@ -943,7 +946,7 @@
         }
         
         function saveGallery() {
-            localStorage.setItem('suriya_gallery_cloud_v2', JSON.stringify(galleryPhotos));
+            localStorage.setItem('suriya_gallery_manual', JSON.stringify(galleryPhotos));
         }
         
         function displayGalleryOnSite() {
@@ -957,11 +960,11 @@
             const grid = document.getElementById('gallery-grid');
             if(grid) {
                 if(filtered.length === 0) {
-                    grid.innerHTML = '<div style="text-align: center; padding: 2rem;">No photos yet. Upload from admin panel!</div>';
+                    grid.innerHTML = '<div style="text-align: center; padding: 2rem;">No photos yet. Add photos from admin panel!</div>';
                 } else {
                     grid.innerHTML = filtered.map(photo => `
                         <div class="gallery-item">
-                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/300?text=Image+Loading'">
+                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/300?text=Invalid+URL'">
                             <div class="gallery-overlay">
                                 <p>✨ ${photo.title}</p>
                             </div>
@@ -971,41 +974,7 @@
             }
         }
         
-        async function uploadToCloud(file) {
-            const formData = new FormData();
-            formData.append('source', file);
-            formData.append('type', 'file');
-            
-            try {
-                const response = await fetch('https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                if(data.status_code === 200 && data.image) {
-                    return data.image.url;
-                } else {
-                    throw new Error('Upload failed');
-                }
-            } catch(error) {
-                console.error('Upload error:', error);
-                throw new Error('Failed to upload to cloud');
-            }
-        }
-        
-        function uploadToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    resolve(e.target.result);
-                };
-                reader.onerror = function(e) {
-                    reject(new Error('Failed to read file'));
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-        
+        // Check for admin access
         const urlParams = new URLSearchParams(window.location.search);
         if(urlParams.get('admin') === 'true') {
             showAdminLogin();
@@ -1040,98 +1009,102 @@
             dashboard.innerHTML = `
                 <div class="admin-box">
                     <div class="admin-header">
-                        <h2 style="color: var(--primary);">Admin Dashboard ☁️</h2>
+                        <h2 style="color: var(--primary);">Admin Dashboard 📸</h2>
                         <button onclick="closeAdmin()" class="close-admin" style="background: #dc3545;">Close</button>
                     </div>
                     
-                    <div class="upload-area" onclick="document.getElementById('photoInput').click()">
-                        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--secondary);"></i>
-                        <p>Click to upload photo</p>
-                        <small style="color: green;">✓ Photos visible on all devices!</small>
-                        <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="uploadPhotoToCloud(this)">
+                    <div class="instruction-box">
+                        <strong>📌 How to add photos:</strong><br>
+                        1. Upload your photo to a free image hosting site like:<br>
+                           • <a href="https://imgbb.com" target="_blank">imgbb.com</a> (easiest)<br>
+                           • <a href="https://postimages.org" target="_blank">postimages.org</a><br>
+                        2. Copy the "Direct Link" or "Image URL"<br>
+                        3. Paste it below and click "Add Photo"<br>
+                        <strong>✓ Photos will be visible on ALL devices!</strong>
                     </div>
-                    <div id="uploadStatus" style="text-align: center; margin: 10px 0; color: var(--primary);"></div>
                     
-                    <div style="margin: 1rem 0;">
-                        <label>Category:</label>
-                        <select id="uploadCategory" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 10px;">
+                    <div class="url-input-group">
+                        <label>📷 Image URL:</label>
+                        <input type="text" id="imageUrl" placeholder="https://i.ibb.co/xxxxx/image.jpg" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px;">
+                    </div>
+                    
+                    <div class="url-input-group">
+                        <label>🏷️ Category:</label>
+                        <select id="categorySelect" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px;">
                             <option value="bridal">Bridal Makeup</option>
                             <option value="party">Party Makeup</option>
                             <option value="mehndi">Mehndi Designs</option>
                         </select>
                     </div>
                     
-                    <div style="margin: 1rem 0;">
-                        <label>Title:</label>
-                        <input type="text" id="uploadTitle" placeholder="Photo title" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 10px;">
+                    <div class="url-input-group">
+                        <label>📝 Title:</label>
+                        <input type="text" id="titleInput" placeholder="Beautiful Bridal Makeup" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px;">
                     </div>
                     
-                    <h3 style="margin: 1rem 0;">Manage Gallery (${galleryPhotos.length} photos)</h3>
+                    <button onclick="addPhotoByUrl()" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">➕ Add Photo</button>
+                    
+                    <h3 style="margin: 1rem 0;">📸 Gallery (${galleryPhotos.length} photos)</h3>
                     <div id="adminGalleryGrid" class="admin-gallery-grid"></div>
                     
                     <button onclick="exportPhotos()" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">📥 Export Photos (Backup)</button>
                     <button onclick="importPhotos()" class="btn btn-outline" style="margin-top: 0.5rem; width: 100%; background: var(--secondary-light);">📤 Import Photos (Restore)</button>
-                    <p style="text-align: center; margin-top: 1rem; font-size: 12px; color: green;">✅ Photos stored in cloud - visible on all devices!</p>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 12px; color: green;">✅ Photos are stored with URLs - visible on all devices!</p>
                 </div>
             `;
             document.body.appendChild(dashboard);
             refreshAdminGallery();
         }
         
-        window.uploadPhotoToCloud = async function(input) {
-            const file = input.files[0];
-            if(!file) return;
+        window.addPhotoByUrl = function() {
+            const url = document.getElementById('imageUrl').value.trim();
+            const category = document.getElementById('categorySelect').value;
+            const title = document.getElementById('titleInput').value.trim() || 'Beautiful Work';
             
-            const category = document.getElementById('uploadCategory').value;
-            const title = document.getElementById('uploadTitle').value || 'Beautiful Work';
-            const statusDiv = document.getElementById('uploadStatus');
-            
-            statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to cloud... Please wait';
-            
-            try {
-                let cloudUrl;
-                try {
-                    cloudUrl = await uploadToCloud(file);
-                    statusDiv.innerHTML = '<span style="color: green;">✓ Uploaded to cloud successfully!</span>';
-                } catch(cloudError) {
-                    console.log('Cloud upload failed, using local storage');
-                    statusDiv.innerHTML = '<span style="color: orange;">⚠️ Cloud upload failed, saving locally.</span>';
-                    cloudUrl = await uploadToBase64(file);
-                }
-                
-                const newPhoto = {
-                    id: Date.now(),
-                    url: cloudUrl,
-                    category: category,
-                    title: title,
-                    cloudUploaded: true
-                };
-                galleryPhotos.push(newPhoto);
-                saveGallery();
-                displayGalleryOnSite();
-                refreshAdminGallery();
-                setTimeout(() => { statusDiv.innerHTML = ''; }, 3000);
-                document.getElementById('uploadTitle').value = '';
-            } catch(error) {
-                statusDiv.innerHTML = '<span style="color: red;">✗ Upload failed. Please check your internet connection and try again.</span>';
-                setTimeout(() => { statusDiv.innerHTML = ''; }, 3000);
+            if(!url) {
+                alert('Please enter an image URL!');
+                return;
             }
             
-            input.value = '';
+            // Validate URL
+            if(!url.startsWith('http://') && !url.startsWith('https://')) {
+                alert('Please enter a valid URL starting with http:// or https://');
+                return;
+            }
+            
+            const newPhoto = {
+                id: Date.now(),
+                url: url,
+                category: category,
+                title: title,
+                addedDate: new Date().toISOString()
+            };
+            
+            galleryPhotos.push(newPhoto);
+            saveGallery();
+            displayGalleryOnSite();
+            refreshAdminGallery();
+            
+            // Clear inputs
+            document.getElementById('imageUrl').value = '';
+            document.getElementById('titleInput').value = '';
+            
+            alert('✓ Photo added successfully! It will appear on the website immediately.');
         }
         
         window.refreshAdminGallery = function() {
             const grid = document.getElementById('adminGalleryGrid');
             if(grid) {
                 if(galleryPhotos.length === 0) {
-                    grid.innerHTML = '<p style="text-align: center; padding: 1rem;">No photos yet. Upload some!</p>';
+                    grid.innerHTML = '<p style="text-align: center; padding: 1rem;">No photos yet. Add some using the form above!</p>';
                 } else {
                     grid.innerHTML = galleryPhotos.map(photo => `
                         <div class="admin-gallery-item">
-                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/150?text=Error'">
+                            <img src="${photo.url}" alt="${photo.title}" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                             <button class="delete-btn" onclick="deletePhoto(${photo.id})">×</button>
                             <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: white; padding: 5px; font-size: 10px; text-align: center;">
-                                ${photo.title}
+                                ${photo.title}<br>
+                                <span style="font-size: 8px;">${photo.category}</span>
                             </div>
                         </div>
                     `).join('');
@@ -1145,7 +1118,7 @@
                 saveGallery();
                 displayGalleryOnSite();
                 refreshAdminGallery();
-                alert('Photo deleted!');
+                alert('✓ Photo deleted successfully!');
             }
         }
         
@@ -1162,7 +1135,7 @@
             a.download = 'suriya_gallery_backup.json';
             a.click();
             URL.revokeObjectURL(url);
-            alert('Backup downloaded! Keep this file safe.');
+            alert('✓ Backup downloaded! Keep this file safe.');
         }
         
         window.importPhotos = function() {
@@ -1179,7 +1152,7 @@
                         saveGallery();
                         displayGalleryOnSite();
                         refreshAdminGallery();
-                        alert('Photos imported successfully!');
+                        alert('✓ Photos imported successfully!');
                     } catch(err) {
                         alert('Invalid backup file!');
                     }
@@ -1189,6 +1162,7 @@
             input.click();
         }
         
+        // Category buttons
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -1197,6 +1171,7 @@
             });
         });
         
+        // Booking Form
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -1220,16 +1195,19 @@
             this.reset();
         });
         
+        // Mobile menu
         document.querySelector('.menu-btn').addEventListener('click', () => {
             const navLinks = document.querySelector('.nav-links');
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
         });
         
+        // Set min date
         const today = new Date().toISOString().split('T')[0];
         if(document.getElementById('date')) {
             document.getElementById('date').min = today;
         }
         
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1240,6 +1218,7 @@
             });
         });
         
+        // Initialize
         loadGallery();
     </script>
 </body>
