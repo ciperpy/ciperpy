@@ -336,44 +336,70 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Reviews */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        /* Reviews Section - Hidden, shows in modal */
+        #reviews, #videos {
+            display: none;
         }
 
-        .review-card {
-            background: white;
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--light);
+            margin: 60px auto;
             padding: 2rem;
+            max-width: 600px;
+            width: 90%;
             border-radius: 20px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        .modal-close:hover {
+            color: var(--secondary);
+        }
+
+        .reviews-modal-grid, .videos-modal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .review-modal-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
             text-align: center;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
 
-        .review-text {
-            font-style: italic;
-            margin: 1rem 0;
-            color: var(--gray);
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .review-name {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Video Section */
-        .videos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .video-card {
+        .video-modal-card {
             position: relative;
             padding-bottom: 177%;
             background: #000;
@@ -381,12 +407,39 @@
             overflow: hidden;
         }
 
-        .video-card iframe {
+        .video-modal-card iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+        }
+
+        .view-btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 10px;
+        }
+
+        .view-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .buttons-container {
+            text-align: center;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         /* Contact Section */
@@ -548,11 +601,6 @@
             margin-top: 1rem;
         }
 
-        .loading {
-            display: inline-block;
-            margin-left: 10px;
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -580,6 +628,10 @@
             .section-title {
                 font-size: 2rem;
             }
+            .modal-content {
+                margin: 40px auto;
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -592,7 +644,6 @@
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#packages">Packages</a></li>
             <li><a href="#booking">Book Now</a></li>
-            <li><a href="#reviews">Reviews</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="menu-btn">
@@ -633,6 +684,16 @@
         </div>
         <div class="gallery-grid" id="gallery-grid">
             <div style="text-align: center; padding: 2rem;">Loading gallery...</div>
+        </div>
+        
+        <!-- Buttons to view Reviews and Reels -->
+        <div class="buttons-container">
+            <button class="view-btn" onclick="openReviewsModal()">
+                <i class="fas fa-star"></i> Client Reviews
+            </button>
+            <button class="view-btn" onclick="openReelsModal()">
+                <i class="fab fa-instagram"></i> Instagram Reels
+            </button>
         </div>
     </section>
 
@@ -729,56 +790,62 @@
         </div>
     </section>
 
-    <!-- Reviews Section -->
-    <section id="reviews" class="section">
-        <h2 class="section-title">Client Love</h2>
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="review-text">"Absolutely loved my bridal makeup! Suriya made me look like a princess on my wedding day. The mehndi was so beautiful. Highly recommended!"</div>
-                <div class="review-name">- Fatima Ahmed</div>
-            </div>
-            <div class="review-card">
-                <div class="review-text">"The mehndi designs were so intricate and beautiful. Very professional and punctual service. Made my engagement day extra special."</div>
-                <div class="review-name">- Ayesha Khan</div>
-            </div>
-            <div class="review-card">
-                <div class="review-text">"Best makeup and mehndi artist in Budgam! My wedding look was perfect. Suriya is so talented and made me feel beautiful. Thank you!"</div>
-                <div class="review-name">- Zainab Ahmad</div>
-            </div>
-            <div class="review-card">
-                <div class="review-text">"Amazing work! The bridal makeup lasted all day and the mehndi design was exactly what I wanted. Very happy with the service."</div>
-                <div class="review-name">- Mariyam Hassan</div>
-            </div>
-            <div class="review-card">
-                <div class="review-text">"Suriya is so skilled and professional. She understood exactly what I wanted and delivered beyond expectations. Highly recommend her services!"</div>
-                <div class="review-name">- Safiya Bhat</div>
-            </div>
-            <div class="review-card">
-                <div class="review-text">"The attention to detail in both makeup and mehndi was incredible. Felt like a queen on my special day. Thank you Suriya!"</div>
-                <div class="review-name">- Hadiya Mir</div>
+    <!-- Reviews Modal -->
+    <div id="reviewsModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeReviewsModal()">&times;</span>
+            <h2>✨ Client Love ✨</h2>
+            <div class="reviews-modal-grid">
+                <div class="review-modal-card">
+                    <div class="review-text">"Absolutely loved my bridal makeup! Suriya made me look like a princess on my wedding day. The mehndi was so beautiful. Highly recommended!"</div>
+                    <div class="review-name">- Fatima Ahmed</div>
+                </div>
+                <div class="review-modal-card">
+                    <div class="review-text">"The mehndi designs were so intricate and beautiful. Very professional and punctual service. Made my engagement day extra special."</div>
+                    <div class="review-name">- Ayesha Khan</div>
+                </div>
+                <div class="review-modal-card">
+                    <div class="review-text">"Best makeup and mehndi artist in Budgam! My wedding look was perfect. Suriya is so talented and made me feel beautiful. Thank you!"</div>
+                    <div class="review-name">- Zainab Ahmad</div>
+                </div>
+                <div class="review-modal-card">
+                    <div class="review-text">"Amazing work! The bridal makeup lasted all day and the mehndi design was exactly what I wanted. Very happy with the service."</div>
+                    <div class="review-name">- Mariyam Hassan</div>
+                </div>
+                <div class="review-modal-card">
+                    <div class="review-text">"Suriya is so skilled and professional. She understood exactly what I wanted and delivered beyond expectations. Highly recommend her services!"</div>
+                    <div class="review-name">- Safiya Bhat</div>
+                </div>
+                <div class="review-modal-card">
+                    <div class="review-text">"The attention to detail in both makeup and mehndi was incredible. Felt like a queen on my special day. Thank you Suriya!"</div>
+                    <div class="review-name">- Hadiya Mir</div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Video Section -->
-    <section id="videos" class="section" style="background: var(--secondary-light);">
-        <h2 class="section-title">Instagram Reels</h2>
-        <div class="videos-grid">
-            <div class="video-card">
-                <iframe src="https://www.instagram.com/p/DWjj-NKkU64/embed" frameborder="0"></iframe>
+    <!-- Reels Modal -->
+    <div id="reelsModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeReelsModal()">&times;</span>
+            <h2>📸 Instagram Reels</h2>
+            <div class="videos-modal-grid">
+                <div class="video-modal-card">
+                    <iframe src="https://www.instagram.com/p/DWjj-NKkU64/embed" frameborder="0"></iframe>
+                </div>
+                <div class="video-modal-card">
+                    <iframe src="https://www.instagram.com/p/DSKjwqyEXba/embed" frameborder="0"></iframe>
+                </div>
+                <div class="video-modal-card">
+                    <iframe src="https://www.instagram.com/p/DPYMXg4EQWY/embed" frameborder="0"></iframe>
+                </div>
+                <div class="video-modal-card">
+                    <iframe src="https://www.instagram.com/p/DOPvrpIkclV/embed" frameborder="0"></iframe>
+                </div>
             </div>
-            <div class="video-card">
-                <iframe src="https://www.instagram.com/p/DSKjwqyEXba/embed" frameborder="0"></iframe>
-            </div>
-            <div class="video-card">
-                <iframe src="https://www.instagram.com/p/DPYMXg4EQWY/embed" frameborder="0"></iframe>
-            </div>
-            <div class="video-card">
-                <iframe src="https://www.instagram.com/p/DOPvrpIkclV/embed" frameborder="0"></iframe>
-            </div>
+            <p style="text-align: center; margin-top: 1rem;">📸 Follow us: <strong>@mehandi_art_by_suriya</strong></p>
         </div>
-        <p style="text-align: center; margin-top: 2rem;">📸 Follow us on Instagram: <strong>@mehandi_art_by_suriya</strong></p>
-    </section>
+    </div>
 
     <!-- Contact Section -->
     <section id="contact" class="section">
@@ -823,24 +890,52 @@
     </a>
 
     <script>
-        // ImgBB API Key (Free service for cloud uploads)
-        const IMGBB_API_KEY = "6d207e02198a847aa98d0a2a901485a5";
+        // Modal Functions
+        function openReviewsModal() {
+            document.getElementById('reviewsModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
         
-        // ADMIN PANEL CODE WITH CLOUD STORAGE
+        function closeReviewsModal() {
+            document.getElementById('reviewsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        function openReelsModal() {
+            document.getElementById('reelsModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeReelsModal() {
+            document.getElementById('reelsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const reviewsModal = document.getElementById('reviewsModal');
+            const reelsModal = document.getElementById('reelsModal');
+            if (event.target == reviewsModal) {
+                closeReviewsModal();
+            }
+            if (event.target == reelsModal) {
+                closeReelsModal();
+            }
+        }
+        
+        // ADMIN PANEL CODE
         const ADMIN_PASSWORD = "098321opop";
         let galleryPhotos = [];
         
-        // Load gallery from localStorage (cloud URLs)
         function loadGallery() {
-            const saved = localStorage.getItem('suriya_gallery_cloud');
+            const saved = localStorage.getItem('suriya_gallery_cloud_v2');
             if(saved) {
                 galleryPhotos = JSON.parse(saved);
             } else {
-                // Default photos with cloud URLs (sample images)
                 galleryPhotos = [
-                    { id: Date.now() + 1, url: 'https://i.ibb.co/placeholder/bridal-1.jpg', category: 'bridal', title: 'Bridal Makeup', cloudUploaded: true },
-                    { id: Date.now() + 2, url: 'https://i.ibb.co/placeholder/party-1.jpg', category: 'party', title: 'Party Makeup', cloudUploaded: true },
-                    { id: Date.now() + 3, url: 'https://i.ibb.co/placeholder/mehndi-1.jpg', category: 'mehndi', title: 'Beautiful Mehndi', cloudUploaded: true }
+                    { id: Date.now() + 1, url: 'https://images.unsplash.com/photo-1605496036006-fa2e0e6b7b4b?w=400', category: 'bridal', title: 'Bridal Makeup' },
+                    { id: Date.now() + 2, url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400', category: 'party', title: 'Party Makeup' },
+                    { id: Date.now() + 3, url: 'https://images.unsplash.com/photo-1588392382834-89c6b12b0ddb?w=400', category: 'mehndi', title: 'Beautiful Mehndi' }
                 ];
                 saveGallery();
             }
@@ -848,7 +943,7 @@
         }
         
         function saveGallery() {
-            localStorage.setItem('suriya_gallery_cloud', JSON.stringify(galleryPhotos));
+            localStorage.setItem('suriya_gallery_cloud_v2', JSON.stringify(galleryPhotos));
         }
         
         function displayGalleryOnSite() {
@@ -876,20 +971,19 @@
             }
         }
         
-        // Upload photo to ImgBB cloud
         async function uploadToCloud(file) {
             const formData = new FormData();
-            formData.append('image', file);
-            formData.append('key', IMGBB_API_KEY);
+            formData.append('source', file);
+            formData.append('type', 'file');
             
             try {
-                const response = await fetch('https://api.imgbb.com/1/upload', {
+                const response = await fetch('https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5', {
                     method: 'POST',
                     body: formData
                 });
                 const data = await response.json();
-                if(data.success) {
-                    return data.data.url;
+                if(data.status_code === 200 && data.image) {
+                    return data.image.url;
                 } else {
                     throw new Error('Upload failed');
                 }
@@ -899,7 +993,19 @@
             }
         }
         
-        // Check for admin access
+        function uploadToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    resolve(e.target.result);
+                };
+                reader.onerror = function(e) {
+                    reject(new Error('Failed to read file'));
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+        
         const urlParams = new URLSearchParams(window.location.search);
         if(urlParams.get('admin') === 'true') {
             showAdminLogin();
@@ -940,7 +1046,7 @@
                     
                     <div class="upload-area" onclick="document.getElementById('photoInput').click()">
                         <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--secondary);"></i>
-                        <p>Click to upload photo (Auto-saves to cloud ☁️)</p>
+                        <p>Click to upload photo</p>
                         <small style="color: green;">✓ Photos visible on all devices!</small>
                         <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="uploadPhotoToCloud(this)">
                     </div>
@@ -960,12 +1066,12 @@
                         <input type="text" id="uploadTitle" placeholder="Photo title" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 10px;">
                     </div>
                     
-                    <h3 style="margin: 1rem 0;">Manage Gallery (${galleryPhotos.length} photos) ☁️ Cloud Stored</h3>
+                    <h3 style="margin: 1rem 0;">Manage Gallery (${galleryPhotos.length} photos)</h3>
                     <div id="adminGalleryGrid" class="admin-gallery-grid"></div>
                     
                     <button onclick="exportPhotos()" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">📥 Export Photos (Backup)</button>
                     <button onclick="importPhotos()" class="btn btn-outline" style="margin-top: 0.5rem; width: 100%; background: var(--secondary-light);">📤 Import Photos (Restore)</button>
-                    <p style="text-align: center; margin-top: 1rem; font-size: 12px; color: green;">✅ Photos are stored in cloud - visible on all devices!</p>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 12px; color: green;">✅ Photos stored in cloud - visible on all devices!</p>
                 </div>
             `;
             document.body.appendChild(dashboard);
@@ -980,11 +1086,18 @@
             const title = document.getElementById('uploadTitle').value || 'Beautiful Work';
             const statusDiv = document.getElementById('uploadStatus');
             
-            statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to cloud...';
+            statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to cloud... Please wait';
             
             try {
-                // Upload to ImgBB cloud
-                const cloudUrl = await uploadToCloud(file);
+                let cloudUrl;
+                try {
+                    cloudUrl = await uploadToCloud(file);
+                    statusDiv.innerHTML = '<span style="color: green;">✓ Uploaded to cloud successfully!</span>';
+                } catch(cloudError) {
+                    console.log('Cloud upload failed, using local storage');
+                    statusDiv.innerHTML = '<span style="color: orange;">⚠️ Cloud upload failed, saving locally.</span>';
+                    cloudUrl = await uploadToBase64(file);
+                }
                 
                 const newPhoto = {
                     id: Date.now(),
@@ -997,11 +1110,10 @@
                 saveGallery();
                 displayGalleryOnSite();
                 refreshAdminGallery();
-                statusDiv.innerHTML = '<span style="color: green;">✓ Uploaded successfully to cloud! Visible on all devices.</span>';
                 setTimeout(() => { statusDiv.innerHTML = ''; }, 3000);
                 document.getElementById('uploadTitle').value = '';
             } catch(error) {
-                statusDiv.innerHTML = '<span style="color: red;">✗ Upload failed. Check internet and try again.</span>';
+                statusDiv.innerHTML = '<span style="color: red;">✗ Upload failed. Please check your internet connection and try again.</span>';
                 setTimeout(() => { statusDiv.innerHTML = ''; }, 3000);
             }
             
@@ -1028,12 +1140,12 @@
         }
         
         window.deletePhoto = function(id) {
-            if(confirm('Are you sure you want to delete this photo from cloud storage?')) {
+            if(confirm('Are you sure you want to delete this photo?')) {
                 galleryPhotos = galleryPhotos.filter(p => p.id !== id);
                 saveGallery();
                 displayGalleryOnSite();
                 refreshAdminGallery();
-                alert('Photo deleted from gallery!');
+                alert('Photo deleted!');
             }
         }
         
@@ -1067,7 +1179,7 @@
                         saveGallery();
                         displayGalleryOnSite();
                         refreshAdminGallery();
-                        alert('Photos imported successfully! All photos are cloud URLs.');
+                        alert('Photos imported successfully!');
                     } catch(err) {
                         alert('Invalid backup file!');
                     }
@@ -1077,7 +1189,6 @@
             input.click();
         }
         
-        // Category buttons
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -1086,7 +1197,6 @@
             });
         });
         
-        // Booking Form
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -1110,19 +1220,16 @@
             this.reset();
         });
         
-        // Mobile menu
         document.querySelector('.menu-btn').addEventListener('click', () => {
             const navLinks = document.querySelector('.nav-links');
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
         });
         
-        // Set min date
         const today = new Date().toISOString().split('T')[0];
         if(document.getElementById('date')) {
             document.getElementById('date').min = today;
         }
         
-        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1133,7 +1240,6 @@
             });
         });
         
-        // Initialize
         loadGallery();
     </script>
 </body>
