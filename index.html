@@ -474,26 +474,41 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
-        .whatsapp-float {
+        /* Floating Action Buttons */
+        .floating-buttons {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #25D366;
-            width: 60px;
-            height: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .float-btn {
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            font-size: 1.5rem;
+            text-decoration: none;
             transition: transform 0.3s;
-            z-index: 100;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
-        .whatsapp-float:hover {
+        .float-btn:hover {
             transform: scale(1.1);
+        }
+
+        .float-whatsapp {
+            background: #25D366;
+        }
+
+        .float-call {
+            background: #34B7F1;
         }
 
         /* Footer */
@@ -633,6 +648,16 @@
             .modal-content {
                 margin: 40px auto;
                 padding: 1.5rem;
+            }
+            .floating-buttons {
+                bottom: 20px;
+                right: 20px;
+                gap: 10px;
+            }
+            .float-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -886,10 +911,15 @@
         <p>© 2024 Suriya's Bridal Studio. All rights reserved. | Bringing your dream bridal look to life ✨</p>
     </footer>
 
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/917006336467?text=Hi%2C%20I%20want%20to%20book%20a%20service.%20Please%20share%20details." class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <a href="tel:+916005644125" class="float-btn float-call" title="Call Now">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+        <a href="https://wa.me/917006336467?text=Hi%2C%20I%20want%20to%20book%20a%20service.%20Please%20share%20details." class="float-btn float-whatsapp" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     <script>
         // Modal Functions
