@@ -331,10 +331,11 @@
             line-height: 1.5;
         }
 
+        /* Projects Section Styles */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.8rem;
         }
         .project-card {
             background: var(--card-bg);
@@ -350,18 +351,54 @@
         }
         .project-img {
             width: 100%;
-            height: 120px;
+            height: 140px;
             background: linear-gradient(135deg, var(--accent), #a855f7);
             border-radius: 1rem;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 3.5rem;
             transition: transform 0.3s ease;
         }
         .project-card:hover .project-img {
-            transform: scale(1.05);
+            transform: scale(1.03);
+        }
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        .project-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.4rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        .project-link:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
         }
         .tech-stack {
             display: flex;
@@ -776,7 +813,7 @@
             .hire-btn i {
                 font-size: 1.5rem;
             }
-            .services-grid {
+            .services-grid, .projects-grid {
                 grid-template-columns: 1fr;
                 gap: 1.2rem;
             }
@@ -821,12 +858,13 @@
             </div>
         </div>
 
-        <!-- SERVICES I OFFER SECTION - NO PRICE TAGS -->
+        <!-- SERVICES I OFFER SECTION -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
             <div class="section-title" id="services-title">🎯 Services I Offer</div>
             <div class="services-grid" id="servicesGrid"></div>
         </div>
 
+        <!-- FEATURED PROJECTS SECTION - REAL PROJECTS -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
             <div class="section-title" id="projects-title">📂 Featured Projects</div>
             <div class="projects-grid" id="projectsGrid"></div>
@@ -864,7 +902,7 @@
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="message bot-message">
-                👋 Assalamualikum! I'm Ubaid's AI assistant. Ask me about my services, skills, projects, or just say hi!
+                👋 Assalamualikum! I'm Ubaid's AI assistant. Ask me about my services, projects, or just say hi!
             </div>
         </div>
         <div class="typing-indicator" id="typingIndicator">
@@ -914,14 +952,12 @@
         showNotification('📧 Opening Email', 'Your email client will open. Send your message to ubaidbilal957@gmail.com', 'success');
     });
 
-    // Services Data - NO PRICES
+    // Services Data
     const services = [
         { name: "Web Development", icon: "fas fa-globe", desc: "Modern, responsive, and scalable websites built with latest technologies.", color: "#3b82f6" },
         { name: "App Development", icon: "fas fa-mobile-alt", desc: "Cross-platform mobile applications for iOS and Android.", color: "#a855f7" },
         { name: "Telegram Bot Development", icon: "fab fa-telegram", desc: "Automated bots for business, community management, and more.", color: "#0088cc" },
         { name: "UI/UX Design", icon: "fas fa-palette", desc: "Beautiful, user-friendly interfaces with amazing user experience.", color: "#f59e0b" },
-        { name: "Code Review & Optimization", icon: "fas fa-code-branch", desc: "Clean code practices, performance optimization, and best standards.", color: "#ef4444" },
-        { name: "Technical Consultation", icon: "fas fa-chalkboard-user", desc: "Expert advice on tech stacks, architecture, and project planning.", color: "#06b6d4" }
     ];
 
     function renderServices() {
@@ -938,11 +974,32 @@
     }
     renderServices();
 
-    // Projects
+    // REAL PROJECTS - Updated with your actual projects
     const projects = [
-        { title: 'DevConnect Hub', desc: 'Platform for developers to collaborate', tech: ['React', 'Node.js'], icon: '🌐', stars: 523 },
-        { title: 'WeatherSnap', desc: 'Real-time weather app', tech: ['JS', 'API'], icon: '⛅', stars: 234 },
-        { title: 'Telegram Bot Studio', desc: 'Automation toolkit', tech: ['Python'], icon: '🤖', stars: 189 }
+        {
+            title: 'Bridal Service Site',
+            desc: 'A professional client website for bridal services. Modern design with booking functionality.',
+            icon: '💍',
+            tech: ['HTML', 'CSS', 'JavaScript'],
+            github: 'https://github.com/ciperpy/Bridal-service-site',
+            demo: 'http://suriya.indevs.in'
+        },
+        {
+            title: 'AI Gesture Calculator',
+            desc: 'Modern calculator that works with hand gestures using AI and computer vision technology.',
+            icon: '🖐️',
+            tech: ['JavaScript', 'TensorFlow.js', 'Hand Tracking'],
+            github: 'https://github.com/ciperpy/Modern-calculator',
+            demo: 'https://ciperpy.github.io/Modern-calculator/'
+        },
+        {
+            title: 'Islamic Hub',
+            desc: 'Comprehensive Islamic application with prayer times, Quran, Hadith, and many modern features.',
+            icon: '🕌',
+            tech: ['React', 'Node.js', 'MongoDB'],
+            github: '#',
+            demo: '#'
+        }
     ];
 
     function renderProjects() {
@@ -950,9 +1007,13 @@
         grid.innerHTML = projects.map((p, index) => `
             <div class="project-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="${index * 100}">
                 <div class="project-img">${p.icon}</div>
-                <div class="project-title" style="font-weight: 600; margin-bottom: 0.5rem;">${p.title} ⭐ ${p.stars}</div>
-                <div class="project-desc" style="color: var(--text-secondary); font-size: 0.9rem;">${p.desc}</div>
+                <div class="project-title">${p.title}</div>
+                <div class="project-desc">${p.desc}</div>
                 <div class="tech-stack">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+                <div class="project-links">
+                    <a href="${p.github}" target="_blank" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="${p.demo}" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                </div>
             </div>
         `).join('');
     }
@@ -997,23 +1058,22 @@
         role: "Full Stack Developer",
         experience: "3+ years",
         location: "Magam, Budgam, Jammu & Kashmir, India",
-        services: ["Web Development", "App Development", "API Integration", "Telegram Bot Development", "UI/UX Design", "Code Review & Optimization", "Technical Consultation"],
+        services: ["Web Development", "App Development", "API Integration", "Telegram Bot Development", "UI/UX Design", "Database Management", "Cloud Deployment"],
         contact: { email: "ubaidbilal957@gmail.com", github: "github.com/ciperpy", telegram: "t.me/CiPeRPY" },
-        projects: ["DevConnect Hub", "WeatherSnap", "Telegram Bot Studio"]
+        projects: ["Bridal Service Site", "AI Gesture Calculator", "Islamic Hub"]
     };
 
     function getAIResponse(userMessage) {
         const msg = userMessage.toLowerCase();
-        if (msg.match(/hi|hello|hey|salaam|assalam/)) return "👋 Walaikum Assalam! I'm Ubaid's AI assistant. Need help with any of my services?";
+        if (msg.match(/hi|hello|hey|salaam|assalam/)) return "👋 Walaikum Assalam! I'm Ubaid's AI assistant. Need help with any of my services or projects?";
         if (msg.match(/services|offer|do you do/)) return `🎯 I offer: ${knowledgeBase.services.join(", ")}. Click "HIRE ME" to get started!`;
+        if (msg.match(/projects|work|portfolio/)) return `📂 My featured projects: Bridal Service Site (client project), AI Gesture Calculator (hand tracking), and Islamic Hub (comprehensive Islamic app). Check them out above!`;
+        if (msg.match(/bridal|suriya/)) return "💍 The Bridal Service Site is a professional client website for bridal services. Live at suriya.indevs.in";
+        if (msg.match(/calculator|gesture/)) return "🖐️ The AI Gesture Calculator uses hand tracking and computer vision. Try it at ciperpy.github.io/Modern-calculator/";
+        if (msg.match(/islamic|hub/)) return "🕌 Islamic Hub is a comprehensive Islamic app with prayer times, Quran, Hadith, and many modern features. Coming soon!";
         if (msg.match(/web development|website/)) return "🌐 I build modern, responsive websites using React, Node.js, and latest technologies.";
-        if (msg.match(/app development|mobile app/)) return "📱 I create cross-platform mobile apps for iOS and Android using React Native and Flutter.";
-        if (msg.match(/telegram bot/)) return "🤖 I build custom Telegram bots for automation, community management, and business needs.";
-        if (msg.match(/api/)) return "🔌 I integrate third-party APIs and build custom RESTful APIs for your applications.";
-        if (msg.match(/ui\/ux|design/)) return "🎨 I design beautiful, user-friendly interfaces with amazing user experience.";
-        if (msg.match(/projects|work/)) return `📂 Featured projects: ${knowledgeBase.projects.join(", ")}. Check them out above!`;
         if (msg.match(/contact|email/)) return `📧 Email me at ${knowledgeBase.contact.email} or click the HIRE ME button!`;
-        return `I offer ${knowledgeBase.services.length}+ professional services! Which one interests you? Web Dev, App Dev, API, Telegram Bot, UI/UX, Code Review, or Consultation?`;
+        return `I offer ${knowledgeBase.services.length}+ professional services! Which one interests you? Or check out my 3 featured projects above!`;
     }
 
     function getUniqueSessionId() {
@@ -1041,7 +1101,7 @@
         if (chatHistory.length === 0) {
             const welcomeMsg = document.createElement('div');
             welcomeMsg.className = 'message bot-message';
-            welcomeMsg.innerHTML = '👋 Hi! I offer Web Dev, App Dev, API Integration, Telegram Bots, UI/UX Design, Code Review & Consultation. How can I help?';
+            welcomeMsg.innerHTML = '👋 Hi! I offer Web Dev, App Dev, API, Telegram Bots, UI/UX Design, Database Management & Cloud Deployment. Check out my 3 projects too! How can I help?';
             chatMessagesDiv.appendChild(welcomeMsg);
         } else {
             chatHistory.forEach(msg => {
@@ -1243,9 +1303,6 @@
         backDelay: 2000
     });
 
-    setTimeout(() => {
-        showNotification('Welcome! 🎉', 'Check out my services and click HIRE ME to start a conversation!', 'info');
-    }, 2000);
 </script>
 </body>
 </html>
