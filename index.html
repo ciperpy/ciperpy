@@ -38,6 +38,7 @@
             --skill-bg: #e5e7eb;
             --whatsapp: #25D366;
             --hire-glow: 0 0 20px rgba(59, 130, 246, 0.6);
+            --service-card: rgba(255, 255, 255, 0.08);
         }
 
         body.dark {
@@ -49,6 +50,7 @@
             --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
             --skill-bg: #334155;
             --hire-glow: 0 0 30px rgba(59, 130, 246, 0.8);
+            --service-card: rgba(255, 255, 255, 0.05);
         }
 
         body {
@@ -263,49 +265,72 @@
             border-left: 5px solid var(--accent);
             padding-left: 1rem;
         }
-        .skills-grid {
+
+        /* Services Section Styles */
+        .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.8rem;
         }
-        .skill-item {
+        .service-card {
             background: var(--card-bg);
-            padding: 1rem;
-            border-radius: 1rem;
+            border-radius: 1.5rem;
+            padding: 1.8rem;
             border: 1px solid var(--border);
             backdrop-filter: blur(10px);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .skill-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: var(--glow);
-        }
-        .skill-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-        .progress-bar {
-            background: var(--skill-bg);
-            height: 10px;
-            border-radius: 10px;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            text-align: center;
+            cursor: pointer;
+            position: relative;
             overflow: hidden;
         }
-        .progress-fill {
-            background: linear-gradient(90deg, var(--accent), #a855f7);
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
             height: 100%;
-            width: 0;
-            border-radius: 10px;
-            transition: width 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s ease;
         }
-        .skill-percent {
-            text-align: right;
-            font-size: 0.8rem;
+        .service-card:hover::before {
+            left: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--glow);
+        }
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .service-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+        }
+        .service-desc {
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            margin-top: 0.3rem;
+            line-height: 1.5;
         }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -398,7 +423,6 @@
             transform: translateY(-2px) scale(1.02);
         }
 
-        /* Ripple effect */
         .hire-btn::before {
             content: '';
             position: absolute;
@@ -416,7 +440,6 @@
             height: 300px;
         }
 
-        /* Pulsing animation */
         @keyframes pulseGlow {
             0%, 100% {
                 box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
@@ -676,7 +699,6 @@
             transform: scale(0.95);
         }
 
-        /* Notification Toast */
         .notification-toast {
             position: fixed;
             top: 20px;
@@ -754,6 +776,10 @@
             .hire-btn i {
                 font-size: 1.5rem;
             }
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
         }
 
         [data-aos] {
@@ -795,9 +821,10 @@
             </div>
         </div>
 
+        <!-- SERVICES I OFFER SECTION - NO PRICE TAGS -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-            <div class="section-title" id="skills-title">⚡ Technical Skills</div>
-            <div class="skills-grid" id="skills-grid"></div>
+            <div class="section-title" id="services-title">🎯 Services I Offer</div>
+            <div class="services-grid" id="servicesGrid"></div>
         </div>
 
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
@@ -805,7 +832,7 @@
             <div class="projects-grid" id="projectsGrid"></div>
         </div>
 
-        <!-- HIRE ME BUTTON SECTION - Replaces Get in Touch -->
+        <!-- HIRE ME BUTTON SECTION -->
         <div class="hire-section" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="400">
             <button class="hire-btn" id="hireMeBtn">
                 <i class="fas fa-envelope-open-text"></i>
@@ -837,14 +864,14 @@
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="message bot-message">
-                👋 Assalamualikum! I'm Ubaid's AI assistant. Ask me anything about Ubaid - his skills, projects, services, or just say hi!
+                👋 Assalamualikum! I'm Ubaid's AI assistant. Ask me about my services, skills, projects, or just say hi!
             </div>
         </div>
         <div class="typing-indicator" id="typingIndicator">
             <span></span><span></span><span></span>
         </div>
         <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything about Ubaid...">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me about my services...">
             <button class="send-btn" id="sendChatBtn">
                 <i class="fas fa-paper-plane"></i>
             </button>
@@ -862,7 +889,6 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // Initialize AOS
     AOS.init({
         duration: 800,
         once: false,
@@ -870,9 +896,7 @@
         easing: 'cubic-bezier(0.2, 0.9, 0.4, 1.1)'
     });
 
-    // ============================================
-    // WHATSAPP DIRECT CHAT
-    // ============================================
+    // WhatsApp Button
     const whatsappBtn = document.getElementById('whatsappBtn');
     whatsappBtn.addEventListener('click', () => {
         const phoneNumber = "919906454782";
@@ -880,46 +904,73 @@
         window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
     });
 
-    // ============================================
-    // HIRE ME BUTTON - Opens Gmail directly
-    // ============================================
+    // Hire Me Button - Opens Gmail
     const hireMeBtn = document.getElementById('hireMeBtn');
     hireMeBtn.addEventListener('click', () => {
         const email = "ubaidbilal957@gmail.com";
         const subject = encodeURIComponent("Hiring Opportunity - Ubaid Bilal");
-        const body = encodeURIComponent("Hello Ubaid,\n\nI came across your portfolio and I'm impressed with your work. I would like to discuss a potential hiring opportunity with you.\n\nPlease let me know your availability for a quick chat.\n\nBest regards,\n[Your Name]\n[Your Company]");
-
-        // Open default email client (Gmail, Outlook, etc.) with pre-filled email
+        const body = encodeURIComponent("Hello Ubaid,\n\nI came across your portfolio and I'm impressed with your services. I would like to discuss a potential hiring opportunity with you.\n\nPlease let me know your availability for a quick chat.\n\nBest regards,\n[Your Name]\n[Your Company]");
         window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-
-        // Show notification
         showNotification('📧 Opening Email', 'Your email client will open. Send your message to ubaidbilal957@gmail.com', 'success');
     });
 
-    // ============================================
-    // RECEIVE NOTIFICATIONS FROM ADMIN PANEL
-    // ============================================
+    // Services Data - NO PRICES
+    const services = [
+        { name: "Web Development", icon: "fas fa-globe", desc: "Modern, responsive, and scalable websites built with latest technologies.", color: "#3b82f6" },
+        { name: "App Development", icon: "fas fa-mobile-alt", desc: "Cross-platform mobile applications for iOS and Android.", color: "#a855f7" },
+        { name: "Telegram Bot Development", icon: "fab fa-telegram", desc: "Automated bots for business, community management, and more.", color: "#0088cc" },
+        { name: "UI/UX Design", icon: "fas fa-palette", desc: "Beautiful, user-friendly interfaces with amazing user experience.", color: "#f59e0b" },
+        { name: "Code Review & Optimization", icon: "fas fa-code-branch", desc: "Clean code practices, performance optimization, and best standards.", color: "#ef4444" },
+        { name: "Technical Consultation", icon: "fas fa-chalkboard-user", desc: "Expert advice on tech stacks, architecture, and project planning.", color: "#06b6d4" }
+    ];
 
+    function renderServices() {
+        const grid = document.getElementById('servicesGrid');
+        grid.innerHTML = services.map((s, index) => `
+            <div class="service-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="${index * 50}">
+                <div class="service-icon" style="background: linear-gradient(135deg, ${s.color}, ${s.color}cc);">
+                    <i class="${s.icon}"></i>
+                </div>
+                <div class="service-title">${s.name}</div>
+                <div class="service-desc">${s.desc}</div>
+            </div>
+        `).join('');
+    }
+    renderServices();
+
+    // Projects
+    const projects = [
+        { title: 'DevConnect Hub', desc: 'Platform for developers to collaborate', tech: ['React', 'Node.js'], icon: '🌐', stars: 523 },
+        { title: 'WeatherSnap', desc: 'Real-time weather app', tech: ['JS', 'API'], icon: '⛅', stars: 234 },
+        { title: 'Telegram Bot Studio', desc: 'Automation toolkit', tech: ['Python'], icon: '🤖', stars: 189 }
+    ];
+
+    function renderProjects() {
+        const grid = document.getElementById('projectsGrid');
+        grid.innerHTML = projects.map((p, index) => `
+            <div class="project-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="${index * 100}">
+                <div class="project-img">${p.icon}</div>
+                <div class="project-title" style="font-weight: 600; margin-bottom: 0.5rem;">${p.title} ⭐ ${p.stars}</div>
+                <div class="project-desc" style="color: var(--text-secondary); font-size: 0.9rem;">${p.desc}</div>
+                <div class="tech-stack">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+            </div>
+        `).join('');
+    }
+    renderProjects();
+
+    // Notification System
     function showNotification(title, message, type = 'info') {
         const toast = document.getElementById('notificationToast');
         const toastTitle = document.getElementById('toastTitle');
         const toastMessage = document.getElementById('toastMessage');
-
         toastTitle.innerText = title;
         toastMessage.innerText = message;
-
         let borderColor = '#3b82f6';
         if (type === 'success') borderColor = '#10b981';
         if (type === 'warning') borderColor = '#f59e0b';
-        if (type === 'new') borderColor = '#8b5cf6';
         toast.style.borderLeftColor = borderColor;
-
         toast.classList.add('show');
-
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 5000);
-
+        setTimeout(() => toast.classList.remove('show'), 5000);
         if ('Notification' in window && Notification.permission === 'granted') {
             new Notification(title, { body: message });
         }
@@ -930,15 +981,6 @@
         if (pendingNotif) {
             const notification = JSON.parse(pendingNotif);
             showNotification(notification.title, notification.message, notification.type);
-            if (notification.link) {
-                const toast = document.getElementById('notificationToast');
-                toast.style.cursor = 'pointer';
-                toast.onclick = () => {
-                    window.open(notification.link, '_blank');
-                    toast.style.cursor = 'default';
-                    toast.onclick = null;
-                };
-            }
             localStorage.removeItem('pendingNotification');
         }
     }
@@ -946,70 +988,32 @@
     if ('Notification' in window && Notification.permission !== 'denied') {
         Notification.requestPermission();
     }
-
     setInterval(checkForNewNotifications, 2000);
     checkForNewNotifications();
 
-    // ============================================
-    // AI ASSISTANT
-    // ============================================
-
+    // AI Assistant
     const knowledgeBase = {
         name: "Ubaid Bilal",
-        fullName: "Ubaid Bilal",
         role: "Full Stack Developer",
         experience: "3+ years",
         location: "Magam, Budgam, Jammu & Kashmir, India",
-        studentStatus: "I am a student and a passionate developer",
-        passion: "Open source, clean code, and teaching others",
-        skills: [
-            { name: "React", level: "90%" },
-            { name: "JavaScript/TypeScript", level: "85%" },
-            { name: "Python", level: "80%" },
-            { name: "Node.js", level: "85%" }
-        ],
-        contact: {
-            email: "ubaidbilal957@gmail.com",
-            github: "github.com/ciperpy",
-            telegram: "t.me/CiPeRPY",
-            twitter: "twitter.com/UbaidUbaid40427"
-        },
-        projects: [
-            { name: "DevConnect Hub", description: "Platform for developers to collaborate", stars: "500+" },
-            { name: "WeatherSnap", description: "Real-time weather app", stars: "234" },
-            { name: "Telegram Bot Studio", description: "Automation toolkit", stars: "189" }
-        ]
+        services: ["Web Development", "App Development", "API Integration", "Telegram Bot Development", "UI/UX Design", "Code Review & Optimization", "Technical Consultation"],
+        contact: { email: "ubaidbilal957@gmail.com", github: "github.com/ciperpy", telegram: "t.me/CiPeRPY" },
+        projects: ["DevConnect Hub", "WeatherSnap", "Telegram Bot Studio"]
     };
 
     function getAIResponse(userMessage) {
-        const message = userMessage.toLowerCase();
-        if (message.match(/hi|hello|hey|salaam|assalam|salam/)) {
-            return "👋 Walaikum Assalam! Welcome! I'm Ubaid's AI assistant. How can I help you today?";
-        }
-        if (message.match(/who are you|about ubaid|tell me about yourself/)) {
-            return `👨‍💻 I'm ${knowledgeBase.name}, a ${knowledgeBase.role} with ${knowledgeBase.experience} of experience. I'm based in ${knowledgeBase.location}. I love ${knowledgeBase.passion}.`;
-        }
-        if (message.match(/skills|technologies|tech stack/)) {
-            let skillsList = knowledgeBase.skills.map(s => `${s.name} (${s.level})`).join(", ");
-            return `🎯 I have expertise in: ${skillsList}`;
-        }
-        if (message.match(/projects|work/)) {
-            let projectsList = knowledgeBase.projects.map(p => `• ${p.name}: ${p.description} (⭐ ${p.stars} stars)`).join("\n");
-            return `📂 Here are my featured projects:\n${projectsList}`;
-        }
-        if (message.match(/contact|email|reach|hire/)) {
-            return `📱 Connect with me:\n• Email: ${knowledgeBase.contact.email}\n• GitHub: ${knowledgeBase.contact.github}\n• Telegram: ${knowledgeBase.contact.telegram}\n\n💼 Want to hire me? Click the "HIRE ME" button below!`;
-        }
-        if (message.match(/how are you|how r u/)) {
-            return "😎 I'm doing great! Coding and drinking chai. What about you?";
-        }
-        if (message.match(/joke|funny|laugh/)) {
-            return "Why do programmers prefer dark mode? Because light attracts bugs! 🐛😂";
-        }
-        if (message.match(/chai|tea|coffee/)) {
-            return "☕ Chai is life! I can't code without a good cup of chai. Want to grab some virtual chai?";
-        }
-        return `I'm here to help you learn about ${knowledgeBase.name}! Ask me about his skills, projects, or contact info. Click the "HIRE ME" button to send him an email!`;
+        const msg = userMessage.toLowerCase();
+        if (msg.match(/hi|hello|hey|salaam|assalam/)) return "👋 Walaikum Assalam! I'm Ubaid's AI assistant. Need help with any of my services?";
+        if (msg.match(/services|offer|do you do/)) return `🎯 I offer: ${knowledgeBase.services.join(", ")}. Click "HIRE ME" to get started!`;
+        if (msg.match(/web development|website/)) return "🌐 I build modern, responsive websites using React, Node.js, and latest technologies.";
+        if (msg.match(/app development|mobile app/)) return "📱 I create cross-platform mobile apps for iOS and Android using React Native and Flutter.";
+        if (msg.match(/telegram bot/)) return "🤖 I build custom Telegram bots for automation, community management, and business needs.";
+        if (msg.match(/api/)) return "🔌 I integrate third-party APIs and build custom RESTful APIs for your applications.";
+        if (msg.match(/ui\/ux|design/)) return "🎨 I design beautiful, user-friendly interfaces with amazing user experience.";
+        if (msg.match(/projects|work/)) return `📂 Featured projects: ${knowledgeBase.projects.join(", ")}. Check them out above!`;
+        if (msg.match(/contact|email/)) return `📧 Email me at ${knowledgeBase.contact.email} or click the HIRE ME button!`;
+        return `I offer ${knowledgeBase.services.length}+ professional services! Which one interests you? Web Dev, App Dev, API, Telegram Bot, UI/UX, Code Review, or Consultation?`;
     }
 
     function getUniqueSessionId() {
@@ -1037,7 +1041,7 @@
         if (chatHistory.length === 0) {
             const welcomeMsg = document.createElement('div');
             welcomeMsg.className = 'message bot-message';
-            welcomeMsg.innerHTML = '👋 Assalamualikum! I\'m Ubaid\'s AI assistant. Ask me anything about Ubaid!';
+            welcomeMsg.innerHTML = '👋 Hi! I offer Web Dev, App Dev, API Integration, Telegram Bots, UI/UX Design, Code Review & Consultation. How can I help?';
             chatMessagesDiv.appendChild(welcomeMsg);
         } else {
             chatHistory.forEach(msg => {
@@ -1164,23 +1168,16 @@
     chatToggleBtn.addEventListener('mousedown', startAIDrag);
     chatToggleBtn.addEventListener('touchstart', startAIDrag, { passive: false });
     chatToggleBtn.style.cursor = 'grab';
-
-    closeChat.addEventListener('click', () => {
-        chatWindow.classList.remove('active');
-    });
-
+    closeChat.addEventListener('click', () => chatWindow.classList.remove('active'));
     sendChatBtn.addEventListener('click', handleUserMessage);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleUserMessage();
-    });
-
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleUserMessage(); });
     loadChatHistory();
 
-    // Language translations
+    // Language Translations
     const translations = {
-        en: { name: "Ubaid Bilal", status: "🟢 Available for freelance work", bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳", github: "GitHub", telegram: "Telegram", twitter: "Twitter", skillsTitle: "⚡ Technical Skills", projectsTitle: "📂 Featured Projects", hireText: "HIRE ME", hireSubtext: "Click to send an email — let's work together!", footer: "📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding", visitors: "visitors" },
-        hi: { name: "उबैद बिलाल", status: "🟢 फ्रीलांस काम के लिए उपलब्ध", bio: "फुल-स्टैक डेवलपर जिसके पास 3+ साल का अनुभव है। मगाम, बडगाम, जम्मू और कश्मीर, भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", skillsTitle: "⚡ तकनीकी कौशल", projectsTitle: "📂 प्रोजेक्ट्स", hireText: "मुझे काम पर रखें", hireSubtext: "ईमेल भेजने के लिए क्लिक करें — आइए साथ काम करें!", footer: "📍 मगाम, बडगाम, जम्मू और कश्मीर · 🚀 3+ साल का कोडिंग अनुभव", visitors: "आगंतुक" },
-        ur: { name: "عبید بلال", status: "🟢 فری لانس کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 3+ سال کا تجربہ ہے۔ ماگام، بڈگام، جموں و کشمیر، انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", skillsTitle: "⚡ تکنیکی مہارتیں", projectsTitle: "📂 منصوبے", hireText: "مجھے کام پر رکھیں", hireSubtext: "ای میل بھیجنے کے لیے کلک کریں — آئیے ساتھ کام کریں!", footer: "📍 ماگام، بڈگام، جموں و کشمیر · 🚀 3+ سال کوڈنگ", visitors: "ملاقاتی" }
+        en: { name: "Ubaid Bilal", status: "🟢 Available for freelance work", bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳", github: "GitHub", telegram: "Telegram", twitter: "Twitter", servicesTitle: "🎯 Services I Offer", projectsTitle: "📂 Featured Projects", hireText: "HIRE ME", hireSubtext: "Click to send an email — let's work together!", footer: "📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding", visitors: "visitors" },
+        hi: { name: "उबैद बिलाल", status: "🟢 फ्रीलांस काम के लिए उपलब्ध", bio: "फुल-स्टैक डेवलपर जिसके पास 3+ साल का अनुभव है। मगाम, बडगाम, जम्मू और कश्मीर, भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", servicesTitle: "🎯 मेरी सेवाएं", projectsTitle: "📂 प्रोजेक्ट्स", hireText: "मुझे काम पर रखें", hireSubtext: "ईमेल भेजने के लिए क्लिक करें — आइए साथ काम करें!", footer: "📍 मगाम, बडगाम, जम्मू और कश्मीर · 🚀 3+ साल का कोडिंग अनुभव", visitors: "आगंतुक" },
+        ur: { name: "عبید بلال", status: "🟢 فری لانس کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 3+ سال کا تجربہ ہے۔ ماگام، بڈگام، جموں و کشمیر، انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", servicesTitle: "🎯 میری خدمات", projectsTitle: "📂 منصوبے", hireText: "مجھے کام پر رکھیں", hireSubtext: "ای میل بھیجنے کے لیے کلک کریں — آئیے ساتھ کام کریں!", footer: "📍 ماگام، بڈگام، جموں و کشمیر · 🚀 3+ سال کوڈنگ", visitors: "ملاقاتی" }
     };
 
     function updateLanguage(lang) {
@@ -1191,7 +1188,7 @@
         document.getElementById('github-text').innerText = t.github;
         document.getElementById('telegram-text').innerText = t.telegram;
         document.getElementById('twitter-text').innerText = t.twitter;
-        document.getElementById('skills-title').innerText = t.skillsTitle;
+        document.getElementById('services-title').innerText = t.servicesTitle;
         document.getElementById('projects-title').innerText = t.projectsTitle;
         document.getElementById('hire-text').innerText = t.hireText;
         document.getElementById('hire-subtext').innerText = t.hireSubtext;
@@ -1237,71 +1234,17 @@
     localStorage.setItem('pageViewCount', count);
     document.getElementById('visitorCount').innerText = count;
 
-    // Skills
-    const skills = [
-        { name: 'React', percent: 90, icon: 'fab fa-react' },
-        { name: 'JavaScript/TS', percent: 85, icon: 'fab fa-js' },
-        { name: 'Python', percent: 80, icon: 'fab fa-python' },
-        { name: 'Node.js', percent: 85, icon: 'fab fa-node' }
-    ];
-
-    function renderSkills() {
-        const grid = document.getElementById('skills-grid');
-        grid.innerHTML = skills.map(s => `
-            <div class="skill-item" data-aos="fade-up" data-aos-duration="600">
-                <div class="skill-header"><i class="${s.icon}"></i> ${s.name}</div>
-                <div class="progress-bar"><div class="progress-fill" data-percent="${s.percent}"></div></div>
-                <div class="skill-percent">${s.percent}%</div>
-            </div>
-        `).join('');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const fills = entry.target.querySelectorAll('.progress-fill');
-                    fills.forEach(fill => {
-                        const percent = fill.getAttribute('data-percent');
-                        fill.style.width = percent + '%';
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-        document.querySelectorAll('.skills-grid').forEach(grid => observer.observe(grid));
-    }
-    renderSkills();
-
-    // Projects
-    const projects = [
-        { title: 'DevConnect Hub', desc: 'Platform for developers to collaborate', tech: ['React', 'Node.js'], icon: '🌐', stars: 523 },
-        { title: 'WeatherSnap', desc: 'Real-time weather app', tech: ['JS', 'API'], icon: '⛅', stars: 234 },
-        { title: 'Telegram Bot Studio', desc: 'Automation toolkit', tech: ['Python'], icon: '🤖', stars: 189 }
-    ];
-
-    function renderProjects() {
-        const grid = document.getElementById('projectsGrid');
-        grid.innerHTML = projects.map((p, index) => `
-            <div class="project-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="${index * 100}">
-                <div class="project-img">${p.icon}</div>
-                <div class="project-title">${p.title} ⭐ ${p.stars}</div>
-                <div class="project-desc">${p.desc}</div>
-                <div class="tech-stack">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
-            </div>
-        `).join('');
-    }
-    renderProjects();
-
     // Typed effect
     new Typed('#typed-text', {
-        strings: ['Full Stack Developer', 'Open Source Contributor', 'Tech Writer', 'Student & Developer'],
+        strings: ['Full Stack Developer', 'Open Source Contributor', 'Freelancer', 'Available for Hire'],
         typeSpeed: 50,
         backSpeed: 30,
         loop: true,
         backDelay: 2000
     });
 
-    // Welcome notification
     setTimeout(() => {
-        showNotification('Welcome! 🎉', 'Click the HIRE ME button to start a conversation!', 'info');
+        showNotification('Welcome! 🎉', 'Check out my services and click HIRE ME to start a conversation!', 'info');
     }, 2000);
 </script>
 </body>
