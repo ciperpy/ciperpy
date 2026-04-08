@@ -17,9 +17,6 @@
     <!-- Typed.js -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
-    <!-- EmailJS for Contact Form -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
     <style>
         * {
             margin: 0;
@@ -40,6 +37,7 @@
             --glow: 0 0 30px rgba(59, 130, 246, 0.3);
             --skill-bg: #e5e7eb;
             --whatsapp: #25D366;
+            --hire-glow: 0 0 20px rgba(59, 130, 246, 0.6);
         }
 
         body.dark {
@@ -50,6 +48,7 @@
             --border: #334155;
             --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
             --skill-bg: #334155;
+            --hire-glow: 0 0 30px rgba(59, 130, 246, 0.8);
         }
 
         body {
@@ -358,57 +357,81 @@
             background: var(--accent);
             color: white;
         }
-        .contact-form {
-            background: var(--card-bg);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        .contact-form:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--glow);
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--border);
-            border-radius: 0.8rem;
-            color: var(--text);
-            margin-bottom: 1rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            transform: scale(1.01);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
-        }
-        .submit-btn {
-            background: var(--accent);
-            color: white;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 2rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .submit-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-        }
-        .form-status {
-            margin-top: 1rem;
+
+        /* HIRE ME BUTTON SECTION */
+        .hire-section {
+            margin: 3rem 0;
             text-align: center;
-            font-size: 0.9rem;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
         }
+        .hire-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            padding: 1.2rem 3rem;
+            border-radius: 80px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        .hire-btn i {
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+        .hire-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+        }
+        .hire-btn:hover i {
+            transform: translateX(5px) rotate(-5deg);
+        }
+        .hire-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Ripple effect */
+        .hire-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .hire-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Pulsing animation */
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 50px rgba(59, 130, 246, 0.8);
+            }
+        }
+        .hire-btn {
+            animation: pulseGlow 2s infinite;
+        }
+        .hire-btn:hover {
+            animation: none;
+        }
+
         .footer {
             text-align: center;
             margin-top: 3rem;
@@ -723,6 +746,14 @@
             h1 {
                 font-size: 1.8rem;
             }
+            .hire-btn {
+                font-size: 1.3rem;
+                padding: 0.9rem 2rem;
+                gap: 10px;
+            }
+            .hire-btn i {
+                font-size: 1.5rem;
+            }
         }
 
         [data-aos] {
@@ -774,23 +805,14 @@
             <div class="projects-grid" id="projectsGrid"></div>
         </div>
 
-        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
-            <div class="section-title" id="contact-title">📩 Get in Touch</div>
-            <div class="contact-form">
-                <form id="contactForm">
-                    <div class="form-group">
-                        <input type="text" id="contact-name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="contact-email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="contact-message" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn" id="send-btn">Send Message</button>
-                </form>
-                <div id="form-status" class="form-status"></div>
-            </div>
+        <!-- HIRE ME BUTTON SECTION - Replaces Get in Touch -->
+        <div class="hire-section" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="400">
+            <button class="hire-btn" id="hireMeBtn">
+                <i class="fas fa-envelope-open-text"></i>
+                <span id="hire-text">HIRE ME</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;" id="hire-subtext">Click to send an email — let's work together!</p>
         </div>
 
         <div class="footer" data-aos="fade-up" data-aos-duration="600">
@@ -859,6 +881,22 @@
     });
 
     // ============================================
+    // HIRE ME BUTTON - Opens Gmail directly
+    // ============================================
+    const hireMeBtn = document.getElementById('hireMeBtn');
+    hireMeBtn.addEventListener('click', () => {
+        const email = "ubaidbilal957@gmail.com";
+        const subject = encodeURIComponent("Hiring Opportunity - Ubaid Bilal");
+        const body = encodeURIComponent("Hello Ubaid,\n\nI came across your portfolio and I'm impressed with your work. I would like to discuss a potential hiring opportunity with you.\n\nPlease let me know your availability for a quick chat.\n\nBest regards,\n[Your Name]\n[Your Company]");
+
+        // Open default email client (Gmail, Outlook, etc.) with pre-filled email
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+
+        // Show notification
+        showNotification('📧 Opening Email', 'Your email client will open. Send your message to ubaidbilal957@gmail.com', 'success');
+    });
+
+    // ============================================
     // RECEIVE NOTIFICATIONS FROM ADMIN PANEL
     // ============================================
 
@@ -891,9 +929,7 @@
         const pendingNotif = localStorage.getItem('pendingNotification');
         if (pendingNotif) {
             const notification = JSON.parse(pendingNotif);
-
             showNotification(notification.title, notification.message, notification.type);
-
             if (notification.link) {
                 const toast = document.getElementById('notificationToast');
                 toast.style.cursor = 'pointer';
@@ -903,12 +939,10 @@
                     toast.onclick = null;
                 };
             }
-
             localStorage.removeItem('pendingNotification');
         }
     }
 
-    // Request notification permission on load
     if ('Notification' in window && Notification.permission !== 'denied') {
         Notification.requestPermission();
     }
@@ -928,21 +962,18 @@
         location: "Magam, Budgam, Jammu & Kashmir, India",
         studentStatus: "I am a student and a passionate developer",
         passion: "Open source, clean code, and teaching others",
-
         skills: [
             { name: "React", level: "90%" },
             { name: "JavaScript/TypeScript", level: "85%" },
             { name: "Python", level: "80%" },
             { name: "Node.js", level: "85%" }
         ],
-
         contact: {
             email: "ubaidbilal957@gmail.com",
             github: "github.com/ciperpy",
             telegram: "t.me/CiPeRPY",
             twitter: "twitter.com/UbaidUbaid40427"
         },
-
         projects: [
             { name: "DevConnect Hub", description: "Platform for developers to collaborate", stars: "500+" },
             { name: "WeatherSnap", description: "Real-time weather app", stars: "234" },
@@ -952,38 +983,35 @@
 
     function getAIResponse(userMessage) {
         const message = userMessage.toLowerCase();
-
-        if (message.match(/hi|hello|hey|salaam/)) {
-            return "👋 Assalamualikum! Welcome! I'm Ubaid's AI assistant. How can I help you today?";
+        if (message.match(/hi|hello|hey|salaam|assalam|salam/)) {
+            return "👋 Walaikum Assalam! Welcome! I'm Ubaid's AI assistant. How can I help you today?";
         }
-        if (message.match(/who are you|about ubaid/)) {
-            return `👨‍💻 I'm ${knowledgeBase.name}, a ${knowledgeBase.role} with ${knowledgeBase.experience} of experience. I'm based in ${knowledgeBase.location}.`;
+        if (message.match(/who are you|about ubaid|tell me about yourself/)) {
+            return `👨‍💻 I'm ${knowledgeBase.name}, a ${knowledgeBase.role} with ${knowledgeBase.experience} of experience. I'm based in ${knowledgeBase.location}. I love ${knowledgeBase.passion}.`;
         }
-        if (message.match(/skills|technologies/)) {
+        if (message.match(/skills|technologies|tech stack/)) {
             let skillsList = knowledgeBase.skills.map(s => `${s.name} (${s.level})`).join(", ");
             return `🎯 I have expertise in: ${skillsList}`;
         }
-        if (message.match(/projects/)) {
+        if (message.match(/projects|work/)) {
             let projectsList = knowledgeBase.projects.map(p => `• ${p.name}: ${p.description} (⭐ ${p.stars} stars)`).join("\n");
             return `📂 Here are my featured projects:\n${projectsList}`;
         }
-        if (message.match(/contact|email/)) {
-            return `📱 Connect with me:\n• Email: ${knowledgeBase.contact.email}\n• GitHub: ${knowledgeBase.contact.github}\n• Telegram: ${knowledgeBase.contact.telegram}`;
+        if (message.match(/contact|email|reach|hire/)) {
+            return `📱 Connect with me:\n• Email: ${knowledgeBase.contact.email}\n• GitHub: ${knowledgeBase.contact.github}\n• Telegram: ${knowledgeBase.contact.telegram}\n\n💼 Want to hire me? Click the "HIRE ME" button below!`;
         }
-        if (message.match(/how are you/)) {
-            return "😎 Main thik hu bhai! Coding kar raha hu, chai pee raha hu. Aap batao?";
+        if (message.match(/how are you|how r u/)) {
+            return "😎 I'm doing great! Coding and drinking chai. What about you?";
         }
-        if (message.match(/joke|funny/)) {
-            return "Why do programmers prefer dark mode? Because light attracts bugs! 🐛";
+        if (message.match(/joke|funny|laugh/)) {
+            return "Why do programmers prefer dark mode? Because light attracts bugs! 🐛😂";
         }
-        if (message.match(/chai|tea/)) {
-            return "☕ Chai pilo aur code karo! Main bhi chai ke bina kaam nahi kar sakta!";
+        if (message.match(/chai|tea|coffee/)) {
+            return "☕ Chai is life! I can't code without a good cup of chai. Want to grab some virtual chai?";
         }
-
-        return `I'm here to help you learn about ${knowledgeBase.name}! Ask me about his skills, projects, or contact info.`;
+        return `I'm here to help you learn about ${knowledgeBase.name}! Ask me about his skills, projects, or contact info. Click the "HIRE ME" button to send him an email!`;
     }
 
-    // Private chat session
     function getUniqueSessionId() {
         let sessionId = sessionStorage.getItem('chatSessionId');
         if (!sessionId) {
@@ -1009,7 +1037,7 @@
         if (chatHistory.length === 0) {
             const welcomeMsg = document.createElement('div');
             welcomeMsg.className = 'message bot-message';
-            welcomeMsg.innerHTML = '👋 Assalamualikum! I\'m Ubaid\'s AI assistant. Ask me anything!';
+            welcomeMsg.innerHTML = '👋 Assalamualikum! I\'m Ubaid\'s AI assistant. Ask me anything about Ubaid!';
             chatMessagesDiv.appendChild(welcomeMsg);
         } else {
             chatHistory.forEach(msg => {
@@ -1040,12 +1068,9 @@
     async function handleUserMessage() {
         const message = chatInput.value.trim();
         if (!message) return;
-
         addMessage(message, true);
         chatInput.value = '';
-
         typingIndicator.style.display = 'flex';
-
         setTimeout(() => {
             typingIndicator.style.display = 'none';
             const response = getAIResponse(message);
@@ -1153,9 +1178,9 @@
 
     // Language translations
     const translations = {
-        en: { name: "Ubaid Bilal", status: "🟢 Available for freelance work", bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳", github: "GitHub", telegram: "Telegram", twitter: "Twitter", skillsTitle: "⚡ Technical Skills", projectsTitle: "📂 Featured Projects", contactTitle: "📩 Get in Touch", sendBtn: "Send Message", footer: "📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding", visitors: "visitors", contactName: "Your Name", contactEmail: "Your Email", contactMessage: "Your Message" },
-        hi: { name: "उबैद बिलाल", status: "🟢 फ्रीलांस काम के लिए उपलब्ध", bio: "फुल-स्टैक डेवलपर जिसके पास 3+ साल का अनुभव है। मगाम, बडगाम, जम्मू और कश्मीर, भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", skillsTitle: "⚡ तकनीकी कौशल", projectsTitle: "📂 प्रोजेक्ट्स", contactTitle: "📩 संपर्क करें", sendBtn: "संदेश भेजें", footer: "📍 मगाम, बडगाम, जम्मू और कश्मीर · 🚀 3+ साल का कोडिंग अनुभव", visitors: "आगंतुक", contactName: "आपका नाम", contactEmail: "आपका ईमेल", contactMessage: "आपका संदेश" },
-        ur: { name: "عبید بلال", status: "🟢 فری لانس کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 3+ سال کا تجربہ ہے۔ ماگام، بڈگام، جموں و کشمیر، انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", skillsTitle: "⚡ تکنیکی مہارتیں", projectsTitle: "📂 منصوبے", contactTitle: "📩 رابطہ کریں", sendBtn: "پیغام بھیجیں", footer: "📍 ماگام، بڈگام، جموں و کشمیر · 🚀 3+ سال کوڈنگ", visitors: "ملاقاتی", contactName: "آپ کا نام", contactEmail: "آپ کا ای میل", contactMessage: "آپ کا پیغام" }
+        en: { name: "Ubaid Bilal", status: "🟢 Available for freelance work", bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳", github: "GitHub", telegram: "Telegram", twitter: "Twitter", skillsTitle: "⚡ Technical Skills", projectsTitle: "📂 Featured Projects", hireText: "HIRE ME", hireSubtext: "Click to send an email — let's work together!", footer: "📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding", visitors: "visitors" },
+        hi: { name: "उबैद बिलाल", status: "🟢 फ्रीलांस काम के लिए उपलब्ध", bio: "फुल-स्टैक डेवलपर जिसके पास 3+ साल का अनुभव है। मगाम, बडगाम, जम्मू और कश्मीर, भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", skillsTitle: "⚡ तकनीकी कौशल", projectsTitle: "📂 प्रोजेक्ट्स", hireText: "मुझे काम पर रखें", hireSubtext: "ईमेल भेजने के लिए क्लिक करें — आइए साथ काम करें!", footer: "📍 मगाम, बडगाम, जम्मू और कश्मीर · 🚀 3+ साल का कोडिंग अनुभव", visitors: "आगंतुक" },
+        ur: { name: "عبید بلال", status: "🟢 فری لانس کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 3+ سال کا تجربہ ہے۔ ماگام، بڈگام، جموں و کشمیر، انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", skillsTitle: "⚡ تکنیکی مہارتیں", projectsTitle: "📂 منصوبے", hireText: "مجھے کام پر رکھیں", hireSubtext: "ای میل بھیجنے کے لیے کلک کریں — آئیے ساتھ کام کریں!", footer: "📍 ماگام، بڈگام، جموں و کشمیر · 🚀 3+ سال کوڈنگ", visitors: "ملاقاتی" }
     };
 
     function updateLanguage(lang) {
@@ -1168,13 +1193,10 @@
         document.getElementById('twitter-text').innerText = t.twitter;
         document.getElementById('skills-title').innerText = t.skillsTitle;
         document.getElementById('projects-title').innerText = t.projectsTitle;
-        document.getElementById('contact-title').innerText = t.contactTitle;
-        document.getElementById('send-btn').innerHTML = t.sendBtn;
+        document.getElementById('hire-text').innerText = t.hireText;
+        document.getElementById('hire-subtext').innerText = t.hireSubtext;
         document.getElementById('footer-text').innerHTML = t.footer;
         document.getElementById('visitor-text').innerText = t.visitors;
-        document.getElementById('contact-name').placeholder = t.contactName;
-        document.getElementById('contact-email').placeholder = t.contactEmail;
-        document.getElementById('contact-message').placeholder = t.contactMessage;
     }
 
     document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -1206,13 +1228,7 @@
     // Copy email
     document.getElementById('copyEmailBtn').addEventListener('click', () => {
         navigator.clipboard.writeText('ubaidbilal957@gmail.com');
-        const statusDiv = document.getElementById('form-status');
-        statusDiv.innerHTML = '📋 Email copied to clipboard!';
-        statusDiv.className = 'form-status success';
-        setTimeout(() => {
-            statusDiv.innerHTML = '';
-            statusDiv.className = 'form-status';
-        }, 3000);
+        showNotification('📋 Email Copied!', 'ubaidbilal957@gmail.com copied to clipboard', 'success');
     });
 
     // Visitor counter
@@ -1238,7 +1254,6 @@
                 <div class="skill-percent">${s.percent}%</div>
             </div>
         `).join('');
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1251,7 +1266,6 @@
                 }
             });
         }, { threshold: 0.3 });
-
         document.querySelectorAll('.skills-grid').forEach(grid => observer.observe(grid));
     }
     renderSkills();
@@ -1285,44 +1299,9 @@
         backDelay: 2000
     });
 
-    // Contact Form with EmailJS
-    (function() {
-        emailjs.init("VK8ZgP1FVGkSJ8Y0G");
-    })();
-
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const name = document.getElementById('contact-name').value;
-        const email = document.getElementById('contact-email').value;
-        const message = document.getElementById('contact-message').value;
-        const statusDiv = document.getElementById('form-status');
-
-        statusDiv.innerHTML = 'Sending message... 📧';
-        statusDiv.className = 'form-status';
-
-        emailjs.send("service_ubaid", "template_ubaid", {
-            from_name: name,
-            from_email: email,
-            message: message,
-            to_email: "ubaidbilal957@gmail.com"
-        }).then(function(response) {
-            statusDiv.innerHTML = '✅ Message sent successfully! I\'ll get back to you soon.';
-            statusDiv.className = 'form-status success';
-            document.getElementById('contactForm').reset();
-            setTimeout(() => {
-                statusDiv.innerHTML = '';
-                statusDiv.className = 'form-status';
-            }, 5000);
-        }, function(error) {
-            statusDiv.innerHTML = '❌ Failed to send. Please email me directly at ubaidbilal957@gmail.com';
-            statusDiv.className = 'form-status error';
-        });
-    });
-
     // Welcome notification
     setTimeout(() => {
-        showNotification('Welcome! 🎉', 'Ask me anything about Ubaid or check out his projects!', 'info');
+        showNotification('Welcome! 🎉', 'Click the HIRE ME button to start a conversation!', 'info');
     }, 2000);
 </script>
 </body>
