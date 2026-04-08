@@ -10,6 +10,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -95,7 +96,7 @@
                 linear-gradient(var(--accent-green) 1px, transparent 1px),
                 linear-gradient(90deg, var(--accent-green) 1px, transparent 1px);
             background-size: 50px 50px;
-            opacity: 0.05;
+            opacity: 0.04;
             pointer-events: none;
             z-index: 0;
         }
@@ -110,13 +111,47 @@
             padding: 2rem 1rem;
         }
 
+        /* Header with Logo on Left and Theme Toggle on Right */
         .header-bar {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem 1rem 1rem;
+        }
+
+        /* Logo Style - CIPERPY */
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px var(--accent-glow-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 30px var(--accent-glow-purple);
+        }
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-purple));
+            transition: width 0.3s ease;
+        }
+        .logo:hover::after {
+            width: 100%;
         }
 
         /* Compact Theme Toggle */
@@ -812,7 +847,10 @@
                 padding: 1rem;
             }
             .header-bar {
-                justify-content: flex-end;
+                justify-content: space-between;
+            }
+            .logo {
+                font-size: 1.2rem;
             }
             .section-title {
                 font-size: 1.5rem;
@@ -843,6 +881,10 @@
 
 <div class="content-wrapper">
     <div class="header-bar" data-aos="fade-down" data-aos-duration="600">
+        <!-- Logo on Left - CIPERPY -->
+        <div class="logo">CIPERPY</div>
+
+        <!-- Theme Toggle on Right -->
         <div class="theme-compact">
             <button class="theme-compact-btn" id="lightModeBtn"><i class="fas fa-sun"></i> Light</button>
             <button class="theme-compact-btn active" id="darkModeBtn"><i class="fas fa-moon"></i> Dark</button>
@@ -886,7 +928,7 @@
         </div>
 
         <div class="footer" data-aos="fade-up" data-aos-duration="600">
-            <span>📍2024 CIPERPY All Rights Reserved</span>
+            <span>2024 CIPERPY All Rights Reserved</span>
             <div>👁️ <span id="visitorCount">0</span> visitors</div>
         </div>
     </div>
@@ -1231,6 +1273,10 @@
         loop: true,
         backDelay: 2000
     });
+
+    setTimeout(() => {
+        showNotification('Welcome! 🎉', 'Check out my 3 real projects: Bridal Site, Gesture Calculator & Islamic Hub!', 'info');
+    }, 2000);
 </script>
 </body>
 </html>
