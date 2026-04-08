@@ -25,32 +25,52 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* VENOMX INSPIRED DARK THEME - Deep Dark + Neon Green + Electric Purple */
         :root {
-            --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --text: #1f2937;
-            --text-secondary: #4b5563;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --border: #e5e7eb;
-            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-            --glow: 0 0 30px rgba(59, 130, 246, 0.3);
-            --skill-bg: #e5e7eb;
+            --bg: #0a0a0f;
+            --bg-secondary: #0f0f1a;
+            --card-bg: rgba(18, 18, 30, 0.85);
+            --text: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-green: #00ff88;
+            --accent-green-hover: #00cc6a;
+            --accent-purple: #b700ff;
+            --accent-purple-hover: #9d00e6;
+            --accent-light: rgba(0, 255, 136, 0.1);
+            --accent-purple-light: rgba(183, 0, 255, 0.1);
+            --accent-glow-green: rgba(0, 255, 136, 0.4);
+            --accent-glow-purple: rgba(183, 0, 255, 0.4);
+            --border: #1f1f30;
+            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            --glow-green: 0 0 20px rgba(0, 255, 136, 0.3);
+            --glow-purple: 0 0 20px rgba(183, 0, 255, 0.3);
+            --skill-bg: #1a1a2a;
             --whatsapp: #25D366;
-            --hire-glow: 0 0 20px rgba(59, 130, 246, 0.6);
-            --service-card: rgba(255, 255, 255, 0.08);
+            --hire-glow: 0 0 20px rgba(0, 255, 136, 0.5);
+            --service-card: rgba(255, 255, 255, 0.02);
+            --gradient-green: #00ff88;
+            --gradient-purple: #b700ff;
         }
 
-        body.dark {
-            --bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            --card-bg: rgba(30, 41, 59, 0.95);
-            --text: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --border: #334155;
-            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
-            --skill-bg: #334155;
-            --hire-glow: 0 0 30px rgba(59, 130, 246, 0.8);
-            --service-card: rgba(255, 255, 255, 0.05);
+        body.light {
+            --bg: #f0f0f5;
+            --bg-secondary: #e8e8f0;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text: #0a0a0f;
+            --text-secondary: #4a4a5a;
+            --accent-green: #00aa55;
+            --accent-green-hover: #008844;
+            --accent-purple: #9900dd;
+            --accent-purple-hover: #7a00b3;
+            --accent-light: rgba(0, 170, 85, 0.1);
+            --accent-purple-light: rgba(153, 0, 221, 0.1);
+            --accent-glow-green: rgba(0, 170, 85, 0.3);
+            --accent-glow-purple: rgba(153, 0, 221, 0.3);
+            --border: #d0d0e0;
+            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+            --glow-green: 0 0 20px rgba(0, 170, 85, 0.2);
+            --glow-purple: 0 0 20px rgba(153, 0, 221, 0.2);
+            --skill-bg: #e0e0f0;
         }
 
         body {
@@ -60,6 +80,24 @@
             transition: all 0.3s ease;
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
+        }
+
+        /* Subtle Grid Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(var(--accent-green) 1px, transparent 1px),
+                linear-gradient(90deg, var(--accent-green) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
         }
 
         html {
@@ -107,18 +145,20 @@
             gap: 5px;
         }
         .theme-compact-btn:hover {
-            background: rgba(59, 130, 246, 0.1);
+            background: var(--accent-light);
         }
         .theme-compact-btn.active {
-            background: var(--accent);
-            color: white;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+            background: var(--accent-green);
+            color: var(--bg);
+            box-shadow: 0 2px 8px var(--accent-glow-green);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 1rem 1.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .whatsapp-float {
@@ -154,11 +194,12 @@
             margin-bottom: 2rem;
             text-align: center;
             transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--border);
         }
         .profile-card:hover {
             transform: translateY(-8px) scale(1.01);
-            box-shadow: var(--glow);
+            box-shadow: var(--glow-green);
+            border-color: var(--accent-green);
         }
         .avatar {
             width: 120px;
@@ -174,23 +215,27 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow-green);
+            border: 3px solid var(--accent-green);
         }
         h1 {
             font-size: 2.2rem;
             margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         #typed-text {
-            color: var(--accent);
+            color: var(--accent-green);
             font-weight: 500;
             margin-bottom: 1rem;
             min-height: 2rem;
         }
         .status {
             display: inline-block;
-            background: #10b98120;
-            color: #10b981;
+            background: var(--accent-light);
+            color: var(--accent-green);
             padding: 0.25rem 0.9rem;
             border-radius: 40px;
             font-size: 0.8rem;
@@ -211,7 +256,7 @@
             flex-wrap: wrap;
         }
         .social-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             padding: 0.6rem 1.2rem;
             border-radius: 60px;
             text-decoration: none;
@@ -226,14 +271,14 @@
         }
         .social-btn:hover {
             transform: translateY(-3px) scale(1.02);
-            border-color: var(--accent);
-            color: var(--accent);
-            box-shadow: var(--glow);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            box-shadow: var(--glow-green);
         }
         .section-title {
             font-size: 1.8rem;
             margin: 2.5rem 0 1.5rem;
-            border-left: 5px solid var(--accent);
+            border-left: 5px solid var(--accent-green);
             padding-left: 1rem;
         }
 
@@ -262,7 +307,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, var(--accent-light), transparent);
             transition: left 0.5s ease;
         }
         .service-card:hover::before {
@@ -270,12 +315,13 @@
         }
         .service-card:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: var(--glow);
+            box-shadow: var(--glow-purple);
+            border-color: var(--accent-purple);
         }
         .service-icon {
             width: 70px;
             height: 70px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-purple));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -318,12 +364,13 @@
         }
         .project-card:hover {
             transform: translateY(-12px) scale(1.02);
-            box-shadow: var(--glow);
+            box-shadow: var(--glow-green);
+            border-color: var(--accent-green);
         }
         .project-img {
             width: 100%;
             height: 140px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-purple));
             border-radius: 1rem;
             margin-bottom: 1rem;
             display: flex;
@@ -358,17 +405,17 @@
             align-items: center;
             gap: 6px;
             padding: 0.4rem 1rem;
-            background: rgba(59, 130, 246, 0.1);
+            background: var(--accent-light);
             border-radius: 30px;
             font-size: 0.8rem;
-            color: var(--accent);
+            color: var(--accent-green);
             text-decoration: none;
             transition: all 0.3s ease;
             border: 1px solid var(--border);
         }
         .project-link:hover {
-            background: var(--accent);
-            color: white;
+            background: var(--accent-green);
+            color: var(--bg);
             transform: translateY(-2px);
         }
         .tech-stack {
@@ -378,16 +425,17 @@
             margin-top: 1rem;
         }
         .tech-tag {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--accent-light);
             padding: 0.2rem 0.6rem;
             border-radius: 20px;
             font-size: 0.7rem;
             border: 1px solid var(--border);
+            color: var(--accent-green);
             transition: all 0.2s ease;
         }
         .tech-tag:hover {
             transform: scale(1.05);
-            background: var(--accent);
+            background: var(--accent-purple);
             color: white;
         }
 
@@ -401,8 +449,8 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
-            color: white;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-purple));
+            color: var(--bg);
             font-size: 1.8rem;
             font-weight: 700;
             padding: 1.2rem 3rem;
@@ -410,7 +458,7 @@
             border: none;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 8px 30px var(--accent-glow-green);
             position: relative;
             overflow: hidden;
             text-decoration: none;
@@ -422,7 +470,7 @@
         }
         .hire-btn:hover {
             transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+            box-shadow: 0 15px 40px var(--accent-glow-purple);
         }
         .hire-btn:hover i {
             transform: translateX(5px) rotate(-5deg);
@@ -450,10 +498,10 @@
 
         @keyframes pulseGlow {
             0%, 100% {
-                box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+                box-shadow: 0 8px 30px var(--accent-glow-green);
             }
             50% {
-                box-shadow: 0 8px 50px rgba(59, 130, 246, 0.8);
+                box-shadow: 0 8px 50px rgba(0, 255, 136, 0.6);
             }
         }
         .hire-btn {
@@ -474,8 +522,8 @@
             position: fixed;
             bottom: 30px;
             left: 30px;
-            background: var(--accent);
-            color: white;
+            background: var(--accent-green);
+            color: var(--bg);
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -494,7 +542,7 @@
         }
         .scroll-top:hover {
             transform: translateY(-5px) scale(1.1);
-            background: var(--accent-hover);
+            background: var(--accent-purple);
         }
 
         .ai-chatbot {
@@ -506,7 +554,7 @@
         .chat-toggle {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-purple));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -515,7 +563,7 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             border: none;
-            color: white;
+            color: var(--bg);
             font-size: 1.5rem;
             user-select: none;
             touch-action: none;
@@ -531,7 +579,7 @@
         }
         .chat-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 8px 25px var(--accent-glow-green);
         }
         .chat-window {
             position: fixed;
@@ -541,7 +589,7 @@
             height: 520px;
             background: var(--card-bg);
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -564,9 +612,9 @@
             display: flex;
         }
         .chat-header {
-            background: linear-gradient(135deg, var(--accent), #a855f7);
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-purple));
             padding: 1rem;
-            color: white;
+            color: var(--bg);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -581,7 +629,7 @@
         .close-chat {
             background: none;
             border: none;
-            color: white;
+            color: var(--bg);
             cursor: pointer;
             font-size: 1.2rem;
             transition: transform 0.2s;
@@ -616,13 +664,13 @@
             }
         }
         .user-message {
-            background: var(--accent);
-            color: white;
+            background: var(--accent-green);
+            color: var(--bg);
             align-self: flex-end;
             border-bottom-right-radius: 5px;
         }
         .bot-message {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--accent-light);
             color: var(--text);
             align-self: flex-start;
             border-bottom-left-radius: 5px;
@@ -633,7 +681,7 @@
             align-items: center;
             gap: 5px;
             padding: 0.6rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--accent-light);
             border-radius: 15px;
             width: fit-content;
             margin-left: 1rem;
@@ -648,7 +696,7 @@
         .typing-indicator span {
             width: 8px;
             height: 8px;
-            background: var(--accent);
+            background: var(--accent-green);
             border-radius: 50%;
             animation: typing 1.4s infinite;
         }
@@ -679,7 +727,7 @@
             padding: 0.6rem;
             border: 1px solid var(--border);
             border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text);
             outline: none;
             font-family: inherit;
@@ -687,11 +735,11 @@
         }
         .chat-input:focus {
             transform: scale(1.01);
-            border-color: var(--accent);
+            border-color: var(--accent-green);
         }
         .send-btn {
-            background: var(--accent);
-            color: white;
+            background: var(--accent-green);
+            color: var(--bg);
             border: none;
             width: 36px;
             height: 36px;
@@ -701,7 +749,7 @@
         }
         .send-btn:hover {
             transform: scale(1.1);
-            background: var(--accent-hover);
+            background: var(--accent-purple);
         }
         .send-btn:active {
             transform: scale(0.95);
@@ -712,7 +760,7 @@
             top: 20px;
             right: 20px;
             background: var(--card-bg);
-            border-left: 4px solid var(--accent);
+            border-left: 4px solid var(--accent-green);
             padding: 1rem;
             border-radius: 0.5rem;
             box-shadow: var(--shadow);
@@ -795,10 +843,9 @@
 
 <div class="content-wrapper">
     <div class="header-bar" data-aos="fade-down" data-aos-duration="600">
-        <!-- Compact Theme Toggle Only - No Language Switcher -->
         <div class="theme-compact">
             <button class="theme-compact-btn" id="lightModeBtn"><i class="fas fa-sun"></i> Light</button>
-            <button class="theme-compact-btn" id="darkModeBtn"><i class="fas fa-moon"></i> Dark</button>
+            <button class="theme-compact-btn active" id="darkModeBtn"><i class="fas fa-moon"></i> Dark</button>
         </div>
     </div>
 
@@ -819,19 +866,16 @@
             </div>
         </div>
 
-        <!-- SERVICES I OFFER SECTION -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
             <div class="section-title">🎯 Services I Offer</div>
             <div class="services-grid" id="servicesGrid"></div>
         </div>
 
-        <!-- FEATURED PROJECTS SECTION -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
             <div class="section-title">📂 Featured Projects</div>
             <div class="projects-grid" id="projectsGrid"></div>
         </div>
 
-        <!-- HIRE ME BUTTON SECTION -->
         <div class="hire-section" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="400">
             <button class="hire-btn" id="hireMeBtn">
                 <i class="fas fa-envelope-open-text"></i>
@@ -895,7 +939,6 @@
         easing: 'cubic-bezier(0.2, 0.9, 0.4, 1.1)'
     });
 
-    // WhatsApp Button
     const whatsappBtn = document.getElementById('whatsappBtn');
     whatsappBtn.addEventListener('click', () => {
         const phoneNumber = "919906454782";
@@ -903,7 +946,6 @@
         window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
     });
 
-    // Hire Me Button - Opens Gmail
     const hireMeBtn = document.getElementById('hireMeBtn');
     hireMeBtn.addEventListener('click', () => {
         const email = "ubaidbilal957@gmail.com";
@@ -913,19 +955,18 @@
         showNotification('📧 Opening Email', 'Your email client will open. Send your message to ubaidbilal957@gmail.com', 'success');
     });
 
-    // Services Data
     const services = [
-        { name: "Web Development", icon: "fas fa-globe", desc: "Modern, responsive, and scalable websites built with latest technologies.", color: "#3b82f6" },
-        { name: "App Development", icon: "fas fa-mobile-alt", desc: "Cross-platform mobile applications for iOS and Android.", color: "#a855f7" },
-        { name: "Telegram Bot Development", icon: "fab fa-telegram", desc: "Automated bots for business, community management, and more.", color: "#0088cc" },
-        { name: "UI/UX Design", icon: "fas fa-palette", desc: "Beautiful, user-friendly interfaces with amazing user experience.", color: "#f59e0b" }
+        { name: "Web Development", icon: "fas fa-globe", desc: "Modern, responsive, and scalable websites built with latest technologies." },
+        { name: "App Development", icon: "fas fa-mobile-alt", desc: "Cross-platform mobile applications for iOS and Android." },
+        { name: "Telegram Bot Development", icon: "fab fa-telegram", desc: "Automated bots for business, community management, and more." },
+        { name: "UI/UX Design", icon: "fas fa-palette", desc: "Beautiful, user-friendly interfaces with amazing user experience." }
     ];
 
     function renderServices() {
         const grid = document.getElementById('servicesGrid');
         grid.innerHTML = services.map((s, index) => `
             <div class="service-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="${index * 50}">
-                <div class="service-icon" style="background: linear-gradient(135deg, ${s.color}, ${s.color}cc);">
+                <div class="service-icon">
                     <i class="${s.icon}"></i>
                 </div>
                 <div class="service-title">${s.name}</div>
@@ -935,7 +976,6 @@
     }
     renderServices();
 
-    // REAL PROJECTS
     const projects = [
         {
             title: 'Bridal Service Site',
@@ -980,14 +1020,13 @@
     }
     renderProjects();
 
-    // Notification System
     function showNotification(title, message, type = 'info') {
         const toast = document.getElementById('notificationToast');
         const toastTitle = document.getElementById('toastTitle');
         const toastMessage = document.getElementById('toastMessage');
         toastTitle.innerText = title;
         toastMessage.innerText = message;
-        let borderColor = '#3b82f6';
+        let borderColor = '#00ff88';
         if (type === 'success') borderColor = '#10b981';
         if (type === 'warning') borderColor = '#f59e0b';
         toast.style.borderLeftColor = borderColor;
@@ -1013,55 +1052,34 @@
     setInterval(checkForNewNotifications, 2000);
     checkForNewNotifications();
 
-    // Compact Theme Toggle
     const lightModeBtn = document.getElementById('lightModeBtn');
     const darkModeBtn = document.getElementById('darkModeBtn');
 
     function setTheme(theme) {
-        if (theme === 'dark') {
-            document.body.classList.add('dark');
-            lightModeBtn.classList.remove('active');
-            darkModeBtn.classList.add('active');
-        } else {
+        if (theme === 'light') {
+            document.body.classList.add('light');
             document.body.classList.remove('dark');
             lightModeBtn.classList.add('active');
             darkModeBtn.classList.remove('active');
+        } else {
+            document.body.classList.remove('light');
+            document.body.classList.add('dark');
+            lightModeBtn.classList.remove('active');
+            darkModeBtn.classList.add('active');
         }
         localStorage.setItem('theme', theme);
     }
 
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        setTheme('dark');
-    } else {
+    if (savedTheme === 'light') {
         setTheme('light');
+    } else {
+        setTheme('dark');
     }
 
     lightModeBtn.addEventListener('click', () => setTheme('light'));
     darkModeBtn.addEventListener('click', () => setTheme('dark'));
 
-    // AI Assistant
-    const knowledgeBase = {
-        name: "Ubaid Bilal",
-        role: "Full Stack Developer",
-        services: ["Web Development", "App Development", "Telegram Bot Development", "UI/UX Design"],
-        contact: { email: "ubaidbilal957@gmail.com" },
-        projects: ["Bridal Service Site", "AI Gesture Calculator", "Islamic Hub"]
-    };
-
-    function getAIResponse(userMessage) {
-        const msg = userMessage.toLowerCase();
-        if (msg.match(/hi|hello|hey|salaam|assalam/)) return "👋 Walaikum Assalam! I'm Ubaid's AI assistant. Need help with any of my services or projects?";
-        if (msg.match(/services|offer|do you do/)) return `🎯 I offer: ${knowledgeBase.services.join(", ")}. Click "HIRE ME" to get started!`;
-        if (msg.match(/projects|work|portfolio/)) return `📂 My featured projects: Bridal Service Site, AI Gesture Calculator, and Islamic Hub. Check them out above!`;
-        if (msg.match(/bridal|suriya/)) return "💍 The Bridal Service Site is a professional client website for bridal services. Live at suriya.indevs.in";
-        if (msg.match(/calculator|gesture/)) return "🖐️ The AI Gesture Calculator uses hand tracking and computer vision. Try it at ciperpy.github.io/Modern-calculator/";
-        if (msg.match(/islamic|hub/)) return "🕌 Islamic Hub is a comprehensive Islamic app with prayer times, Quran, Hadith, and many modern features. Coming soon!";
-        if (msg.match(/contact|email/)) return `📧 Email me at ${knowledgeBase.contact.email} or click the HIRE ME button!`;
-        return `I offer ${knowledgeBase.services.length}+ professional services! Which one interests you? Web Dev, App Dev, Telegram Bots, or UI/UX Design?`;
-    }
-
-    // Chat functionality
     const chatToggleBtn = document.getElementById('chatToggle');
     const chatWindow = document.getElementById('chatWindow');
     const closeChat = document.getElementById('closeChat');
@@ -1091,7 +1109,18 @@
         }, 600);
     }
 
-    // Draggable AI Chatbot
+    function getAIResponse(userMessage) {
+        const msg = userMessage.toLowerCase();
+        if (msg.match(/hi|hello|hey|salaam|assalam/)) return "👋 Walaikum Assalam! I'm Ubaid's AI assistant. Need help with any of my services or projects?";
+        if (msg.match(/services|offer|do you do/)) return "🎯 I offer: Web Development, App Development, Telegram Bot Development, and UI/UX Design. Click 'HIRE ME' to get started!";
+        if (msg.match(/projects|work|portfolio/)) return "📂 My featured projects: Bridal Service Site, AI Gesture Calculator, and Islamic Hub. Check them out above!";
+        if (msg.match(/bridal|suriya/)) return "💍 The Bridal Service Site is a professional client website for bridal services. Live at suriya.indevs.in";
+        if (msg.match(/calculator|gesture/)) return "🖐️ The AI Gesture Calculator uses hand tracking and computer vision. Try it at ciperpy.github.io/Modern-calculator/";
+        if (msg.match(/islamic|hub/)) return "🕌 Islamic Hub is a comprehensive Islamic app with prayer times, Quran, Hadith, and many modern features. Coming soon!";
+        if (msg.match(/contact|email/)) return "📧 Email me at ubaidbilal957@gmail.com or click the HIRE ME button!";
+        return "I offer Web Development, App Development, Telegram Bot Development, and UI/UX Design! Which service interests you?";
+    }
+
     const aiChatbot = document.getElementById('aiChatbot');
     let isDraggingAI = false;
     let startAIX, startAIY, initialAIX, initialAIY;
@@ -1181,24 +1210,20 @@
     sendChatBtn.addEventListener('click', handleUserMessage);
     chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleUserMessage(); });
 
-    // Scroll to top
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', () => scrollTopBtn.classList.toggle('show', window.scrollY > 300));
     scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // Copy email
     document.getElementById('copyEmailBtn').addEventListener('click', () => {
         navigator.clipboard.writeText('ubaidbilal957@gmail.com');
         showNotification('📋 Email Copied!', 'ubaidbilal957@gmail.com copied to clipboard', 'success');
     });
 
-    // Visitor counter
     let count = localStorage.getItem('pageViewCount');
     count = count ? Number(count) + 1 : 1;
     localStorage.setItem('pageViewCount', count);
     document.getElementById('visitorCount').innerText = count;
 
-    // Typed effect
     new Typed('#typed-text', {
         strings: ['Full Stack Developer', 'Open Source Contributor', 'Freelancer', 'Available for Hire'],
         typeSpeed: 50,
