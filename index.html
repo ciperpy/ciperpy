@@ -79,96 +79,6 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem 1rem 1rem;
-            gap: 1rem;
-        }
-
-        .right-controls {
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-        }
-
-        /* Compact Language Dropdown */
-        .lang-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .lang-trigger {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow);
-        }
-        .lang-trigger:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-2px);
-        }
-        .lang-trigger i {
-            font-size: 0.9rem;
-        }
-        .lang-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 8px;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 0.5rem;
-            min-width: 140px;
-            display: none;
-            z-index: 100;
-            box-shadow: var(--shadow);
-            animation: fadeInDown 0.2s ease;
-        }
-        .lang-menu.show {
-            display: block;
-        }
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .lang-option {
-            background: transparent;
-            border: none;
-            padding: 0.6rem 1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text);
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            text-align: left;
-        }
-        .lang-option:hover {
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateX(3px);
-        }
-        .lang-option.active {
-            background: var(--accent);
-            color: white;
         }
 
         /* Compact Theme Toggle */
@@ -874,12 +784,6 @@
                 grid-template-columns: 1fr;
                 gap: 1.2rem;
             }
-            .lang-trigger span:first-child {
-                display: none;
-            }
-            .lang-trigger i:first-child {
-                margin-right: 0;
-            }
         }
 
         [data-aos] {
@@ -891,26 +795,10 @@
 
 <div class="content-wrapper">
     <div class="header-bar" data-aos="fade-down" data-aos-duration="600">
-        <div class="right-controls">
-            <!-- Compact Language Dropdown -->
-            <div class="lang-dropdown">
-                <button class="lang-trigger" id="langTrigger">
-                    <i class="fas fa-globe"></i>
-                    <span>English</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="lang-menu" id="langMenu">
-                    <button class="lang-option" data-lang="en">🇬🇧 English</button>
-                    <button class="lang-option" data-lang="hi">🇮🇳 हिंदी</button>
-                    <button class="lang-option" data-lang="ur">🇵🇰 اردو</button>
-                </div>
-            </div>
-
-            <!-- Compact Theme Toggle -->
-            <div class="theme-compact">
-                <button class="theme-compact-btn" id="lightModeBtn"><i class="fas fa-sun"></i> Light</button>
-                <button class="theme-compact-btn" id="darkModeBtn"><i class="fas fa-moon"></i> Dark</button>
-            </div>
+        <!-- Compact Theme Toggle Only - No Language Switcher -->
+        <div class="theme-compact">
+            <button class="theme-compact-btn" id="lightModeBtn"><i class="fas fa-sun"></i> Light</button>
+            <button class="theme-compact-btn" id="darkModeBtn"><i class="fas fa-moon"></i> Dark</button>
         </div>
     </div>
 
@@ -919,27 +807,27 @@
             <div class="avatar">
                 <img src="https://i.ibb.co/bMMN9ytB/wmremove-transformed.png" alt="Ubaid Bilal">
             </div>
-            <h1 id="name">Ubaid Bilal</h1>
+            <h1>Ubaid Bilal</h1>
             <div id="typed-text"></div>
-            <div class="status" id="status">🟢 Available for freelance work</div>
-            <p class="bio" id="bio">Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳</p>
+            <div class="status">🟢 Available for freelance work</div>
+            <p class="bio">Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳</p>
             <div class="social-links">
-                <a href="https://github.com/ciperpy" target="_blank" class="social-btn"><i class="fab fa-github"></i> <span id="github-text">GitHub</span></a>
-                <a href="https://t.me/CiPeRPY" target="_blank" class="social-btn"><i class="fab fa-telegram"></i> <span id="telegram-text">Telegram</span></a>
-                <a href="https://twitter.com/UbaidUbaid40427" target="_blank" class="social-btn"><i class="fab fa-twitter"></i> <span id="twitter-text">Twitter</span></a>
+                <a href="https://github.com/ciperpy" target="_blank" class="social-btn"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://t.me/CiPeRPY" target="_blank" class="social-btn"><i class="fab fa-telegram"></i> Telegram</a>
+                <a href="https://twitter.com/UbaidUbaid40427" target="_blank" class="social-btn"><i class="fab fa-twitter"></i> Twitter</a>
                 <button class="social-btn" id="copyEmailBtn"><i class="far fa-envelope"></i> ubaidbilal957@gmail.com</button>
             </div>
         </div>
 
         <!-- SERVICES I OFFER SECTION -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-            <div class="section-title" id="services-title">🎯 Services I Offer</div>
+            <div class="section-title">🎯 Services I Offer</div>
             <div class="services-grid" id="servicesGrid"></div>
         </div>
 
         <!-- FEATURED PROJECTS SECTION -->
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
-            <div class="section-title" id="projects-title">📂 Featured Projects</div>
+            <div class="section-title">📂 Featured Projects</div>
             <div class="projects-grid" id="projectsGrid"></div>
         </div>
 
@@ -947,15 +835,15 @@
         <div class="hire-section" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="400">
             <button class="hire-btn" id="hireMeBtn">
                 <i class="fas fa-envelope-open-text"></i>
-                <span id="hire-text">HIRE ME</span>
+                <span>HIRE ME</span>
                 <i class="fas fa-arrow-right"></i>
             </button>
-            <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;" id="hire-subtext">Click to send an email — let's work together!</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">Click to send an email — let's work together!</p>
         </div>
 
         <div class="footer" data-aos="fade-up" data-aos-duration="600">
-            <span id="footer-text">📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding</span>
-            <div>👁️ <span id="visitorCount">0</span> <span id="visitor-text">visitors</span></div>
+            <span>📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding</span>
+            <div>👁️ <span id="visitorCount">0</span> visitors</div>
         </div>
     </div>
 </div>
@@ -1030,7 +918,7 @@
         { name: "Web Development", icon: "fas fa-globe", desc: "Modern, responsive, and scalable websites built with latest technologies.", color: "#3b82f6" },
         { name: "App Development", icon: "fas fa-mobile-alt", desc: "Cross-platform mobile applications for iOS and Android.", color: "#a855f7" },
         { name: "Telegram Bot Development", icon: "fab fa-telegram", desc: "Automated bots for business, community management, and more.", color: "#0088cc" },
-        { name: "UI/UX Design", icon: "fas fa-palette", desc: "Beautiful, user-friendly interfaces with amazing user experience.", color: "#f59e0b" },
+        { name: "UI/UX Design", icon: "fas fa-palette", desc: "Beautiful, user-friendly interfaces with amazing user experience.", color: "#f59e0b" }
     ];
 
     function renderServices() {
@@ -1125,78 +1013,6 @@
     setInterval(checkForNewNotifications, 2000);
     checkForNewNotifications();
 
-    // Language Dropdown
-    const langTrigger = document.getElementById('langTrigger');
-    const langMenu = document.getElementById('langMenu');
-    const langOptions = document.querySelectorAll('.lang-option');
-
-    langTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        langMenu.classList.toggle('show');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!langTrigger.contains(e.target) && !langMenu.contains(e.target)) {
-            langMenu.classList.remove('show');
-        }
-    });
-
-    // Translations
-    const translations = {
-        en: { name: "Ubaid Bilal", status: "🟢 Available for freelance work", bio: "Full-stack developer with 3+ years of experience building scalable web apps. Passionate about open source, clean code, and teaching others. Based in Magam, Budgam, Jammu & Kashmir, India 🇮🇳", github: "GitHub", telegram: "Telegram", twitter: "Twitter", servicesTitle: "🎯 Services I Offer", projectsTitle: "📂 Featured Projects", hireText: "HIRE ME", hireSubtext: "Click to send an email — let's work together!", footer: "📍 Based in Magam, Budgam, J&K, India · 🚀 3+ years of coding", visitors: "visitors" },
-        hi: { name: "उबैद बिलाल", status: "🟢 फ्रीलांस काम के लिए उपलब्ध", bio: "फुल-स्टैक डेवलपर जिसके पास 3+ साल का अनुभव है। मगाम, बडगाम, जम्मू और कश्मीर, भारत में स्थित 🇮🇳", github: "गिटहब", telegram: "टेलीग्राम", twitter: "ट्विटर", servicesTitle: "🎯 मेरी सेवाएं", projectsTitle: "📂 प्रोजेक्ट्स", hireText: "मुझे काम पर रखें", hireSubtext: "ईमेल भेजने के लिए क्लिक करें — आइए साथ काम करें!", footer: "📍 मगाम, बडगाम, जम्मू और कश्मीर · 🚀 3+ साल का कोडिंग अनुभव", visitors: "आगंतुक" },
-        ur: { name: "عبید بلال", status: "🟢 فری لانس کے لیے دستیاب", bio: "فل سٹیک ڈویلپر جسے 3+ سال کا تجربہ ہے۔ ماگام، بڈگام، جموں و کشمیر، انڈیا میں مقیم 🇮🇳", github: "گٹ ہب", telegram: "ٹیلیگرام", twitter: "ٹویٹر", servicesTitle: "🎯 میری خدمات", projectsTitle: "📂 منصوبے", hireText: "مجھے کام پر رکھیں", hireSubtext: "ای میل بھیجنے کے لیے کلک کریں — آئیے ساتھ کام کریں!", footer: "📍 ماگام، بڈگام، جموں و کشمیر · 🚀 3+ سال کوڈنگ", visitors: "ملاقاتی" }
-    };
-
-    let currentLang = 'en';
-
-    function updateLanguage(lang) {
-        currentLang = lang;
-        const t = translations[lang];
-        document.getElementById('name').innerText = t.name;
-        document.getElementById('status').innerText = t.status;
-        document.getElementById('bio').innerText = t.bio;
-        document.getElementById('github-text').innerText = t.github;
-        document.getElementById('telegram-text').innerText = t.telegram;
-        document.getElementById('twitter-text').innerText = t.twitter;
-        document.getElementById('services-title').innerText = t.servicesTitle;
-        document.getElementById('projects-title').innerText = t.projectsTitle;
-        document.getElementById('hire-text').innerText = t.hireText;
-        document.getElementById('hire-subtext').innerText = t.hireSubtext;
-        document.getElementById('footer-text').innerHTML = t.footer;
-        document.getElementById('visitor-text').innerText = t.visitors;
-
-        // Update trigger button text
-        const langNames = { en: 'English', hi: 'हिंदी', ur: 'اردو' };
-        langTrigger.querySelector('span').innerText = langNames[lang];
-
-        // Update active class on options
-        langOptions.forEach(opt => {
-            if (opt.dataset.lang === lang) {
-                opt.classList.add('active');
-            } else {
-                opt.classList.remove('active');
-            }
-        });
-
-        localStorage.setItem('preferredLang', lang);
-        langMenu.classList.remove('show');
-    }
-
-    langOptions.forEach(opt => {
-        opt.addEventListener('click', () => {
-            updateLanguage(opt.dataset.lang);
-        });
-    });
-
-    // Load saved language
-    const savedLang = localStorage.getItem('preferredLang');
-    if (savedLang && translations[savedLang]) {
-        updateLanguage(savedLang);
-    } else {
-        updateLanguage('en');
-    }
-
     // Compact Theme Toggle
     const lightModeBtn = document.getElementById('lightModeBtn');
     const darkModeBtn = document.getElementById('darkModeBtn');
@@ -1228,7 +1044,7 @@
     const knowledgeBase = {
         name: "Ubaid Bilal",
         role: "Full Stack Developer",
-        services: ["Web Development", "App Development", "API Integration", "Telegram Bot Development", "UI/UX Design", "Database Management", "Cloud Deployment"],
+        services: ["Web Development", "App Development", "Telegram Bot Development", "UI/UX Design"],
         contact: { email: "ubaidbilal957@gmail.com" },
         projects: ["Bridal Service Site", "AI Gesture Calculator", "Islamic Hub"]
     };
@@ -1238,8 +1054,11 @@
         if (msg.match(/hi|hello|hey|salaam|assalam/)) return "👋 Walaikum Assalam! I'm Ubaid's AI assistant. Need help with any of my services or projects?";
         if (msg.match(/services|offer|do you do/)) return `🎯 I offer: ${knowledgeBase.services.join(", ")}. Click "HIRE ME" to get started!`;
         if (msg.match(/projects|work|portfolio/)) return `📂 My featured projects: Bridal Service Site, AI Gesture Calculator, and Islamic Hub. Check them out above!`;
+        if (msg.match(/bridal|suriya/)) return "💍 The Bridal Service Site is a professional client website for bridal services. Live at suriya.indevs.in";
+        if (msg.match(/calculator|gesture/)) return "🖐️ The AI Gesture Calculator uses hand tracking and computer vision. Try it at ciperpy.github.io/Modern-calculator/";
+        if (msg.match(/islamic|hub/)) return "🕌 Islamic Hub is a comprehensive Islamic app with prayer times, Quran, Hadith, and many modern features. Coming soon!";
         if (msg.match(/contact|email/)) return `📧 Email me at ${knowledgeBase.contact.email} or click the HIRE ME button!`;
-        return `I offer ${knowledgeBase.services.length}+ professional services! Which one interests you?`;
+        return `I offer ${knowledgeBase.services.length}+ professional services! Which one interests you? Web Dev, App Dev, Telegram Bots, or UI/UX Design?`;
     }
 
     // Chat functionality
