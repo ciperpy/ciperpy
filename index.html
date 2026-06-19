@@ -1950,14 +1950,34 @@
       let word = 0;
       let char = 0;
       let deleting = false;
+      const typeDelay = 110;
+      const deleteDelay = 70;
+      const holdDelay = 2400;
       function tick() {
         const current = words[word];
         target.textContent = current.slice(0, char);
-        if (!deleting && char < current.length) char++;
-        else if (deleting && char > 0) char--;
-        else if (!deleting) deleting = true, setTimeout(tick, 1100);
-        else deleting = false, word = (word + 1) % words.length;
-        setTimeout(tick, deleting ? 34 : 62);
+
+        if (!deleting && char < current.length) {
+          char++;
+          setTimeout(tick, typeDelay);
+          return;
+        }
+
+        if (!deleting) {
+          deleting = true;
+          setTimeout(tick, holdDelay);
+          return;
+        }
+
+        if (deleting && char > 0) {
+          char--;
+          setTimeout(tick, deleteDelay);
+          return;
+        }
+
+        deleting = false;
+        word = (word + 1) % words.length;
+        setTimeout(tick, typeDelay);
       }
       tick();
     }
