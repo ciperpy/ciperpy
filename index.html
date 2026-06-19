@@ -33,6 +33,7 @@
       --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
       --radius: 8px;
       --ease: cubic-bezier(.2, .8, .2, 1);
+      --scene-glow: rgba(0, 255, 136, 0.18);
     }
 
     [data-theme="aurora"] {
@@ -45,6 +46,7 @@
       --blue: #60a5fa;
       --pink: #fb7185;
       --gold: #fde047;
+      --scene-glow: rgba(45, 212, 191, 0.16);
     }
 
     [data-theme="day"] {
@@ -61,6 +63,7 @@
       --blue: #0284c7;
       --pink: #db2777;
       --gold: #b7791f;
+      --scene-glow: rgba(6, 150, 106, 0.1);
       --shadow: 0 24px 60px rgba(46, 61, 86, 0.17);
     }
 
@@ -71,9 +74,10 @@
       min-height: 100vh;
       overflow-x: hidden;
       background:
-        radial-gradient(circle at 18% 8%, color-mix(in srgb, var(--purple) 30%, transparent), transparent 32rem),
-        radial-gradient(circle at 82% 14%, color-mix(in srgb, var(--green) 22%, transparent), transparent 28rem),
-        linear-gradient(135deg, var(--bg), var(--bg-2) 58%, var(--bg));
+        radial-gradient(circle at 50% 38%, var(--scene-glow), transparent 34rem),
+        radial-gradient(circle at 17% 20%, color-mix(in srgb, var(--blue) 16%, transparent), transparent 24rem),
+        radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--pink) 12%, transparent), transparent 22rem),
+        linear-gradient(180deg, #030609 0%, var(--bg) 48%, #050711 100%);
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       letter-spacing: 0;
@@ -84,12 +88,14 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image:
-        linear-gradient(color-mix(in srgb, var(--green) 16%, transparent) 1px, transparent 1px),
-        linear-gradient(90deg, color-mix(in srgb, var(--blue) 12%, transparent) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: linear-gradient(to bottom, black, transparent 88%);
-      opacity: .28;
+      background:
+        linear-gradient(to bottom, rgba(3,6,9,.15), rgba(3,6,9,.72) 74%, rgba(3,6,9,.92)),
+        repeating-linear-gradient(0deg, transparent 0 63px, color-mix(in srgb, var(--green) 13%, transparent) 64px),
+        repeating-linear-gradient(90deg, transparent 0 63px, color-mix(in srgb, var(--blue) 10%, transparent) 64px);
+      mask-image: linear-gradient(to bottom, transparent 0 56%, black 72%, black 100%);
+      transform-origin: 50% 100%;
+      transform: perspective(520px) rotateX(58deg) translateY(18%);
+      opacity: .42;
       z-index: -2;
     }
 
@@ -1744,9 +1750,10 @@
     function initCanvas() {
       const canvas = $("#network");
       const ctx = canvas.getContext("2d");
-      const points = [];
+      const stars = [];
       const mouse = { x: -9999, y: -9999 };
       const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let time = 0;
 
       function resize() {
         canvas.width = innerWidth * devicePixelRatio;
@@ -1754,40 +1761,153 @@
         canvas.style.width = innerWidth + "px";
         canvas.style.height = innerHeight + "px";
         ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-        points.length = 0;
-        const count = Math.min(90, Math.max(36, Math.floor(innerWidth / 18)));
+        stars.length = 0;
+        const count = Math.min(160, Math.max(70, Math.floor(innerWidth / 9)));
         for (let i = 0; i < count; i++) {
-          points.push({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, vx: (Math.random() - .5) * .45, vy: (Math.random() - .5) * .45 });
+          stars.push({
+            x: Math.random() * innerWidth,
+            y: Math.random() * innerHeight,
+            r: Math.random() * 1.5 + .35,
+            twinkle: Math.random() * Math.PI * 2,
+            tint: Math.random() > .72 ? "blue" : "green"
+          });
         }
+      }
+
+      function css(name) {
+        return getComputedStyle(document.body).getPropertyValue(name).trim();
+      }
+
+      function drawGrid(horizon, green, blue) {
+        const bottom = innerHeight + 90;
+        const center = innerWidth / 2;
+        ctx.save();
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 22; i++) {
+          const t = i / 21;
+          const y = horizon + Math.pow(t, 2.25) * (bottom - horizon);
+          ctx.strokeStyle = `rgba(0,255,136,${0.18 * (1 - t) + 0.03})`;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(innerWidth, y);
+          ctx.stroke();
+        }
+        for (let i = -16; i <= 16; i++) {
+          const spread = i / 16;
+          ctx.strokeStyle = `rgba(56,189,248,${0.06 + 0.08 * (1 - Math.abs(spread))})`;
+          ctx.beginPath();
+          ctx.moveTo(center + spread * 58, horizon);
+          ctx.lineTo(center + spread * innerWidth * 1.25, bottom);
+          ctx.stroke();
+        }
+        const glow = ctx.createLinearGradient(0, horizon - 80, 0, horizon + 80);
+        glow.addColorStop(0, "rgba(0,0,0,0)");
+        glow.addColorStop(.5, green);
+        glow.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = glow;
+        ctx.globalAlpha = .16;
+        ctx.fillRect(0, horizon - 80, innerWidth, 160);
+        ctx.restore();
+      }
+
+      function projectPoint(lat, lon, cx, cy, radius, rotX, rotY) {
+        let x = Math.cos(lat) * Math.cos(lon);
+        let y = Math.sin(lat);
+        let z = Math.cos(lat) * Math.sin(lon);
+        const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+        const x1 = x * cosY - z * sinY;
+        const z1 = x * sinY + z * cosY;
+        const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+        const y1 = y * cosX - z1 * sinX;
+        const z2 = y * sinX + z1 * cosX;
+        const scale = 1 / (1.7 - z2 * .45);
+        return { x: cx + x1 * radius * scale, y: cy + y1 * radius * scale, a: .35 + scale * .45 };
+      }
+
+      function drawWireGlobe(cx, cy, radius, green, blue, pink) {
+        const rotY = time * .34 + (mouse.x - innerWidth / 2) / innerWidth * .35;
+        const rotX = -.35 + (mouse.y - innerHeight / 2) / innerHeight * .18;
+        ctx.save();
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = green;
+        ctx.lineWidth = 1;
+
+        for (let latIndex = -5; latIndex <= 5; latIndex++) {
+          const lat = latIndex * Math.PI / 12;
+          ctx.beginPath();
+          for (let i = 0; i <= 128; i++) {
+            const p = projectPoint(lat, i / 128 * Math.PI * 2, cx, cy, radius, rotX, rotY);
+            if (i === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.strokeStyle = `rgba(0,255,136,${.11 + (6 - Math.abs(latIndex)) * .018})`;
+          ctx.stroke();
+        }
+
+        for (let lonIndex = 0; lonIndex < 13; lonIndex++) {
+          const lon = lonIndex * Math.PI / 6;
+          ctx.beginPath();
+          for (let i = -64; i <= 64; i++) {
+            const p = projectPoint(i / 64 * Math.PI / 2, lon, cx, cy, radius, rotX, rotY);
+            if (i === -64) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.strokeStyle = `rgba(20,184,166,${.08 + lonIndex % 3 * .025})`;
+          ctx.stroke();
+        }
+
+        ctx.shadowBlur = 34;
+        ctx.strokeStyle = blue;
+        drawOrbit(cx, cy, radius * 1.32, .24, time * .28, .7);
+        ctx.strokeStyle = pink;
+        drawOrbit(cx, cy, radius * 1.12, -.62, -time * .22, .52);
+        ctx.strokeStyle = green;
+        drawOrbit(cx, cy, radius * 1.52, .76, time * .18, .42);
+        ctx.restore();
+      }
+
+      function drawOrbit(cx, cy, radius, tilt, spin, alpha) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.translate(cx, cy);
+        ctx.rotate(spin);
+        ctx.scale(1, Math.cos(tilt));
+        ctx.beginPath();
+        ctx.ellipse(0, 0, radius, radius * .32, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
       }
 
       function draw() {
         ctx.clearRect(0, 0, innerWidth, innerHeight);
-        points.forEach((p, i) => {
-          if (!reduce) {
-            p.x += p.vx;
-            p.y += p.vy;
-            if (p.x < 0 || p.x > innerWidth) p.vx *= -1;
-            if (p.y < 0 || p.y > innerHeight) p.vy *= -1;
-          }
-          const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+        const green = css("--green");
+        const blue = css("--blue");
+        const pink = css("--pink");
+        time += reduce ? 0 : .012;
+
+        ctx.fillStyle = "rgba(3,6,9,.2)";
+        ctx.fillRect(0, 0, innerWidth, innerHeight);
+
+        stars.forEach((star) => {
+          const pulse = .35 + Math.sin(time * 2 + star.twinkle) * .25;
           ctx.beginPath();
-          ctx.fillStyle = md < 140 ? "rgba(0,255,136,.95)" : "rgba(56,189,248,.45)";
-          ctx.arc(p.x, p.y, md < 140 ? 2.5 : 1.4, 0, Math.PI * 2);
+          ctx.fillStyle = star.tint === "blue" ? `rgba(56,189,248,${pulse})` : `rgba(232,255,244,${pulse})`;
+          ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
           ctx.fill();
-          for (let j = i + 1; j < points.length; j++) {
-            const q = points[j];
-            const d = Math.hypot(p.x - q.x, p.y - q.y);
-            if (d < 118) {
-              ctx.strokeStyle = `rgba(124,58,237,${(1 - d / 118) * .28})`;
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(q.x, q.y);
-              ctx.stroke();
-            }
-          }
         });
+
+        const horizon = innerHeight * .62;
+        drawGrid(horizon, "rgba(0,255,136,.4)", "rgba(56,189,248,.4)");
+        const cx = innerWidth * .52 + (mouse.x - innerWidth / 2) * .018;
+        const cy = Math.min(innerHeight * .47, 380) + (mouse.y - innerHeight / 2) * .012;
+        const radius = Math.min(innerWidth, innerHeight) * (innerWidth < 640 ? .28 : .24);
+        drawWireGlobe(cx, cy, radius, green, blue, pink);
+
+        const vignette = ctx.createRadialGradient(innerWidth / 2, innerHeight * .4, 0, innerWidth / 2, innerHeight * .4, innerWidth * .72);
+        vignette.addColorStop(0, "rgba(0,0,0,0)");
+        vignette.addColorStop(1, "rgba(0,0,0,.62)");
+        ctx.fillStyle = vignette;
+        ctx.fillRect(0, 0, innerWidth, innerHeight);
         if (!reduce) requestAnimationFrame(draw);
       }
 
