@@ -615,7 +615,7 @@
       margin-top: 2rem;
     }
 
-    .stat-tile, .service-card, .project-card, .timeline-item, .hire-panel, .skill-panel, .assistant-window, .achievement-panel {
+    .stat-tile, .service-card, .project-card, .timeline-item, .hire-panel, .skill-panel, .assistant-window {
       border: 1px solid var(--line);
       background: var(--panel);
       backdrop-filter: blur(22px);
@@ -819,7 +819,7 @@
       gap: 1rem;
     }
 
-    .skill-panel, .achievement-panel {
+    .skill-panel {
       padding: 1.1rem;
     }
 
@@ -970,35 +970,6 @@
       display: block;
       color: var(--text);
       margin-top: .8rem;
-    }
-
-    .achievement-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: .65rem;
-      margin-top: 1rem;
-    }
-
-    .badge {
-      display: grid;
-      gap: .4rem;
-      place-items: center;
-      text-align: center;
-      min-height: 92px;
-      padding: .7rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      color: var(--muted);
-      background: color-mix(in srgb, var(--panel-strong) 84%, transparent);
-      font-size: .78rem;
-      font-weight: 900;
-    }
-
-    .badge i { font-size: 1.25rem; }
-    .badge.unlocked {
-      color: var(--text);
-      border-color: color-mix(in srgb, var(--gold) 42%, transparent);
-      background: color-mix(in srgb, var(--gold) 12%, transparent);
     }
 
     .side-dots {
@@ -1243,7 +1214,7 @@
       .hero { padding-top: 3rem; }
       .hero-visual { min-height: 470px; }
       .avatar-orbit { margin: 0 auto; }
-      .stats-grid, .services-grid, .projects-grid, .achievement-grid {
+      .stats-grid, .services-grid, .projects-grid {
         grid-template-columns: repeat(2, 1fr);
       }
       .project-card.large { grid-column: span 1; }
@@ -1262,7 +1233,7 @@
       .card-a { top: 4%; }
       .card-b { top: 62%; }
       .card-c { left: 0; bottom: 1%; }
-      .stats-grid, .services-grid, .projects-grid, .skill-layout, .hire-layout, .choice-grid, .achievement-grid {
+      .stats-grid, .services-grid, .projects-grid, .skill-layout, .hire-layout, .choice-grid {
         grid-template-columns: 1fr;
       }
       .section { padding: 3.6rem 0; }
@@ -1358,7 +1329,7 @@
         <div class="avatar-stage parallax">
           <div class="avatar-orbit">
             <div class="avatar-core">
-              <img src="https://i.ibb.co/bMMN9ytB/wmremove-transformed.png" alt="Ubaid Bilal">
+              <img src="https://img.sanishtech.com/u/a1e3ae890d4baaf3667565600e446274.png" alt="Ubaid Bilal profile artwork" loading="eager" decoding="async">
             </div>
             <div class="floating-card card-a"><strong>3+</strong><span>Years shipping apps</span></div>
             <div class="floating-card card-b"><strong>4</strong><span>Core services</span></div>
@@ -1428,7 +1399,7 @@
           <div class="section-kicker">Skill System</div>
           <h2>Levels, timeline, and unlocks.</h2>
         </div>
-        <p>Built like a small game layer: skill bars animate on view and badges unlock as visitors explore the portfolio.</p>
+        <p>Skill bars animate on view, keeping the page interactive without adding unnecessary visual noise.</p>
       </div>
       <div class="skill-layout">
         <div class="skill-panel">
@@ -1510,18 +1481,6 @@
         </div>
         <div class="testimonial-stack">
           <div class="quote">Clean design, fast response, and a proper launch mindset. The bridal service site became much easier for customers to understand.<strong>Client project: Bridal Service Site</strong></div>
-          <div class="achievement-panel">
-            <h3>Achievement Badges</h3>
-            <p class="hero-copy">Badges unlock as this page is explored.</p>
-            <div class="achievement-grid">
-              <div class="badge" data-badge="home"><i class="fa-solid fa-house"></i>Entered</div>
-              <div class="badge" data-badge="services"><i class="fa-solid fa-bolt"></i>Services</div>
-              <div class="badge" data-badge="projects"><i class="fa-solid fa-box-open"></i>Vault</div>
-              <div class="badge" data-badge="skills"><i class="fa-solid fa-chart-simple"></i>Skills</div>
-              <div class="badge" data-badge="hire"><i class="fa-solid fa-handshake"></i>Hire</div>
-              <div class="badge" data-badge="chat"><i class="fa-solid fa-robot"></i>Assistant</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -1615,8 +1574,7 @@
 
     const state = {
       step: 0,
-      projectType: "Website",
-      badges: new Set(JSON.parse(localStorage.getItem("ciperpyBadges") || "[]"))
+      projectType: "Website"
     };
 
     const $ = (selector, root = document) => root.querySelector(selector);
@@ -1628,16 +1586,6 @@
       box.classList.add("show");
       clearTimeout(window.toastTimer);
       window.toastTimer = setTimeout(() => box.classList.remove("show"), 3000);
-    }
-
-    function unlockBadge(name) {
-      state.badges.add(name);
-      localStorage.setItem("ciperpyBadges", JSON.stringify([...state.badges]));
-      renderBadges();
-    }
-
-    function renderBadges() {
-      $$(".badge").forEach(badge => badge.classList.toggle("unlocked", state.badges.has(badge.dataset.badge)));
     }
 
     function renderProjects(filter = "all") {
@@ -1672,7 +1620,6 @@
       `;
       $("#projectModal").classList.add("open");
       $("#projectModal").setAttribute("aria-hidden", "false");
-      unlockBadge("projects");
     }
 
     function closeModal() {
@@ -1702,7 +1649,6 @@
       const subject = encodeURIComponent(`Project Brief: ${state.projectType}`);
       const body = encodeURIComponent(`Hello Ubaid,\n\nI want to discuss a ${state.projectType} project.\n\nBudget: $${budget}\nTimeline: ${timeline}\nContact: ${contact}\nName: ${name}\n\nProject notes:\n${details}\n\nSent from your portfolio.`);
       fireConfetti();
-      unlockBadge("hire");
       window.location.href = `mailto:ubaidbilal957@gmail.com?subject=${subject}&body=${body}`;
     }
 
@@ -1743,7 +1689,6 @@
 
     function openAssistantPanel() {
       $("#assistant").classList.add("open");
-      unlockBadge("chat");
       setTimeout(() => $("#chatInput").focus(), 80);
     }
 
@@ -1754,15 +1699,18 @@
       const mouse = { x: -9999, y: -9999 };
       const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
       let time = 0;
+      let frameId = 0;
+      let lastFrame = 0;
 
       function resize() {
-        canvas.width = innerWidth * devicePixelRatio;
-        canvas.height = innerHeight * devicePixelRatio;
+        const pixelRatio = Math.min(devicePixelRatio || 1, 1.5);
+        canvas.width = Math.floor(innerWidth * pixelRatio);
+        canvas.height = Math.floor(innerHeight * pixelRatio);
         canvas.style.width = innerWidth + "px";
         canvas.style.height = innerHeight + "px";
-        ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
         stars.length = 0;
-        const count = Math.min(160, Math.max(70, Math.floor(innerWidth / 9)));
+        const count = Math.min(95, Math.max(38, Math.floor(innerWidth / 14)));
         for (let i = 0; i < count; i++) {
           stars.push({
             x: Math.random() * innerWidth,
@@ -1783,8 +1731,8 @@
         const center = innerWidth / 2;
         ctx.save();
         ctx.lineWidth = 1;
-        for (let i = 0; i < 22; i++) {
-          const t = i / 21;
+        for (let i = 0; i < 15; i++) {
+          const t = i / 14;
           const y = horizon + Math.pow(t, 2.25) * (bottom - horizon);
           ctx.strokeStyle = `rgba(0,255,136,${0.18 * (1 - t) + 0.03})`;
           ctx.beginPath();
@@ -1792,8 +1740,8 @@
           ctx.lineTo(innerWidth, y);
           ctx.stroke();
         }
-        for (let i = -16; i <= 16; i++) {
-          const spread = i / 16;
+        for (let i = -10; i <= 10; i++) {
+          const spread = i / 10;
           ctx.strokeStyle = `rgba(56,189,248,${0.06 + 0.08 * (1 - Math.abs(spread))})`;
           ctx.beginPath();
           ctx.moveTo(center + spread * 58, horizon);
@@ -1828,15 +1776,15 @@
         const rotY = time * .34 + (mouse.x - innerWidth / 2) / innerWidth * .35;
         const rotX = -.35 + (mouse.y - innerHeight / 2) / innerHeight * .18;
         ctx.save();
-        ctx.shadowBlur = 20;
+        ctx.shadowBlur = 10;
         ctx.shadowColor = green;
         ctx.lineWidth = 1;
 
-        for (let latIndex = -5; latIndex <= 5; latIndex++) {
+        for (let latIndex = -4; latIndex <= 4; latIndex++) {
           const lat = latIndex * Math.PI / 12;
           ctx.beginPath();
-          for (let i = 0; i <= 128; i++) {
-            const p = projectPoint(lat, i / 128 * Math.PI * 2, cx, cy, radius, rotX, rotY);
+          for (let i = 0; i <= 72; i++) {
+            const p = projectPoint(lat, i / 72 * Math.PI * 2, cx, cy, radius, rotX, rotY);
             if (i === 0) ctx.moveTo(p.x, p.y);
             else ctx.lineTo(p.x, p.y);
           }
@@ -1844,19 +1792,19 @@
           ctx.stroke();
         }
 
-        for (let lonIndex = 0; lonIndex < 13; lonIndex++) {
-          const lon = lonIndex * Math.PI / 6;
+        for (let lonIndex = 0; lonIndex < 9; lonIndex++) {
+          const lon = lonIndex * Math.PI / 4;
           ctx.beginPath();
-          for (let i = -64; i <= 64; i++) {
-            const p = projectPoint(i / 64 * Math.PI / 2, lon, cx, cy, radius, rotX, rotY);
-            if (i === -64) ctx.moveTo(p.x, p.y);
+          for (let i = -42; i <= 42; i++) {
+            const p = projectPoint(i / 42 * Math.PI / 2, lon, cx, cy, radius, rotX, rotY);
+            if (i === -42) ctx.moveTo(p.x, p.y);
             else ctx.lineTo(p.x, p.y);
           }
           ctx.strokeStyle = `rgba(20,184,166,${.08 + lonIndex % 3 * .025})`;
           ctx.stroke();
         }
 
-        ctx.shadowBlur = 34;
+        ctx.shadowBlur = 14;
         ctx.strokeStyle = blue;
         drawOrbit(cx, cy, radius * 1.32, .24, time * .28, .7);
         ctx.strokeStyle = pink;
@@ -1878,7 +1826,11 @@
         ctx.restore();
       }
 
-      function draw() {
+      function draw(now = 0) {
+        frameId = requestAnimationFrame(draw);
+        if (document.hidden) return;
+        if (!reduce && now - lastFrame < 33) return;
+        lastFrame = now;
         ctx.clearRect(0, 0, innerWidth, innerHeight);
         const green = css("--green");
         const blue = css("--blue");
@@ -1908,7 +1860,6 @@
         vignette.addColorStop(1, "rgba(0,0,0,.62)");
         ctx.fillStyle = vignette;
         ctx.fillRect(0, 0, innerWidth, innerHeight);
-        if (!reduce) requestAnimationFrame(draw);
       }
 
       addEventListener("resize", resize);
@@ -1918,6 +1869,9 @@
       });
       resize();
       draw();
+      if (reduce) {
+        cancelAnimationFrame(frameId);
+      }
     }
 
     function initObservers() {
@@ -1934,7 +1888,6 @@
           const id = entry.target.id;
           $$(".nav a").forEach(link => link.classList.toggle("active", link.getAttribute("href") === `#${id}`));
           $$(".dot").forEach(dot => dot.classList.toggle("active", dot.dataset.target === id));
-          if (id) unlockBadge(id === "home" ? "home" : id);
         });
       }, { threshold: .45 });
       $$("[data-section]").forEach(section => sectionObserver.observe(section));
@@ -1945,7 +1898,6 @@
           $$(".skill").forEach(skill => {
             $(".bar span", skill).style.width = skill.dataset.level + "%";
           });
-          unlockBadge("skills");
         });
       }, { threshold: .45 });
       skillObserver.observe($("#skills"));
@@ -1993,6 +1945,7 @@
     function initCursor() {
       const dot = $(".cursor-dot");
       const ring = $(".cursor-ring");
+      if (!matchMedia("(pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
       addEventListener("pointermove", e => { x = e.clientX; y = e.clientY; dot.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`; });
       function loop() {
@@ -2097,8 +2050,6 @@
       $("#year").textContent = new Date().getFullYear();
       setTheme(localStorage.getItem("ciperpyTheme") || "cyber");
       renderProjects();
-      renderBadges();
-      unlockBadge("home");
       updateForm();
       initDots();
       initCanvas();
