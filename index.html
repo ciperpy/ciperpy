@@ -1223,6 +1223,13 @@
 
     @media (max-width: 620px) {
       .shell { width: min(100% - 20px, 1180px); }
+      body::before {
+        opacity: .24;
+        transform: perspective(420px) rotateX(57deg) translateY(22%);
+      }
+      .topbar, .stat-tile, .service-card, .project-card, .timeline-item, .hire-panel, .skill-panel, .assistant-window, .floating-card, .modal {
+        backdrop-filter: none;
+      }
       .topbar-inner { min-height: 66px; }
       .brand-name { font-size: .92rem; }
       .top-actions { gap: .35rem; }
@@ -1233,6 +1240,12 @@
       .card-a { top: 4%; }
       .card-b { top: 62%; }
       .card-c { left: 0; bottom: 1%; }
+      .avatar-orbit::before, .avatar-orbit::after, .avatar-core, .floating-card {
+        animation: none;
+      }
+      .avatar-core {
+        box-shadow: 0 0 34px color-mix(in srgb, var(--green) 20%, transparent), var(--shadow);
+      }
       .stats-grid, .services-grid, .projects-grid, .skill-layout, .hire-layout, .choice-grid {
         grid-template-columns: 1fr;
       }
@@ -1329,7 +1342,7 @@
         <div class="avatar-stage parallax">
           <div class="avatar-orbit">
             <div class="avatar-core">
-              <img src="https://img.sanishtech.com/u/a1e3ae890d4baaf3667565600e446274.png" alt="Ubaid Bilal profile artwork" loading="eager" decoding="async">
+              <img src="assets/profile-720.jpg" srcset="assets/profile-360.jpg 360w, assets/profile-720.jpg 720w" sizes="(max-width: 620px) 260px, 340px" alt="Ubaid Bilal profile artwork" loading="eager" decoding="async" width="720" height="720">
             </div>
             <div class="floating-card card-a"><strong>3+</strong><span>Years shipping apps</span></div>
             <div class="floating-card card-b"><strong>4</strong><span>Core services</span></div>
@@ -1698,19 +1711,20 @@
       const stars = [];
       const mouse = { x: -9999, y: -9999 };
       const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const mobileScene = matchMedia("(max-width: 760px), (pointer: coarse)").matches;
       let time = 0;
       let frameId = 0;
       let lastFrame = 0;
 
       function resize() {
-        const pixelRatio = Math.min(devicePixelRatio || 1, 1.5);
+        const pixelRatio = mobileScene ? 1 : Math.min(devicePixelRatio || 1, 1.5);
         canvas.width = Math.floor(innerWidth * pixelRatio);
         canvas.height = Math.floor(innerHeight * pixelRatio);
         canvas.style.width = innerWidth + "px";
         canvas.style.height = innerHeight + "px";
         ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
         stars.length = 0;
-        const count = Math.min(95, Math.max(38, Math.floor(innerWidth / 14)));
+        const count = mobileScene ? Math.min(36, Math.max(18, Math.floor(innerWidth / 22))) : Math.min(95, Math.max(38, Math.floor(innerWidth / 14)));
         for (let i = 0; i < count; i++) {
           stars.push({
             x: Math.random() * innerWidth,
@@ -1731,8 +1745,9 @@
         const center = innerWidth / 2;
         ctx.save();
         ctx.lineWidth = 1;
-        for (let i = 0; i < 15; i++) {
-          const t = i / 14;
+        const rows = mobileScene ? 8 : 15;
+        for (let i = 0; i < rows; i++) {
+          const t = i / (rows - 1);
           const y = horizon + Math.pow(t, 2.25) * (bottom - horizon);
           ctx.strokeStyle = `rgba(0,255,136,${0.18 * (1 - t) + 0.03})`;
           ctx.beginPath();
@@ -1740,8 +1755,9 @@
           ctx.lineTo(innerWidth, y);
           ctx.stroke();
         }
-        for (let i = -10; i <= 10; i++) {
-          const spread = i / 10;
+        const rays = mobileScene ? 6 : 10;
+        for (let i = -rays; i <= rays; i++) {
+          const spread = i / rays;
           ctx.strokeStyle = `rgba(56,189,248,${0.06 + 0.08 * (1 - Math.abs(spread))})`;
           ctx.beginPath();
           ctx.moveTo(center + spread * 58, horizon);
@@ -1780,11 +1796,15 @@
         ctx.shadowColor = green;
         ctx.lineWidth = 1;
 
-        for (let latIndex = -4; latIndex <= 4; latIndex++) {
+        const latLimit = mobileScene ? 3 : 4;
+        const latSegments = mobileScene ? 42 : 72;
+        const lonLines = mobileScene ? 6 : 9;
+        const lonSegments = mobileScene ? 28 : 42;
+        for (let latIndex = -latLimit; latIndex <= latLimit; latIndex++) {
           const lat = latIndex * Math.PI / 12;
           ctx.beginPath();
-          for (let i = 0; i <= 72; i++) {
-            const p = projectPoint(lat, i / 72 * Math.PI * 2, cx, cy, radius, rotX, rotY);
+          for (let i = 0; i <= latSegments; i++) {
+            const p = projectPoint(lat, i / latSegments * Math.PI * 2, cx, cy, radius, rotX, rotY);
             if (i === 0) ctx.moveTo(p.x, p.y);
             else ctx.lineTo(p.x, p.y);
           }
@@ -1792,12 +1812,12 @@
           ctx.stroke();
         }
 
-        for (let lonIndex = 0; lonIndex < 9; lonIndex++) {
-          const lon = lonIndex * Math.PI / 4;
+        for (let lonIndex = 0; lonIndex < lonLines; lonIndex++) {
+          const lon = lonIndex * Math.PI / (lonLines / 2);
           ctx.beginPath();
-          for (let i = -42; i <= 42; i++) {
-            const p = projectPoint(i / 42 * Math.PI / 2, lon, cx, cy, radius, rotX, rotY);
-            if (i === -42) ctx.moveTo(p.x, p.y);
+          for (let i = -lonSegments; i <= lonSegments; i++) {
+            const p = projectPoint(i / lonSegments * Math.PI / 2, lon, cx, cy, radius, rotX, rotY);
+            if (i === -lonSegments) ctx.moveTo(p.x, p.y);
             else ctx.lineTo(p.x, p.y);
           }
           ctx.strokeStyle = `rgba(20,184,166,${.08 + lonIndex % 3 * .025})`;
@@ -1806,11 +1826,13 @@
 
         ctx.shadowBlur = 14;
         ctx.strokeStyle = blue;
-        drawOrbit(cx, cy, radius * 1.32, .24, time * .28, .7);
-        ctx.strokeStyle = pink;
-        drawOrbit(cx, cy, radius * 1.12, -.62, -time * .22, .52);
+        drawOrbit(cx, cy, radius * 1.32, .24, time * .28, .62);
+        if (!mobileScene) {
+          ctx.strokeStyle = pink;
+          drawOrbit(cx, cy, radius * 1.12, -.62, -time * .22, .52);
+        }
         ctx.strokeStyle = green;
-        drawOrbit(cx, cy, radius * 1.52, .76, time * .18, .42);
+        drawOrbit(cx, cy, radius * 1.52, .76, time * .18, mobileScene ? .28 : .42);
         ctx.restore();
       }
 
@@ -1827,21 +1849,23 @@
       }
 
       function draw(now = 0) {
-        frameId = requestAnimationFrame(draw);
         if (document.hidden) return;
-        if (!reduce && now - lastFrame < 33) return;
+        if (!reduce && !mobileScene && now - lastFrame < 33) {
+          frameId = requestAnimationFrame(draw);
+          return;
+        }
         lastFrame = now;
         ctx.clearRect(0, 0, innerWidth, innerHeight);
         const green = css("--green");
         const blue = css("--blue");
         const pink = css("--pink");
-        time += reduce ? 0 : .012;
+        time += reduce || mobileScene ? 0 : .012;
 
         ctx.fillStyle = "rgba(3,6,9,.2)";
         ctx.fillRect(0, 0, innerWidth, innerHeight);
 
         stars.forEach((star) => {
-          const pulse = .35 + Math.sin(time * 2 + star.twinkle) * .25;
+          const pulse = mobileScene ? .38 : .35 + Math.sin(time * 2 + star.twinkle) * .25;
           ctx.beginPath();
           ctx.fillStyle = star.tint === "blue" ? `rgba(56,189,248,${pulse})` : `rgba(232,255,244,${pulse})`;
           ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
@@ -1860,18 +1884,19 @@
         vignette.addColorStop(1, "rgba(0,0,0,.62)");
         ctx.fillStyle = vignette;
         ctx.fillRect(0, 0, innerWidth, innerHeight);
+        if (!reduce && !mobileScene) frameId = requestAnimationFrame(draw);
       }
 
-      addEventListener("resize", resize);
+      addEventListener("resize", () => {
+        resize();
+        if (reduce || mobileScene) draw();
+      });
       addEventListener("pointermove", e => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
       });
       resize();
       draw();
-      if (reduce) {
-        cancelAnimationFrame(frameId);
-      }
     }
 
     function initObservers() {
@@ -1958,6 +1983,7 @@
     }
 
     function initTilt() {
+      if (!matchMedia("(pointer: fine)").matches || matchMedia("(max-width: 760px)").matches) return;
       $$(".tilt").forEach(card => {
         card.addEventListener("pointermove", e => {
           const rect = card.getBoundingClientRect();
@@ -1979,13 +2005,15 @@
         $("#progress").style.width = `${Math.max(0, scrollY / max) * 100}%`;
       }, { passive: true });
 
-      addEventListener("pointermove", e => {
-        $$(".parallax").forEach(el => {
-          const x = (e.clientX / innerWidth - .5) * 18;
-          const y = (e.clientY / innerHeight - .5) * 18;
-          el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      if (matchMedia("(pointer: fine)").matches && !matchMedia("(max-width: 760px)").matches) {
+        addEventListener("pointermove", e => {
+          $$(".parallax").forEach(el => {
+            const x = (e.clientX / innerWidth - .5) * 18;
+            const y = (e.clientY / innerHeight - .5) * 18;
+            el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+          });
         });
-      });
+      }
 
       $$(".theme-btn").forEach(btn => btn.addEventListener("click", () => setTheme(btn.dataset.setTheme)));
       $("#copyEmail").addEventListener("click", async () => {
