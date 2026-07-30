@@ -70,18 +70,6 @@
 ---
 
 ### 📦 Featured Projects
-
-
-    </td>
-    <td width="50%" valign="top">
-      <h3 align="center">🎓 Student Navigator</h3>
-      <p align="center">
-        An intelligent management platform enabling users to organize tasks, track goals, and navigate learning workflows efficiently.
-      </p>
-      <p align="center">
-        <code>Python</code> &bull; <code>FastAPI</code> &bull; <code>React</code>
-      </p>
-    </td>
   
   <tr>
     <td width="50%" valign="top">
