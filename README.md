@@ -71,16 +71,7 @@
 
 ### 📦 Featured Projects
 
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <h3 align="center">🎵 AirBeats</h3>
-      <p align="center">
-        A next-generation music streaming experience with dynamic media playback, sleek user controls, and responsive UI architecture.
-      </p>
-      <p align="center">
-        <code>JavaScript</code> &bull; <code>React</code> &bull; <code>CSS3</code>
-      </p>
+
     </td>
     <td width="50%" valign="top">
       <h3 align="center">🎓 Student Navigator</h3>
@@ -91,7 +82,7 @@
         <code>Python</code> &bull; <code>FastAPI</code> &bull; <code>React</code>
       </p>
     </td>
-  </tr>
+  
   <tr>
     <td width="50%" valign="top">
       <h3 align="center">🛡️ Spam SMS Classifier</h3>
