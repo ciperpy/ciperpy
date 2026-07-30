@@ -10,10 +10,6 @@
 <a href="https://instagram.com/_just_quiet_5"><img src="https://img.shields.io/badge/INSTAGRAM-_just__quiet__5-E4405F?style=for-the-badge&logo=instagram&logoColor=white" /></a>
 <a href="mailto:ciperpy@gmail.com"><img src="https://img.shields.io/badge/EMAIL-ciperpy-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
 
-<br/><br/>
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=30&pause=1000&color=00E5FF&center=true&vcenter=true&random=false&width=600&height=70&lines=CIPERPY;SOFTWARE+ENGINEER+%7C+FULL-STACK+%26+PYTHON;BUILDING+ELEGANT+DIGITAL+EXPERIENCES" alt="Typing SVG Header" />
-
 </div>
 
 <br/>
