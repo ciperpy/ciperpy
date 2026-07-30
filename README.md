@@ -1,160 +1,134 @@
 <div align="center">
 
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=30&pause=1000&color=00E5FF&center=true&vcenter=true&random=false&width=600&height=70&lines=CIPERPY;SOFTWARE+ENGINEER+%7C+FULL-STACK+%26+PYTHON;BUILDING+ELEGANT+DIGITAL+EXPERIENCES" alt="Typing SVG Header" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0F0F0F,100:1a1a1a&height=220&section=header&text=CIPERPY&fontSize=70&fontColor=E6E6E6&fontAlignY=38&desc=Building%20clean,%20functional,%20modern%20software&descAlignY=58&descSize=18&animation=fadeIn"/>
 
-  <br />
+<br/>
 
-  <p align="center">
-    <strong>Architecting modern web applications, intelligent automation systems, and high-performance software tools.</strong>
-  </p>
+<a href="https://ubaid.pro"><img src="https://img.shields.io/badge/WEBSITE-ubaid.pro-000000?style=for-the-badge&logo=vercel&logoColor=white" /></a>
+<a href="https://t.me/CiPeRPY"><img src="https://img.shields.io/badge/TELEGRAM-CiPeRPY-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" /></a>
+<a href="https://x.com/ciperpy"><img src="https://img.shields.io/badge/X-ciperpy-000000?style=for-the-badge&logo=x&logoColor=white" /></a>
+<a href="https://instagram.com/_just_quiet_5"><img src="https://img.shields.io/badge/INSTAGRAM-_just__quiet__5-E4405F?style=for-the-badge&logo=instagram&logoColor=white" /></a>
+<a href="mailto:ciperpy@gmail.com"><img src="https://img.shields.io/badge/EMAIL-ciperpy-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
 
-  <p align="center">
-    <a href="https://ubaid.pro"><img src="https://img.shields.io/badge/Website-ubaid.pro-00E5FF?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Website" /></a>
-    <a href="https://github.com/ciperpy"><img src="https://img.shields.io/badge/GitHub-Ciperpy-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
-    <a href="https://x.com/ciperpy"><img src="https://img.shields.io/badge/X-@ciperpy-000000?style=for-the-badge&logo=x&logoColor=white" alt="Twitter" /></a>
-    <a href="https://t.me/CiPeRPY"><img src="https://img.shields.io/badge/Telegram-CiPeRPY-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" /></a>
-    <a href="https://instagram.com/_just_quiet_5"><img src="https://img.shields.io/badge/Instagram-_just__quiet__5-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
-    <a href="mailto:ciperpy@gmail.com"><img src="https://img.shields.io/badge/Email-ciperpy@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
-  </p>
+<br/><br/>
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=30&pause=1000&color=00E5FF&center=true&vcenter=true&random=false&width=600&height=70&lines=CIPERPY;SOFTWARE+ENGINEER+%7C+FULL-STACK+%26+PYTHON;BUILDING+ELEGANT+DIGITAL+EXPERIENCES" alt="Typing SVG Header" />
 
 </div>
 
----
+<br/>
 
-###  🚀 Developer Snapshot
+<img width="100%" src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
 
-```text
-── [ CIPERPY@DEVELOPMENT-CORE ] ───────────────────────────────────────────┐
-│                                                                          │
-│ ▸ Core Focus      : Full-Stack Web Engineering & Automation Systems      │
-│ ▸ Design Standard : High-Performance Architecture & Modern UI/UX         │
-│ ▸ Tech Ecosystem  : Python, JavaScript, React, FastAPI, Streamlit        │
-│ ▸ Location        : India 🇮🇳                                            │
-│                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
-```
+<br/>
 
----
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Laptop.png" width="30" /> About
 
-### 🛠 Tech Stack & Toolkit
+<img align="right" width="230" src="https://raw.githubusercontent.com/mayhemantt/mayhemantt/Update/svg/Coding.gif">
+
+**Ciperpy** — designing and engineering digital products where clarity meets function.
+
+- 🧠 Focused on building **practical, real-world software** — bots, tools, dashboards, and web apps.
+- 🎨 Blending **development** with **design instinct** to craft interfaces that feel effortless.
+- ⚙️ Comfortable across the stack — from a Python backend to a pixel-perfect React front end.
+- 📍 Based in **India** — working globally, building digitally.
+- 💬 Always open to interesting builds, collaborations, and ideas worth shipping.
+
+<br clear="right"/>
+
+<img width="100%" src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gear.png" width="28" /> Tech Stack
 
 <div align="center">
 
-#### **Languages**
+### Languages
+<img src="https://skillicons.dev/icons?i=html,css,js,py&theme=dark" />
 
-<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
-
-<br />
-
-#### **Frameworks & Core Technologies**
-
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
-<img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
+### Frameworks & Technologies
+<img src="https://skillicons.dev/icons?i=react,fastapi&theme=dark" />
 <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
 
-<br />
-
-#### **Developer Tools & Workflow**
-
-<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
-<img src="https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white" />
-<img src="https://img.shields.io/badge/PyCharm-21D789?style=for-the-badge&logo=pycharm&logoColor=black" />
-<img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
+### Tools
+<img src="https://skillicons.dev/icons?i=git,github,vscode,pycharm,figma&theme=dark" />
 
 </div>
 
----
+<img width="100%" src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
 
-### 📦 Featured Projects
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Puzzle%20Piece.png" width="28" /> Featured Work
+
+<div align="center">
 
 <table>
-  <tr>
-    <td width="50%" valign="top">
-      <h3 align="center">🎓 Student Navigator</h3>
-      <p align="center">
-        An intelligent management platform enabling users to organize tasks, track goals, and navigate learning workflows efficiently.
-      </p>
-      <p align="center">
-        <code>Python</code> &bull; <code>FastAPI</code> &bull; <code>React</code>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3 align="center">🛡️ Spam SMS Classifier</h3>
-      <p align="center">
-        A machine-learning-driven text classification application for real-time detection and filtering of spam SMS messages.
-      </p>
-      <p align="center">
-        <code>Python</code> &bull; <code>Streamlit</code> &bull; <code>NLP</code>
-      </p>
-    </td>
-    <td width="50%" valign="top">
-      <h3 align="center">🤖 YouTube Bot</h3>
-      <p align="center">
-        An automated Python tool built to streamline video interaction tasks, data extraction, and workflow automation.
-      </p>
-      <p align="center">
-        <code>Python</code> &bull; <code>Automation</code> &bull; <code>APIs</code>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3 align="center">🌐 Portfolio Website</h3>
-      <p align="center">
-        My central digital showcase highlighting engineered software products, design systems, and web projects.
-      </p>
-      <p align="center">
-        <code>JavaScript</code> &bull; <code>React</code> &bull; <code>CSS Grid</code>
-      </p>
-    </td>
-    <td width="50%" valign="top">
-      <h3 align="center">🧮 Modern Calculator</h3>
-      <p align="center">
-        A high-precision web application featuring clean micro-interactions, responsive geometry, and calculation state evaluation.
-      </p>
-      <p align="center">
-        <code>JavaScript</code> &bull; <code>HTML5</code> &bull; <code>CSS3</code>
-      </p>
-    </td>
-  </tr>
+<tr>
+<td width="50%">
+
+### 🧭 Student Navigator
+A guidance tool that helps students find direction with structured, intuitive navigation.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 📩 Spam SMS Classifier
+An ML-driven classifier that filters spam messages using intelligent text analysis.
+
+</td>
+<td width="50%">
+
+### 🤖 YouTube Bot
+An automation bot engineered to streamline and simplify YouTube-based workflows.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 🌐 Portfolio Website
+A personal digital identity — sleek, responsive, and built for presence.
+
+</td>
+<td width="50%">
+
+### 🧮 Modern Calculator
+A calculator reimagined with a clean UI and a refined user experience.
+
+</td>
+</tr>
 </table>
 
----
+</div>
 
-### 📊 Engineering Metrics & GitHub Stats
+<img width="100%" src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Bar%20Chart.png" width="28" /> GitHub Analytics
 
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=ciperpy&show_icons=true&theme=tokyonight&hide_border=true&title_color=00E5FF&text_color=90A4AE&icon_color=00E5FF&bg_color=0D1117" alt="Ciperpy GitHub Stats" width="48%" />
+<img width="49%" src="https://github-readme-stats.vercel.app/api?username=ciperpy&show_icons=true&theme=dark&hide_border=true&bg_color=0D1117&title_color=E6E6E6&icon_color=8E8E8E&text_color=C9C9C9"/>
+<img width="49%" src="https://github-readme-streak-stats.herokuapp.com/?user=ciperpy&theme=dark&hide_border=true&background=0D1117&stroke=0D1117&ring=8E8E8E&fire=E6E6E6&currStreakLabel=E6E6E6"/>
 
-<img src="https://streak-stats.demolab.com?user=ciperpy&theme=tokyonight&hide_border=true" alt="Ciperpy GitHub Streak" width="48%" />
+<img width="60%" src="https://github-readme-activity-graph.vercel.app/graph?username=ciperpy&theme=react-dark&hide_border=true&bg_color=0D1117&color=E6E6E6&line=8E8E8E&point=FFFFFF"/>
 
 </div>
 
-<br />
+<img width="100%" src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
 
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ciperpy&layout=compact&theme=tokyonight&hide_border=true&title_color=00E5FF&text_color=90A4AE&bg_color=0D1117" alt="Top Languages" width="380" />
+### Let's build something worth shipping.
 
-</div>
+<a href="https://ubaid.pro"><img src="https://img.shields.io/badge/PORTFOLIO-000000?style=for-the-badge&logo=todoist&logoColor=white" /></a>
+<a href="https://github.com/ciperpy"><img src="https://img.shields.io/badge/GITHUB-ciperpy-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
 
----
+<br/><br/>
 
-<div align="center">
+<img src="https://komarev.com/ghpvc/?username=ciperpy&style=for-the-badge&color=1a1a1a&labelColor=0D1117" />
 
-<br />
+<br/><br/>
 
-<p><i>Designed & Engineered by <b>Ciperpy</b></i></p>
-
-<a href="https://github.com/ciperpy">
-<img src="https://capsule-render.vercel.app/api?type=waving&color=00E5FF&height=120&section=footer" width="100%" />
-</a>
+<sub>© Ciperpy — Designed for developers who think in systems.</sub>
 
 </div>
