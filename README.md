@@ -116,7 +116,7 @@ A calculator reimagined with a clean UI and a refined user experience.
 
 ### Let's build something worth shipping.
 
-<a href="https://ubaid.pro"><img src="https://img.shields.io/badge/PORTFOLIO-000000?style=for-the-badge&logo=todoist&logoColor=white" /></a>
+<a href="https://ciperpy.com"><img src="https://img.shields.io/badge/PORTFOLIO-000000?style=for-the-badge&logo=todoist&logoColor=white" /></a>
 <a href="https://github.com/ciperpy"><img src="https://img.shields.io/badge/GITHUB-ciperpy-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
 
 <br/><br/>
