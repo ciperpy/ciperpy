@@ -4,10 +4,10 @@
 
 <br/>
 
-<a href="https://ubaid.pro"><img src="https://img.shields.io/badge/WEBSITE-ubaid.pro-000000?style=for-the-badge&logo=vercel&logoColor=white" /></a>
+<a href="https://ciperpy.com"><img src="https://img.shields.io/badge/WEBSITE-ciperpy.com-000000?style=for-the-badge&logo=vercel&logoColor=white" /></a>
 <a href="https://t.me/CiPeRPY"><img src="https://img.shields.io/badge/TELEGRAM-CiPeRPY-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" /></a>
 <a href="https://x.com/ciperpy"><img src="https://img.shields.io/badge/X-ciperpy-000000?style=for-the-badge&logo=x&logoColor=white" /></a>
-<a href="https://instagram.com/_just_quiet_5"><img src="https://img.shields.io/badge/INSTAGRAM-_just__quiet__5-E4405F?style=for-the-badge&logo=instagram&logoColor=white" /></a>
+<a href="https://instagram.com/the_quietlife0"><img src="https://img.shields.io/badge/INSTAGRAM-the_quietlife0-E4405F?style=for-the-badge&logo=instagram&logoColor=white" /></a>
 <a href="mailto:ciperpy@gmail.com"><img src="https://img.shields.io/badge/EMAIL-ciperpy-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
 
 </div>
