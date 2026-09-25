@@ -68,6 +68,13 @@ A guidance tool that helps students find direction with structured, intuitive na
 <tr>
 <td width="50%">
 
+### 👩🏻‍💻 DevVault
+DevVault is a private, full-stack developer workspace that transforms scattered development resources into a centralized, organized, and intelligent knowledge base.
+</td>
+</tr>
+<tr>
+<td width="50%">
+
 ### 🎯 FocusGuard
 FocusGuard is a browser-based AI study companion designed to help students stay alert during long study sessions. It uses real-time facial landmark and eye analysis directly in the browser to detect prolonged eye closure and provide an alert before drowsiness turns into lost study time.
 
