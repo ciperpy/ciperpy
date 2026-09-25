@@ -68,14 +68,14 @@ A guidance tool that helps students find direction with structured, intuitive na
 <tr>
 <td width="50%">
 
-### 📩 FocusGuard
+### 🎯 FocusGuard
 FocusGuard is a browser-based AI study companion designed to help students stay alert during long study sessions. It uses real-time facial landmark and eye analysis directly in the browser to detect prolonged eye closure and provide an alert before drowsiness turns into lost study time.
 
 </td>
 <td width="50%">
 
-### 🤖 YouTube Bot
-An automation bot engineered to streamline and simplify YouTube-based workflows.
+### 🛡️ ScamSheild
+ScamShield is a full-stack security analysis tool that helps users investigate potentially malicious URLs and suspicious messages using multiple security checks and external threat-intelligence services.
 
 </td>
 </tr>
